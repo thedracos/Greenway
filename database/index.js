@@ -1,7 +1,7 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
 
-// below
+// below may be needed if Sequelize isn't used
 // const { Client } = require('pg');
 // const client = new Client();
 // client.connect();
@@ -57,4 +57,15 @@ sequelize
 
 sequelize.sync();
 
-// module.exports. = ;
+const storeUser;
+
+const getUserExpenses;
+
+const storeNewExpense;
+
+const editExpense;
+
+module.exports.storeUser = storeUser;
+module.exports.getUserExpenses = getUserExpenses;
+module.exports.storeNewExpense = storeNewExpense;
+module.exports.editExpense = editExpense;
