@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> render() renders the component 1`] = `
+<div>
+  <h1>
+    Slytherin
+  </h1>
+  <div>
+    Bills Savings Loans Investments Settings
+  </div>
+  <Expenses />
+</div>
+`;

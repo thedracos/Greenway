@@ -36,7 +36,8 @@ class EditExpense extends Component {
             <label>Date: </label><br />
             <input type="text"></input>
           </div><br />
-          <button type="submit">Edit</button>
+          <button type="submit">Save</button>
+          <button type="submit">Cancel</button>
         </form>
       </div>
     )
