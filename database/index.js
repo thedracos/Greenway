@@ -57,15 +57,29 @@ sequelize
 
 sequelize.sync();
 
-const storeUser;
+const welcomeUser;
+// if the user isn't in the db, store them
+// if they are, retrieve their basic info?
+// user record includes income
+
+const updateUser;
+// update income? or payday? might be the main use of this
 
 const getUserExpenses;
+// get all stored expenses for a user
 
 const storeNewExpense;
+// store a new expense record for a user
 
 const editExpense;
+// update an existing expense record for a user
 
-module.exports.storeUser = storeUser;
+const removeExpense;
+// probably want this ability
+
+module.exports.welcomeUser = welcomeUser;
+module.exports.updateUser = updateUser;
 module.exports.getUserExpenses = getUserExpenses;
 module.exports.storeNewExpense = storeNewExpense;
 module.exports.editExpense = editExpense;
+module.exports.removeExpense = removeExpense;
