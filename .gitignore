@@ -6,3 +6,6 @@ client/dist/bundle.js
 
 # Environment Variables
 .env
+
+# System
+.DS_Store
