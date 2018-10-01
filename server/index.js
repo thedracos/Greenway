@@ -30,7 +30,15 @@ app.get('', (request, response) => {
 });
 
 // store a new expense record
-app.post('', (request, response) => {
+app.post('/addExpense', (request, response) => {
+  console.log(request.body);
+  database.saveExpense(request.body);
+  response.send('sup');
+
+  //res.status(200).json({
+//     results
+//   });
+// }
   // database.storeNewExpense
 });
 

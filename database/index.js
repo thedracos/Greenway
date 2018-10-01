@@ -34,15 +34,26 @@ const Expense = sequelize.define('expense', {
   //     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
   //   }
   // },
-  expense_name: Sequelize.STRING,
+  expense: Sequelize.STRING,
   cost: Sequelize.INTEGER,
   category: Sequelize.STRING,
   frequency: Sequelize.STRING,
   date: Sequelize.DATE
 });
 
-Expense.belongsTo(User);
-User.hasMany(Expense);
+const saveExpense = (bill) => {
+  console.log('saving expenses to db', bill);
+  const { expense, cost, category, frequency, date } = bill;
+  Expense.upsert({
+    expense, cost, category, frequency, date
+  })
+  .then(() => {
+    console.log('succesfully saved data into db');
+  })
+}
+
+// Expense.belongsTo(User);
+// User.hasMany(Expense);
 //   double-check associations
 // User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
@@ -83,3 +94,4 @@ sequelize.sync();
 // module.exports.storeNewExpense = storeNewExpense;
 // module.exports.editExpense = editExpense;
 // module.exports.removeExpense = removeExpense;
+module.exports.saveExpense = saveExpense;
