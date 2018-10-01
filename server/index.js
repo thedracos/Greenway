@@ -15,9 +15,9 @@ app.use(bodyParser.json());
 
 // handle google username
 // either store new name to db or retrieve associated info?
-app.request('', (request, response) => {
-  // database.welcomeUser
-});
+// app.request('', (request, response) => {
+//   // database.welcomeUser
+// });
 
 // update income or other user record info
 app.put('', (request, response) => {
