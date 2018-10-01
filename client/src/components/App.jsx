@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import store from '../redux/store.js';
+
 import Expenses from './Expenses.jsx';
+
 
 class App extends Component {
   constructor(props) {
@@ -9,17 +14,19 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Slytherin</h1>
+      <Provider store={store}>
         <div>
-          Bills
-          Savings
-          Loans
-          Investments
-          Settings
+          <h1>Slytherin</h1>
+          <div>
+            Bills
+            Savings
+            Loans
+            Investments
+            Settings
+          </div>
+          <Expenses />
         </div>
-        <Expenses />
-      </div>
+      </Provider>
     )
   }
 }
