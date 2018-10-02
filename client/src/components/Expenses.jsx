@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchExpenses } from '../redux/actions/postActions.js';
 import PropTypes from 'prop-types';
 
-
+//connects component to redux
+import { connect } from 'react-redux';
+import { fetchExpenses } from '../redux/actions/postActions.js';
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';
@@ -14,26 +14,19 @@ class Expenses extends Component {
     this.state = {
       income: 2000,
       bills: 1700,
-      expenses: []
     }
   }
   
   componentWillMount() {
-    fetch('/getExpenses')
-      .then(res => res.json())
-      .then(data => 
-        this.setState({
-          expenses: data
-        })
-      );
+    this.props.fetchExpenses();
   }
   
   render() {
     return (
       <div>
-       Income: {this.state.income}
-       Expenses: {this.state.bills}
-       Remainder: {this.state.income - this.state.bills}
+        Income: {this.state.income}
+        Expenses: {this.state.bills}
+        Remainder: {this.state.income - this.state.bills}
         <tr>
           <th>Expense</th>
           <th>Cost</th>
@@ -42,7 +35,7 @@ class Expenses extends Component {
           <th>Date</th>
           <th>Edit/Delete</th>
         </tr>
-        {this.state.expenses.map(expense => {
+        {this.props.expenses.map(expense => {
           return (
             <tr>
               <td>{expense.expense}</td>
@@ -64,4 +57,15 @@ class Expenses extends Component {
   }
 }
 
-export default connect(null, { fetchExpenses })(Expenses);
+Expenses.propTyoes = {
+  fetchExpenses: PropTypes.func.isRequired,
+  expenses: PropTypes.array.isRequired
+}
+
+//Similar to setState within this component, grabs contents in store
+//and defines our state to the data we want to use
+const mapStateToProps = state => ({
+  expenses: state.expenses.expenses
+});
+
+export default connect(mapStateToProps, { fetchExpenses })(Expenses);

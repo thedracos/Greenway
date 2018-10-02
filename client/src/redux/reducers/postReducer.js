@@ -5,14 +5,21 @@ const initialState = {
   expense: {}
 }
 
+//evaluates what 'type' we're dealing with
 export default function(state = initialState, action) {
-  console.log(action.type);
+  console.log('action.type', action.type);
   switch(action.type) {
     case ADD_EXPENSE:
-    console.log('fetching from reducer');
+    console.log('fetching from reducer: ADD_EXPENSE');
       return {
         ...state,
-        items: action.payload
+        expense: action.payload
+      }
+    case GET_EXPENSES:
+    console.log(action.payload);
+      return {
+        ...state,
+        expenses: action.payload
       }
     default: 
       return state;
