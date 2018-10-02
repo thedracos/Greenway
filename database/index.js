@@ -41,6 +41,11 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
+const getExpenses = (username) => Expense.findAll({
+  //where: { username }, 
+  order: [['cost', 'DESC']]
+})
+
 const saveExpense = (bill) => {
   console.log('saving expenses to db', bill);
   const { expense, cost, category, frequency, date } = bill;
@@ -94,4 +99,5 @@ sequelize.sync();
 // module.exports.storeNewExpense = storeNewExpense;
 // module.exports.editExpense = editExpense;
 // module.exports.removeExpense = removeExpense;
+module.exports.getExpenses = getExpenses;
 module.exports.saveExpense = saveExpense;

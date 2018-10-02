@@ -25,8 +25,11 @@ app.put('', (request, response) => {
 });
 
 // get expenses assoc to a user
-app.get('', (request, response) => {
-  // database.getUserExpenses
+app.get('/getExpenses', (request, response) => {
+  database.getExpenses(request.username)
+  .then(data => {
+    response.send(data);
+  })
 });
 
 // store a new expense record
@@ -34,12 +37,6 @@ app.post('/addExpense', (request, response) => {
   console.log(request.body);
   database.saveExpense(request.body);
   response.send('sup');
-
-  //res.status(200).json({
-//     results
-//   });
-// }
-  // database.storeNewExpense
 });
 
 // update an expense record
