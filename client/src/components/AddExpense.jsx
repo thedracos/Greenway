@@ -35,6 +35,7 @@ class AddExpense extends Component {
         frequency: this.state.frequency,
         date: this.state.date
       }
+      //actions
       this.props.createExpense(newExpense);
     }
   }
