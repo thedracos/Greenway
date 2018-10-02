@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createExpense } from '../redux/actions/postActions.js';
 
 class AddExpense extends Component {
   constructor(props) {
@@ -16,7 +19,6 @@ class AddExpense extends Component {
   }
 
   onChange(e) {
-    console.log(e.target.name);
     this.setState({ [e.target.name]: e.target.value});
   }
 
@@ -33,15 +35,7 @@ class AddExpense extends Component {
         frequency: this.state.frequency,
         date: this.state.date
       }
-      fetch('/addExpense', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(newExpense)
-      })
-      .then(res => res.json())
-      .then(data => console.log(data));
+      this.props.createExpense(newExpense);
     }
   }
 
@@ -77,4 +71,13 @@ class AddExpense extends Component {
   }
 }
 
-export default AddExpense;
+AddExpense.propTypes = {
+  createExpense: PropTypes.func.isRequired,
+  expense: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  expense: state.expenses.expense
+})
+
+export default connect(mapStateToProps, { createExpense })(AddExpense);
