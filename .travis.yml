@@ -1,5 +1,19 @@
 language: node_js
+
 deploy:
   provider: heroku
   api_key:
     secure: process.env.HEROKU_AUTH
+
+node_js:  
+  - "node"
+
+before_script:  
+  - cd ./nodejs
+
+script:  
+  - npm install
+  - npm run postinstall
+
+after_script:  
+  - npm run test
