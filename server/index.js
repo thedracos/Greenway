@@ -36,7 +36,7 @@ app.get('/getExpenses', (request, response) => {
 app.post('/addExpense', (request, response) => {
   console.log(request.body);
   database.saveExpense(request.body);
-  response.send('sup');
+  response.send(request.body);
 });
 
 // update an expense record

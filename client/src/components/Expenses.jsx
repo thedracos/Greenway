@@ -20,6 +20,12 @@ class Expenses extends Component {
   componentWillMount() {
     this.props.fetchExpenses();
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.expense) {
+      this.props.expenses.push(nextProps.expense);
+    }
+  }
   
   render() {
     return (
@@ -57,15 +63,17 @@ class Expenses extends Component {
   }
 }
 
-Expenses.propTyoes = {
+Expenses.propTypes = {
   fetchExpenses: PropTypes.func.isRequired,
-  expenses: PropTypes.array.isRequired
+  expenses: PropTypes.array.isRequired,
+  expense: PropTypes.object.isRequired
 }
 
 //Similar to setState within this component, grabs contents in store
 //and defines our state to the data we want to use
 const mapStateToProps = state => ({
-  expenses: state.expenses.expenses
+  expenses: state.expenses.expenses,
+  expense: state.expenses.expense
 });
 
 export default connect(mapStateToProps, { fetchExpenses })(Expenses);
