@@ -15,6 +15,7 @@ class Expenses extends Component {
       income: 2000,
       bills: 1700,
     }
+    this.onDelete = this.onDelete.bind(this);
   }
   
   componentWillMount() {
@@ -25,6 +26,19 @@ class Expenses extends Component {
     if (nextProps.expense) {
       this.props.expenses.push(nextProps.expense);
     }
+  }
+
+  onDelete(expense) {
+    console.log(expense);
+    fetch('/deleteExpense', {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(expense)
+    })
+    .then(res => res.text())
+    .then(data => console.log(data));
   }
   
   render() {
@@ -51,7 +65,7 @@ class Expenses extends Component {
               <td>{expense.date}</td>
               <td>
                 <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={() => {this.onDelete(expense)}}>Delete</button>
               </td>
             </tr>
           )
@@ -71,9 +85,12 @@ Expenses.propTypes = {
 
 //Similar to setState within this component, grabs contents in store
 //and defines our state to the data we want to use
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+  //console.log(state);
+  return {
   expenses: state.expenses.expenses,
   expense: state.expenses.expense
-});
+}};
 
+//mapdispatchtoprops
 export default connect(mapStateToProps, { fetchExpenses })(Expenses);
