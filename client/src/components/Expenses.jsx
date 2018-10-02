@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchExpenses } from '../redux/actions/postActions.js';
 import PropTypes from 'prop-types';
+
+
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';
@@ -10,30 +14,18 @@ class Expenses extends Component {
     this.state = {
       income: 2000,
       bills: 1700,
-      expenses: [
-        {
-          expense: 'Buffalo Wild Wings',
-          cost: 20,
-          category: 'Food',
-          frequency: 'Once',
-          date: '10/02/18'
-        },
-        {
-          expense: 'Netflix',
-          cost: 10,
-          category: 'Entertainment',
-          frequency: 'Monthly',
-          date: '10/05/18'
-        },
-        {
-          expense: 'Comcast',
-          cost: 50,
-          category: 'Utilities',
-          frequency: 'Monthly',
-          date: '10/23/18'
-        }
-      ]
+      expenses: []
     }
+  }
+  
+  componentWillMount() {
+    fetch('/getExpenses')
+      .then(res => res.json())
+      .then(data => 
+        this.setState({
+          expenses: data
+        })
+      );
   }
   
   render() {
@@ -72,4 +64,4 @@ class Expenses extends Component {
   }
 }
 
-export default Expenses;
+export default connect(null, { fetchExpenses })(Expenses);

@@ -4,6 +4,7 @@ class AddExpense extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: '',
       expense: '',
       cost: '',
       category: '',
@@ -25,13 +26,13 @@ class AddExpense extends Component {
       alert('Please Complete All Forms');
     } else {
       const newExpense = {
+        user: this.state.user,
         expense: this.state.expense,
         cost: this.state.cost,
         category: this.state.category,
         frequency: this.state.frequency,
         date: this.state.date
       }
-
       fetch('/addExpense', {
         method: 'POST',
         headers: {
@@ -55,7 +56,7 @@ class AddExpense extends Component {
           </div>
           <div>
             <label>Cost: </label><br />
-            <input type="text" name="cost" onChange={this.onChange} />
+            $<input type="text" name="cost" onChange={this.onChange} />
           </div>
           <div>
             <label>Category: </label><br />
