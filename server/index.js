@@ -2,6 +2,10 @@ const express = require('express');
 const expressGraphQL = require('express-graphql');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const schema = require('./schema.js');
 const database = require('../database');
 
@@ -17,6 +21,37 @@ app.use('/graphql', expressGraphQL({
   schema: schema,
   graphiql: true
 }));
+
+// Express session
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+
+// Setting up passport google oAuth2.0
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clinetSecret: process.env.GOOGLE_CLIENT_SECRET,
+   callbackURL: "https://www.greenwaypay.heroku.com"
+  },
+  function (accessToken, refreshToken, profile, cb) {
+  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+app.get('/auth/google',
+passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback', 
+passport.authenticate('google', { failureRedirect: '/login' }),
+function(req, res) {
+  // Successful authentication, redirect home.
+  res.redirect('/');
+});
 
 // app.request('', (request, response) => {
 // };
