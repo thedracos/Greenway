@@ -6,6 +6,7 @@ import rootReducer from './reducers/index.js';
 //sets up initial state of store. store is a giant object
 const initialState = {};
 
+//thunk allows our actions to return functions instead of objects
 const middleware = [thunk];
 
 const store = createStore(
