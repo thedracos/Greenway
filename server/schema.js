@@ -3,6 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
+  GraphQLID,
   GraphQLSchema,
   GraphQLList,
   GraphQLNonNull
@@ -22,7 +23,7 @@ const UserType = new GraphQLObjectType({
 const ExpenseType = new GraphQLObjectType({
   name: 'Expense',
   fields: () => ({
-    id: {type: GraphQLInt},
+    id: {type: GraphQLID},
     // user: {type: GraphQLInt},
     expense: {type: GraphQLString},
     cost: {type: GraphQLInt},
@@ -60,6 +61,8 @@ const RootQuery = new GraphQLObjectType({
     expense: {
       type: ExpenseType,
       args: {
+        // expense: {type: GraphQLString},
+        // category: {type: GraphQLString}
       },
       resolve(parentValue, args) {
         // return axios.get()
@@ -70,73 +73,78 @@ const RootQuery = new GraphQLObjectType({
     //   (users aren't connected to expenses yet)
     expenses: {
       type: new GraphQLList(ExpenseType),
+      args: {
+        expense: {type: GraphQLString},
+        category: {type: GraphQLString}
+      },
       resolve(parentValue, args) {
         return database.getExpenses();
+        // return database.getExpenses('params?');
       }
     }
   }
 });
 
-// add, edit and delete is all done through mutations
-// const mutation = new GraphQLObjectType({
-//   name: 'Mutation',
-//   fields: {
-//     addCustomer: {
-//       type: CustomerType,
-//       args: {
-//         // NonNull syntax makes a field required
-//         name: {type: new GraphQLNonNull(GraphQLString)},
-//         email: {type: new GraphQLNonNull(GraphQLString)},
-//         age: {type: new GraphQLNonNull(GraphQLInt)}
-//       },
-//       resolve(parentValue, args) {
-//         // // imported db function, or axios request
-//         // return axios.post(endpoint, {
-//         //   name: args.name,
-//         //   email: args.email,
-//         //   age: args.age
-//         // })
-//         // .then(res => res.data);
-//       }
-//     },
-//     deleteCustomer: {
-//       type: CustomerType,
-//       args: {
-//         id
-//       },
-//       resolve(parentValue, args) {
-//         // // imported db function, or axios request
-//         // return axios.post(endpoint, {
-//         //   name: args.name,
-//         //   email: args.email,
-//         //   age: args.age
-//         // })
-//         // .then(res => res.data);
-//       }
-//     },
-//   }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addExpense: {
+      type: ExpenseType,
+      args: {
+        expense: {type: new GraphQLNonNull(GraphQLString)},
+        cost: {type: new GraphQLNonNull(GraphQLInt)},
+        category: {type: GraphQLString},
+        frequency: {type: GraphQLString},
+        date: {type: GraphQLString}
+      },
+      resolve(parentValue, args) {
+        // import db function
+        // finish db function
+        return database.saveExpense(argument);
+        console.log('args ', args);
+        console.log('parentValue ', parentValue);
+      }
+    },
+    deleteExpense: {
+      type: ExpenseType,
+      args: {
+        id: {type: GraphQLID},
+        expense: {type: GraphQLString},
+        cost: {type: GraphQLInt},
+        category: {type: GraphQLString},
+        frequency: {type: GraphQLString},
+        date: {type: GraphQLString}
+      },
+      resolve(parentValue, args) {
+        // import db function
+        // finish db function
+        return database.removeExpense(argument);
+        console.log('args ', args);
+        console.log('parentValue ', parentValue);
+      }
+    },
+    editExpense: {
+      type: ExpenseType,
+      args: {
+        expense: {type: GraphQLString},
+        cost: {type: GraphQLInt},
+        category: {type: GraphQLString},
+        frequency: {type: GraphQLString},
+        date: {type: GraphQLString}
+      },
+      resolve(parentValue, args) {
+        // import db function
+        // finish db function
+        return database.editExpense(argument);
+        console.log('args ', args);
+        console.log('parentValue ', parentValue);
+      }
+    }
+  }
+});
 
 // export mutation
-
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation
 });
