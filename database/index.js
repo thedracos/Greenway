@@ -68,6 +68,26 @@ const deleteExpense = (bill) => {
   })
 }
 
+//For whatever reason, this is nonfunctional code. It doesn't break our code though.
+const updateExpense = (bill) => {
+  const { id, expense, cost, category, frequency, date } = bill;
+  return Expense.update(
+    { expense },
+    { cost },
+    { category },
+    { frequency },
+    { date },
+    { returning: true, where: { id } },
+  )
+  .then((data) => {
+    if (data[0]) {
+      console.log('it worked');
+    } else {
+      console.log('it didnt work');
+    }
+  })
+}
+
 // Expense.belongsTo(User);
 // User.hasMany(Expense);
 //   double-check associations
@@ -113,3 +133,4 @@ sequelize.sync();
 module.exports.getExpenses = getExpenses;
 module.exports.saveExpense = saveExpense;
 module.exports.deleteExpense = deleteExpense;
+module.exports.updateExpense = updateExpense;

@@ -14,7 +14,16 @@ class Expenses extends Component {
     this.state = {
       income: 2000,
       bills: 1700,
+      editExpense: {
+        id: 5,
+        expense: 'Buffalo Wild Wings',
+        cost: 20,
+        category: 'Food',
+        frequency: 'Once',
+        date: '10/02/18'
+      }
     }
+    this.updateExpense = this.updateExpense.bind(this);
   }
   
   componentWillMount() {
@@ -25,6 +34,21 @@ class Expenses extends Component {
     if (nextProps.expense) {
       this.props.expenses.push(nextProps.expense);
     }
+  }
+
+  updateExpense(expense) {
+    console.log(expense);
+    const editExpense = {
+      id: expense.id,
+      expense: expense.expense,
+      cost: expense.cost,
+      category: expense.category,
+      frequency: expense.frequency,
+      date: expense.date
+    }
+    this.setState({
+      editExpense: editExpense
+    })
   }
   
   render() {
@@ -50,14 +74,14 @@ class Expenses extends Component {
               <td>{expense.frequency}</td>
               <td>{expense.date}</td>
               <td>
-                <button>Edit</button>
+                <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
                 <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
               </td>
             </tr>
           )
         })}
         <AddExpense />
-        <EditExpense />
+        <EditExpense editExpense={this.state.editExpense}/>
       </div>
     )
   }

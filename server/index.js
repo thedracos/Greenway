@@ -84,15 +84,41 @@ app.post('/addExpense', (request, response) => {
 });
 
 // update an expense record
-app.put('', (request, response) => {
-  // database.editExpense
+app.put('/updateExpense', (request, response) => {
+  database.updateExpense(request.body);
+  console.log(request.body)
 });
 
 // remove an expense record
 app.delete('/deleteExpense', (request, response) => {
-  database.deleteExpense(request.body)
+  database.deleteExpense(request.body);
 });
 
 app.listen(port, () => {
     console.log(`Listening on Port: ${port}`);
 });
+
+// // get expenses assoc to a user
+// app.get('/api/expenses', (request, response) => {
+//   database.getExpenses(request.username)
+//   .then(data => {
+//     response.send(data);
+//   })
+// });
+
+// // store a new expense record
+// app.post('/api/expenses', (request, response) => {
+//   console.log(request.body);
+//   database.saveExpense(request.body);
+//   response.send(request.body);
+// });
+
+// // update an expense record
+// app.put('/api/expenses/:id', (request, response) => {
+//   database.updateExpense(request.body);
+// });
+
+// // remove an expense record
+// app.delete('/api/expenses/:id', (request, response) => {
+//   database.deleteExpense(request.body)
+// });
