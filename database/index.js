@@ -59,6 +59,15 @@ const saveExpense = (bill) => {
   })
 }
 
+const deleteExpense = (bill) => {
+  console.log('deleting expense from db', bill);
+  Expense.destroy({
+    where: {
+      id: bill.id
+    }
+  })
+}
+
 // Expense.belongsTo(User);
 // User.hasMany(Expense);
 //   double-check associations
@@ -103,3 +112,4 @@ sequelize.sync();
 // module.exports.removeExpense = removeExpense;
 module.exports.getExpenses = getExpenses;
 module.exports.saveExpense = saveExpense;
+module.exports.deleteExpense = deleteExpense;

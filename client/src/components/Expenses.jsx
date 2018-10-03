@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 //connects component to redux
 import { connect } from 'react-redux';
-import { fetchExpenses } from '../redux/actions/postActions.js';
+import { fetchExpenses, deleteExpense } from '../redux/actions/postActions.js';
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';
@@ -15,7 +15,6 @@ class Expenses extends Component {
       income: 2000,
       bills: 1700,
     }
-    this.onDelete = this.onDelete.bind(this);
   }
   
   componentWillMount() {
@@ -26,19 +25,6 @@ class Expenses extends Component {
     if (nextProps.expense) {
       this.props.expenses.push(nextProps.expense);
     }
-  }
-
-  onDelete(expense) {
-    console.log(expense);
-    fetch('/deleteExpense', {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(expense)
-    })
-    .then(res => res.text())
-    .then(data => console.log(data));
   }
   
   render() {
@@ -65,7 +51,7 @@ class Expenses extends Component {
               <td>{expense.date}</td>
               <td>
                 <button>Edit</button>
-                <button onClick={() => {this.onDelete(expense)}}>Delete</button>
+                <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
               </td>
             </tr>
           )
@@ -79,6 +65,7 @@ class Expenses extends Component {
 
 Expenses.propTypes = {
   fetchExpenses: PropTypes.func.isRequired,
+  deleteExpense: PropTypes.func.isRequired,
   expenses: PropTypes.array.isRequired,
   expense: PropTypes.object.isRequired
 }
@@ -86,11 +73,11 @@ Expenses.propTypes = {
 //Similar to setState within this component, grabs contents in store
 //and defines our state to the data we want to use
 const mapStateToProps = state => {
-  //console.log(state);
   return {
-  expenses: state.expenses.expenses,
-  expense: state.expenses.expense
-}};
+    expenses: state.expenses.expenses,
+    expense: state.expenses.expense
+  }
+};
 
 //mapdispatchtoprops
-export default connect(mapStateToProps, { fetchExpenses })(Expenses);
+export default connect(mapStateToProps, { fetchExpenses, deleteExpense })(Expenses);

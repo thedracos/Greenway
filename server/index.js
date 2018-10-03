@@ -90,8 +90,7 @@ app.put('', (request, response) => {
 
 // remove an expense record
 app.delete('/deleteExpense', (request, response) => {
-  console.log(request.body);
-  response.send('server handled delete');
+  database.deleteExpense(request.body)
 });
 
 app.listen(port, () => {
