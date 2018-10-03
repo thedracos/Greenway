@@ -78,44 +78,44 @@ const RootQuery = new GraphQLObjectType({
 });
 
 // add, edit and delete is all done through mutations
-const mutation = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: {
-    addCustomer: {
-      type: CustomerType,
-      args: {
-        // NonNull syntax makes a field required
-        name: {type: new GraphQLNonNull(GraphQLString)},
-        email: {type: new GraphQLNonNull(GraphQLString)},
-        age: {type: new GraphQLNonNull(GraphQLInt)}
-      },
-      resolve(parentValue, args) {
-        // // imported db function, or axios request
-        // return axios.post(endpoint, {
-        //   name: args.name,
-        //   email: args.email,
-        //   age: args.age
-        // })
-        // .then(res => res.data);
-      }
-    },
-    deleteCustomer: {
-      type: CustomerType,
-      args: {
-        id
-      },
-      resolve(parentValue, args) {
-        // // imported db function, or axios request
-        // return axios.post(endpoint, {
-        //   name: args.name,
-        //   email: args.email,
-        //   age: args.age
-        // })
-        // .then(res => res.data);
-      }
-    },
-  }
-});
+// const mutation = new GraphQLObjectType({
+//   name: 'Mutation',
+//   fields: {
+//     addCustomer: {
+//       type: CustomerType,
+//       args: {
+//         // NonNull syntax makes a field required
+//         name: {type: new GraphQLNonNull(GraphQLString)},
+//         email: {type: new GraphQLNonNull(GraphQLString)},
+//         age: {type: new GraphQLNonNull(GraphQLInt)}
+//       },
+//       resolve(parentValue, args) {
+//         // // imported db function, or axios request
+//         // return axios.post(endpoint, {
+//         //   name: args.name,
+//         //   email: args.email,
+//         //   age: args.age
+//         // })
+//         // .then(res => res.data);
+//       }
+//     },
+//     deleteCustomer: {
+//       type: CustomerType,
+//       args: {
+//         id
+//       },
+//       resolve(parentValue, args) {
+//         // // imported db function, or axios request
+//         // return axios.post(endpoint, {
+//         //   name: args.name,
+//         //   email: args.email,
+//         //   age: args.age
+//         // })
+//         // .then(res => res.data);
+//       }
+//     },
+//   }
+// });
 
 
 
@@ -135,9 +135,8 @@ const mutation = new GraphQLObjectType({
 
 
 
-
+// export mutation
 
 module.exports = new GraphQLSchema({
   query: RootQuery
-  mutation
 });
