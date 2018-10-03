@@ -6,14 +6,12 @@ const Sequelize = require('sequelize');
 // const client = new Client();
 // client.connect();
 
-// localhost may not be correct/complete
+// localhost is not correct/complete
 const dbUrl = process.env.DB_URI || localhost;
 
 const sequelize = new Sequelize(dbUrl, {
   dialect: 'postgres'
 });
-
-// const sequelize = new Sequelize(process.env.DB_URL);
 
 const User = sequelize.define('user', {
   // will uniqueId be added by default?
@@ -43,10 +41,12 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
-const getExpenses = (username) => Expense.findAll({
+const getExpenses = (params) => Expense.findAll({
   //where: { username },
+  // if (params.username) {...
+  // if (params.expense) {...
   order: [['cost', 'DESC']]
-})
+});
 
 const saveExpense = (bill) => {
   console.log('saving expenses to db', bill);
@@ -55,9 +55,9 @@ const saveExpense = (bill) => {
     expense, cost, category, frequency, date
   })
   .then(() => {
-    console.log('succesfully saved data into db');
+    console.log('successfully saved data into db');
   })
-}
+};
 
 // Expense.belongsTo(User);
 // User.hasMany(Expense);
