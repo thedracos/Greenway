@@ -1,11 +1,13 @@
 const express = require('express');
+const expressGraphQL = require('express-graphql');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const database = require('../database');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const schema = require('./schema.js');
+const database = require('../database');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +15,12 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// create entry point to interact with GraphQL
+app.use('/graphql', expressGraphQL({
+  schema: schema,
+  graphiql: true
+}));
 
 // Express session
 app.use(session({
@@ -26,14 +34,13 @@ app.use(session({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clinetSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "https://www.greenwaypay.heroku.com"
-},
-function (accessToken, refreshToken, profile, cb) {
+   callbackURL: "https://www.greenwaypay.heroku.com"
+  },
+  function (accessToken, refreshToken, profile, cb) {
   User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    return cb(err, user);
-  });
-}
-
+      return cb(err, user);
+    });
+  }
 ));
 
 app.get('/auth/google',
