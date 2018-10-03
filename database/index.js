@@ -19,9 +19,11 @@ const User = sequelize.define('user', {
   // will uniqueId be added by default?
   //   make it the primary key for the expense model to associate to?
   name: Sequelize.STRING,
+  password: Sequelize.STRING,
   // salt: implement after OAuth?
   income: Sequelize.INTEGER,
-  payday: Sequelize.DATE
+  frequency: Sequelize.STRING,
+  date: Sequelize.DATE
 });
 
 const Expense = sequelize.define('expense', {
@@ -42,7 +44,7 @@ const Expense = sequelize.define('expense', {
 });
 
 const getExpenses = (username) => Expense.findAll({
-  //where: { username }, 
+  //where: { username },
   order: [['cost', 'DESC']]
 })
 
