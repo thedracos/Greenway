@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createExpense } from '../redux/actions/actions';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
 class AddExpense extends Component {
   constructor(props) {
     super(props);

@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 //connects component to redux
 import { connect } from 'react-redux';
 import { fetchExpenses, deleteExpense } from '../redux/actions/actions';
+
+//React Router
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import AddExpense from './AddExpense.jsx';
@@ -54,36 +57,38 @@ class Expenses extends Component {
   
   render() {
     return (
-      <div>
-        Income: {this.state.income}
-        Expenses: {this.state.bills}
-        Remainder: {this.state.income - this.state.bills}
-        <tr>
-          <th>Expense</th>
-          <th>Cost</th>
-          <th>Category</th>
-          <th>Frequency</th>
-          <th>Date</th>
-          <th>Edit/Delete</th>
-        </tr>
-        {this.props.expenses.map(expense => {
-          return (
-            <tr>
-              <td>{expense.expense}</td>
-              <td>{`$${expense.cost}`}</td>
-              <td>{expense.category}</td>
-              <td>{expense.frequency}</td>
-              <td>{expense.date}</td>
-              <td>
-                <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
-                <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
-              </td>
-            </tr>
-          )
-        })}
-        <AddExpense />
-        {/* <EditExpense editExpense={this.state.editExpense}/> */}
-      </div>
+      <Router>
+        <div>
+          Income: {this.state.income}<br />
+          Expenses: {this.state.bills}<br />
+          Remainder: {this.state.income - this.state.bills}<br /><br />
+          <tr>
+            <th>Expense</th>
+            <th>Cost</th>
+            <th>Category</th>
+            <th>Frequency</th>
+            <th>Date</th>
+            <th>Edit/Delete</th>
+          </tr>
+          {this.props.expenses.map(expense => {
+            return (
+              <tr>
+                <td>{expense.expense}</td>
+                <td>{`$${expense.cost}`}</td>
+                <td>{expense.category}</td>
+                <td>{expense.frequency}</td>
+                <td>{expense.date}</td>
+                <td>
+                  <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
+                  <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
+                </td>
+              </tr>
+            )
+          })}
+          <AddExpense />
+          {/* <EditExpense editExpense={this.state.editExpense}/> */}
+        </div>
+      </Router>
     )
   }
 }
@@ -104,4 +109,5 @@ const mapStateToProps = state => {
   }
 };
 
+//https://reacttraining.com/react-router/web/guides/redux-integration
 export default withRouter(connect(mapStateToProps, { fetchExpenses, deleteExpense })(Expenses));
