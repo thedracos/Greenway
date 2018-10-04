@@ -39,21 +39,18 @@ const ExpenseType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    // initial
     user: {
       type: UserType,
       args: {
       },
       resolve(parentValue, args) {
-        // return axios.get()
-        //   .then(res => res.data);
+
       }
     },
     users: {
       type: new GraphQLList(UserType),
       resolve(parentValue, args) {
-        // return axios.get()
-        //   .then(res => res.data);
+
       }
     },
     // in progress - isn't set up to query from args yet
@@ -65,8 +62,7 @@ const RootQuery = new GraphQLObjectType({
         // category: {type: GraphQLString}
       },
       resolve(parentValue, args) {
-        // return axios.get()
-        //   .then(res => res.data);
+
       }
     },
     // right now this gets all expenses from the db
@@ -79,7 +75,7 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parentValue, args) {
         return database.getExpenses();
-        // return database.getExpenses('params?');
+        // return database.getExpenses(params?);
       }
     }
   }
@@ -98,9 +94,7 @@ const mutation = new GraphQLObjectType({
         date: {type: GraphQLString}
       },
       resolve(parentValue, args) {
-        // import db function
-        // finish db function
-        return database.saveExpense(argument);
+        // return database.saveExpense(argument);
         console.log('args ', args);
         console.log('parentValue ', parentValue);
       }
@@ -116,9 +110,7 @@ const mutation = new GraphQLObjectType({
         date: {type: GraphQLString}
       },
       resolve(parentValue, args) {
-        // import db function
-        // finish db function
-        return database.removeExpense(argument);
+        // return database.deleteExpense(argument);
         console.log('args ', args);
         console.log('parentValue ', parentValue);
       }
@@ -133,9 +125,7 @@ const mutation = new GraphQLObjectType({
         date: {type: GraphQLString}
       },
       resolve(parentValue, args) {
-        // import db function
-        // finish db function
-        return database.editExpense(argument);
+        // return database.updateExpense(argument);
         console.log('args ', args);
         console.log('parentValue ', parentValue);
       }

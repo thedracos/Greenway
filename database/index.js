@@ -41,6 +41,28 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
+const userLogin = (params) => {
+  console.log('logging in ', params);
+  const { name, password } = params;
+  User.findOne({ name, password })
+  // GraphQL will also let us confirm the password without having to return it
+  .then(() => { console.log('found user') });
+  // if user name is found,
+  // .then can include the findAll query to the Expense db?
+};
+
+const userSignup = (params) => {
+  console.log('saving user to db ', params);
+  const { name, password, income, frequency, date } = params;
+  User.findOrCreate({
+    name, password, income, frequency, date,
+    where: { name: !name }
+  })
+  .then(() => { console.log('stored new user') });
+};
+
+// const userUpdate;
+
 const getExpenses = (params) => Expense.findAll({
   //where: { username },
   // if (params.username) {...
@@ -104,32 +126,9 @@ sequelize
 
 sequelize.sync();
 
-// const welcomeUser;
-// // if the user isn't in the db, store them
-// // if they are, retrieve their basic info?
-// // user record includes income
-
-// const updateUser;
-// // update income? or payday? might be the main use of this
-
-// const getUserExpenses;
-// // get all stored expenses for a user
-
-// const storeNewExpense;
-// // store a new expense record for a user
-
-// const editExpense;
-// // update an existing expense record for a user
-
-// const removeExpense;
-// // probably want this ability
-
-// module.exports.welcomeUser = welcomeUser;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserExpenses = getUserExpenses;
-// module.exports.storeNewExpense = storeNewExpense;
-// module.exports.editExpense = editExpense;
-// module.exports.removeExpense = removeExpense;
+// module.exports.userUpdate = userUpdate;
+module.exports.userLogin = userLogin;
+module.exports.userSignup = userSignup;
 module.exports.getExpenses = getExpenses;
 module.exports.saveExpense = saveExpense;
 module.exports.deleteExpense = deleteExpense;
