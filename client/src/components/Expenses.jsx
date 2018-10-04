@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 //connects component to redux
 import { connect } from 'react-redux';
-import { fetchExpenses, deleteExpense } from '../redux/actions/postActions.js';
+import { fetchExpenses, deleteExpense } from '../redux/actions/actions';
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';

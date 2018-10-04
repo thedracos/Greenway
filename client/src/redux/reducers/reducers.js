@@ -1,11 +1,11 @@
-import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from '../actions/types.js';
+import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from '../actions/types';
 
 const initialState = {
   expenses: [],
   expense: {}
 }
 
-//evaluates what 'type' we're dealing with
+//evaluates what 'type' we're dealing with and updates store
 export default function(state = initialState, action) {
   switch(action.type) {
     case ADD_EXPENSE:
@@ -24,7 +24,7 @@ export default function(state = initialState, action) {
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        expenses: action.payload
+        deleted: action.payload
       }
     default: 
       return state;

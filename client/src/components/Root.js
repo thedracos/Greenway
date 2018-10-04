@@ -6,16 +6,18 @@ import App from './App.jsx';
 import Login from './Login.jsx';
 import SignUp from './Sign-Up.jsx';
 
-const Root = ({ store }) => (
-  <Provider store = {store}>
-    <Router>
-      <div>
-        <Route path="/login" component={Login} />
-        <Route path="/home" component={App} />
-        <Route path="/signup" component={SignUp} />
-      </div>
-    </Router>
-  </Provider>
-)
+const Root = ({ store }) => {
+  return (
+    <Provider store = {store}>
+      <Router>
+        <div>
+          <Route exact path="/" component={Login} />
+          <Route path="/home" component={App} />
+          <Route path="/signup" component={SignUp} />
+        </div>
+      </Router>
+    </Provider>
+  )
+}
 
 export default Root;
