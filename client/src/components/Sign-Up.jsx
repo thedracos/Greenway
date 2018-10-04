@@ -5,11 +5,11 @@ class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            name: '',
             password: '',
-            nextCheckDate: '',
-            lastCheckAmount: '',
-            payFrequency: ''
+            date: '',
+            income: '',
+            frequency: ''
         }
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -18,7 +18,7 @@ class SignUp extends Component {
 
     onSubmitHandler (event) {
         console.log('hello');
-        fetch('/addExpense', {
+        fetch('/api/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -28,8 +28,8 @@ class SignUp extends Component {
             for(var state in this.state) {
                 this.onChange({target: {name: state, value: ''}});
             }
+            event.preventDefault();
         });
-        event.preventDefault();
     }
 
     onChangeHandler(event) {
@@ -52,24 +52,24 @@ class SignUp extends Component {
                 <h1>Sign Up</h1>
                 <p>Please fill in this form to create an account.</p>
                 <hr/>
-                <input value={this.state.username} onChange={this.onChangeHandler} placeholder="Username" type="text" name="username" required />
+                <input value={this.state.name} onChange={this.onChangeHandler} placeholder="name" type="text" name="name" required />
                 <br/>
                 <br/>
                 <label>
                     Amount of last pay check: <br/>
-                    $<input value={this.state.lastCheckAmount} type="number" onChange={this.onChangeHandler} name="lastCheckAmount" min="0.00" step="0.01" placeholder="e.g. 1000.00" required />
+                    $<input value={this.state.income} type="number" onChange={this.onChangeHandler} name="income" min="0.00" step="0.01" placeholder="e.g. 1000.00" required />
                 </label>
                 <br/>
                 <br/>
                 <label>
                     Date of next pay check: <br/>
-                    <input value={this.state.nextCheckDate} type="date" onChange={this.onChangeHandler} name="nextCheckDate" required />
+                    <input value={this.state.date} type="date" onChange={this.onChangeHandler} name="date" required />
                 </label>
                 <br/>
                 <br/>
                 <label>
                     How often are you paid: <br/>
-                    <select name="payFrequency" onChange={this.onChangeHandler} required>
+                    <select name="frequency" onChange={this.onChangeHandler} required>
                         <option value="">Please select an option</option>
                         <option value="biweekly">Biweekly</option>
                         <option value="weekly">Weekly</option>
