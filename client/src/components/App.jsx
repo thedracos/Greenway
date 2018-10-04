@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Expenses from './Expenses.jsx';
 import Login from './Login.jsx';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-         <h1>Slytherin</h1>
-         <Expenses />
-      </div>
-    )
-  }
+const App = ({ match }) => {
+  return (
+    <div>
+      <h1>Slytherin</h1>
+      <Expenses />
+    </div>
+  )
 }
 
 export default App;
