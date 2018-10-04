@@ -5,7 +5,7 @@ const initialState = {
   expense: {}
 }
 
-//evaluates what 'type' we're dealing with
+//evaluates what 'type' we're dealing with and updates store
 export default function(state = initialState, action) {
   switch(action.type) {
     case ADD_EXPENSE:

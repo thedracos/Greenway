@@ -32,7 +32,6 @@ export function createExpense(newExpense) {
 
 export function deleteExpense(expense) {
   console.log('deleting expense from actions');
-  console.log(expense, 'expense');
   return function(dispatch) {
     fetch('/api/expenses', {
       method: 'DELETE',

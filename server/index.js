@@ -9,7 +9,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const schema = require('./schema.js');
 const database = require('../database');
 
-//
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -24,12 +23,11 @@ app.use('/graphql', expressGraphQL({
 }));
 
 // Express session
-app.use(session({
-  secret: 'secret',
-  saveUninitialized: true,
-  resave: true
-}));
-
+// app.use(session({
+//   secret: 'secret',
+//   saveUninitialized: true,
+//   resave: true
+// }));
 
 // Setting up passport google oAuth2.0
 // passport.use(new GoogleStrategy({
@@ -63,11 +61,6 @@ app.use(session({
 //   // database.welcomeUser
 // });
 
-// update income or other user record info
-app.put('', (request, response) => {
-  // database.updateUser
-});
-
 // get expenses assoc to a user
 app.get('/api/expenses', (request, response) => {
   database.getExpenses(request.username)
@@ -83,16 +76,16 @@ app.post('/api/expenses', (request, response) => {
   response.send(request.body);
 });
 
-// update an expense record
-app.put('/api/expenses', (request, response) => {
-  database.updateExpense(request.body);
+// remove an expense record
+app.delete('/api/expenses', (request, response) => {
+  database.deleteExpense(request.body);
   console.log(request.body);
   response.send(request.body);
 });
 
-// remove an expense record
-app.delete('/api/expenses', (request, response) => {
-  database.deleteExpense(request.body);
+// update an expense record
+app.put('/api/expenses', (request, response) => {
+  database.updateExpense(request.body);
   console.log(request.body);
   response.send(request.body);
 });
@@ -115,7 +108,7 @@ app.put('/api/users', (request, response) => {
   response.end(request.body);
 });
 
-// React Router?
+// Serves HTML file for React Router
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'))
 })
@@ -123,30 +116,3 @@ app.get('/*', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on Port: ${port}`);
 });
-
-
-
-// // get expenses assoc to a user
-// app.get('/api/expenses', (request, response) => {
-//   database.getExpenses(request.username)
-//   .then(data => {
-//     response.send(data);
-//   })
-// });
-
-// // store a new expense record
-// app.post('/api/expenses', (request, response) => {
-//   console.log(request.body);
-//   database.saveExpense(request.body);
-//   response.send(request.body);
-// });
-
-// // update an expense record
-// app.put('/api/expenses/:id', (request, response) => {
-//   database.updateExpense(request.body);
-// });
-
-// // remove an expense record
-// app.delete('/api/expenses/:id', (request, response) => {
-//   database.deleteExpense(request.body)
-// });
