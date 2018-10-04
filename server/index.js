@@ -69,7 +69,7 @@ app.put('', (request, response) => {
 });
 
 // get expenses assoc to a user
-app.get('/getExpenses', (request, response) => {
+app.get('/api/expenses', (request, response) => {
   database.getExpenses(request.username)
   .then(data => {
     response.send(data);
@@ -94,9 +94,16 @@ app.delete('/deleteExpense', (request, response) => {
   database.deleteExpense(request.body);
 });
 
+// React Router?
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'))
+})
+
 app.listen(port, () => {
     console.log(`Listening on Port: ${port}`);
 });
+
+
 
 // // get expenses assoc to a user
 // app.get('/api/expenses', (request, response) => {
