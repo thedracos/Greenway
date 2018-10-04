@@ -98,7 +98,8 @@ app.get('/api/users', (request, response) => {
 
 app.post('/api/users', (request, response) => {
   database.saveUser(request.body)
-  console.log(request.body);
+    .then(data => console.log(data));
+  // console.log(request.body);
   response.end();
 });
 
