@@ -69,7 +69,7 @@ app.put('', (request, response) => {
 });
 
 // get expenses assoc to a user
-app.get('/getExpenses', (request, response) => {
+app.get('/api/expenses', (request, response) => {
   database.getExpenses(request.username)
   .then(data => {
     response.send(data);
@@ -77,25 +77,46 @@ app.get('/getExpenses', (request, response) => {
 });
 
 // store a new expense record
-app.post('/addExpense', (request, response) => {
+app.post('/api/expenses', (request, response) => {
   console.log(request.body);
   database.saveExpense(request.body);
   response.send(request.body);
 });
 
 // update an expense record
-app.put('/updateExpense', (request, response) => {
+app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
-  console.log(request.body)
+  console.log(request.body);
+  response.end(request.body);
 });
 
 // remove an expense record
-app.delete('/deleteExpense', (request, response) => {
+app.delete('/api/expenses', (request, response) => {
   database.deleteExpense(request.body);
+  console.log(request.body);
+  response.end(request.body);
+});
+
+app.get('/api/users', (request, response) => {
+  database.userLogin(request.body);
+  console.log(request.body);
+  response.end(request.body);
+});
+
+app.post('/api/users', (request, response) => {
+  database.userSignup(request.body);
+  console.log(request.body);
+  response.end(request.body);
+});
+
+app.put('/api/users', (request, response) => {
+  database.userUpdate(request.body);
+  console.log(request.body);
+  response.end(request.body);
 });
 
 app.listen(port, () => {
-    console.log(`Listening on Port: ${port}`);
+  console.log(`Listening on Port: ${port}`);
 });
 
 // // get expenses assoc to a user

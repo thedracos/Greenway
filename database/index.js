@@ -61,7 +61,10 @@ const userSignup = (params) => {
   .then(() => { console.log('stored new user') });
 };
 
-// const userUpdate;
+const userUpdate = (params) => {
+  console.log('finish function to update user record ', params);
+  // lower priority after login and signup are connected
+};
 
 const getExpenses = (params) => Expense.findAll({
   //where: { username },
@@ -126,7 +129,7 @@ sequelize
 
 sequelize.sync();
 
-// module.exports.userUpdate = userUpdate;
+module.exports.userUpdate = userUpdate;
 module.exports.userLogin = userLogin;
 module.exports.userSignup = userSignup;
 module.exports.getExpenses = getExpenses;
