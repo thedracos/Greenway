@@ -19,7 +19,7 @@ const User = sequelize.define('user', {
   name: Sequelize.STRING,
   password: Sequelize.STRING,
   // salt: implement after OAuth?
-  income: Sequelize.INTEGER,
+  income: Sequelize.STRING,
   frequency: Sequelize.STRING,
   date: Sequelize.DATE
 });
@@ -60,6 +60,18 @@ const userSignup = (params) => {
   })
   .then(() => { console.log('stored new user') });
 };
+
+const saveUser = (params) => {
+  console.log('saving user to db', params);
+  const { name, password, income, frequency, date } = params;
+  User.upsert({name, password, income, frequency, date})
+  .then(() => {
+    console.log('succesfully saved data into db');
+  })
+  .catch(err => {
+    console.log('Error while saving new user. Line 69 index.js in database folder: ', err);
+  })
+}
 
 const userUpdate = (params) => {
   console.log('finish function to update user record ', params);
@@ -136,3 +148,4 @@ module.exports.getExpenses = getExpenses;
 module.exports.saveExpense = saveExpense;
 module.exports.deleteExpense = deleteExpense;
 module.exports.updateExpense = updateExpense;
+module.exports.saveUser = saveUser;

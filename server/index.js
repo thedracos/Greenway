@@ -97,9 +97,9 @@ app.get('/api/users', (request, response) => {
 });
 
 app.post('/api/users', (request, response) => {
-  database.userSignup(request.body);
+  database.saveUser(request.body)
   console.log(request.body);
-  response.end(request.body);
+  response.end();
 });
 
 app.put('/api/users', (request, response) => {
