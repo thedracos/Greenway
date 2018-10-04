@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 //connects component to redux
 import { connect } from 'react-redux';
 import { fetchExpenses, deleteExpense } from '../redux/actions/actions';
+import { withRouter } from 'react-router-dom';
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';
@@ -81,7 +82,7 @@ class Expenses extends Component {
           )
         })}
         <AddExpense />
-        <EditExpense editExpense={this.state.editExpense}/>
+        {/* <EditExpense editExpense={this.state.editExpense}/> */}
       </div>
     )
   }
@@ -103,5 +104,4 @@ const mapStateToProps = state => {
   }
 };
 
-//mapdispatchtoprops
-export default connect(mapStateToProps, { fetchExpenses, deleteExpense })(Expenses);
+export default withRouter(connect(mapStateToProps, { fetchExpenses, deleteExpense })(Expenses));
