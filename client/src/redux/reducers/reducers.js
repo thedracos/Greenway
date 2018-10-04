@@ -1,4 +1,4 @@
-import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from '../actions/types.js';
+import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from '../actions/types';
 
 const initialState = {
   expenses: [],
@@ -24,7 +24,7 @@ export default function(state = initialState, action) {
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        expenses: action.payload
+        deleted: action.payload
       }
     default: 
       return state;

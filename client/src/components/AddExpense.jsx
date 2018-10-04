@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createExpense } from '../redux/actions/postActions.js';
+import { createExpense } from '../redux/actions/actions';
 
 class AddExpense extends Component {
   constructor(props) {
@@ -35,7 +35,6 @@ class AddExpense extends Component {
         frequency: this.state.frequency,
         date: this.state.date
       }
-      //actions
       this.props.createExpense(newExpense);
     }
   }

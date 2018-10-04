@@ -1,8 +1,8 @@
 //root reducer file
 
 import { combineReducers } from 'redux';
-import postReducer from './postReducer.js';
+import reducers from './reducers';
 
 export default combineReducers({
-  expenses: postReducer
+  expenses: reducers
 });

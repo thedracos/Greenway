@@ -1,4 +1,4 @@
-import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from './types.js';
+import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from './types';
 
 export function fetchExpenses() {
   console.log('fetching from actions');
@@ -15,7 +15,7 @@ export function fetchExpenses() {
 export function createExpense(newExpense) {
   console.log('creating expense from actions');
   return function(dispatch) {
-    fetch('/addExpense', {
+    fetch('/api/expenses', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -32,17 +32,18 @@ export function createExpense(newExpense) {
 
 export function deleteExpense(expense) {
   console.log('deleting expense from actions');
+  console.log(expense, 'expense');
   return function(dispatch) {
-    fetch('/deleteExpense', {
+    fetch('/api/expenses', {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify(expense)
     })
-    .then(expenses => dispatch({
+    .then(expense => dispatch({
       type: DELETE_EXPENSE,
-      payload: expenses
+      payload: expense
     }));
   }
 }

@@ -87,14 +87,14 @@ app.post('/api/expenses', (request, response) => {
 app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
   console.log(request.body);
-  response.end(request.body);
+  response.send(request.body);
 });
 
 // remove an expense record
 app.delete('/api/expenses', (request, response) => {
   database.deleteExpense(request.body);
   console.log(request.body);
-  response.end(request.body);
+  response.send(request.body);
 });
 
 app.get('/api/users', (request, response) => {

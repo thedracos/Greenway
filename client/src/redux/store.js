@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose} from 'redux';
 //import middleware
 import thunk from 'redux-thunk';
-import rootReducer from './reducers/index.js';
+import rootReducer from './reducers';
 
 //sets up initial state of store. store is a giant object
 const initialState = {};
