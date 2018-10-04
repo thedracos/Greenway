@@ -3,7 +3,7 @@ import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from './types.js';
 export function fetchExpenses() {
   console.log('fetching from actions');
   return function(dispatch) {
-    fetch('/getExpenses')
+    fetch('/api/expenses')
       .then(res => res.json())
       .then(expenses => dispatch({
         type: GET_EXPENSES,

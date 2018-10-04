@@ -115,9 +115,16 @@ app.put('/api/users', (request, response) => {
   response.end(request.body);
 });
 
+// React Router?
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'))
+})
+
 app.listen(port, () => {
   console.log(`Listening on Port: ${port}`);
 });
+
+
 
 // // get expenses assoc to a user
 // app.get('/api/expenses', (request, response) => {

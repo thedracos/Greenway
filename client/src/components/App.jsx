@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-//Glue between React and Redux
-import { Provider } from 'react-redux';
-//Import store that holds all state
-import store from '../redux/store.js';
-
 import Expenses from './Expenses.jsx';
+import Login from './Login.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -15,19 +11,10 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={store}>
-        <div>
-          <h1>Slytherin</h1>
-          <div>
-            Bills
-            Savings
-            Loans
-            Investments
-            Settings
-          </div>
-          <Expenses />
-        </div>
-      </Provider>
+      <div>
+         <h1>Slytherin</h1>
+         <Expenses />
+      </div>
     )
   }
 }
