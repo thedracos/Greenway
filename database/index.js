@@ -18,7 +18,7 @@ const User = sequelize.define('user', {
   //   make it the primary key for the expense model to associate to?
   name: Sequelize.STRING,
   password: Sequelize.STRING,
-  // salt: implement after OAuth?
+  salt: Sequelize.STRING,
   income: Sequelize.INTEGER,
   frequency: Sequelize.STRING,
   date: Sequelize.DATE
@@ -40,6 +40,11 @@ const Expense = sequelize.define('expense', {
   frequency: Sequelize.STRING,
   date: Sequelize.DATE
 });
+
+Expense.belongsTo(User);
+// User.hasMany(Expense);
+//   double-check associations
+User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
 const userLogin = (params) => {
   console.log('logging in ', params);
@@ -125,10 +130,6 @@ const updateExpense = (bill) => {
   })
 }
 
-// Expense.belongsTo(User);
-// User.hasMany(Expense);
-//   double-check associations
-// User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
 sequelize
   .authenticate()
