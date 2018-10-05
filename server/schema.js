@@ -58,7 +58,7 @@ const RootQuery = new GraphQLObjectType({
     expense: {
       type: ExpenseType,
       args: {
-        // expense: {type: GraphQLString},
+        expense: {type: GraphQLString},
         // category: {type: GraphQLString}
       },
       resolve(parentValue, args) {
