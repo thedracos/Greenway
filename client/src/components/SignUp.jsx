@@ -31,6 +31,7 @@ class SignUp extends Component {
       }
       event.preventDefault();
     });
+    this.props.history.push("/");
   }
 
   onChangeHandler(event) {
@@ -51,42 +52,37 @@ class SignUp extends Component {
     return (
       <div>
         <h1>Slytherin</h1>
-        <hr/>
         <form onSubmit={this.onSubmitHandler}>
           <h2>Sign Up</h2>
-            
-            <input value={this.state.name} onChange={this.onChangeHandler} placeholder="name" type="text" name="name" required />
-            <br/>
-            <br/>
-            <label>
-                Amount of last pay check: <br/>
-                $<input value={this.state.income} type="number" onChange={this.onChangeHandler} name="income" min="0.00" step="0.01" placeholder="e.g. 1000.00" required />
-            </label>
-            <br/>
-            <br/>
-            <label>
-                Date of next pay check: <br/>
-                <input value={this.state.date} type="date" onChange={this.onChangeHandler} name="date" required />
-            </label>
-            <br/>
-            <br/>
-            <label>
-                How often are you paid: <br/>
-                <select name="frequency" onChange={this.onChangeHandler} required>
-                    <option value="">Please select an option</option>
-                    <option value="biweekly">Biweekly</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                </select>
-            </label>
-            <br/>
-            <br/>
-            <input name="password" value={this.state.password} placeholder="password" type="password" onChange={this.onChangeHandler} required />
-            <br/>
-            <br/>
-            <input onChange={this.confirmPasswordChangeHandler} type="password" placeholder="confirm password" required />
-            <br/>
-            <br/>
+            <div>
+              <label>Username:</label><br/>
+              <input value={this.state.name} onChange={this.onChangeHandler} placeholder="name" type="text" name="name" required />
+            </div><br/>
+            <div>
+              <label>Password:</label><br/>
+              <input name="password" value={this.state.password} placeholder="password" type="password" onChange={this.onChangeHandler} required />
+            </div><br/>
+            <div>
+              <label>Re-enter Password:</label><br/>
+              <input onChange={this.confirmPasswordChangeHandler} type="password" placeholder="confirm password" required />
+            </div><br/>
+            <div>
+              <label>Monthly Income</label><br/>
+              $<input value={this.state.income} type="number" onChange={this.onChangeHandler} name="income" min="0.00" step="0.01" placeholder="e.g. 1000.00" required />
+            </div><br/>
+            <div>
+              <label>Payday</label><br/>
+              <input value={this.state.date} type="date" onChange={this.onChangeHandler} name="date" required />
+            </div><br/>
+            <div>
+              <label>Pay Frequency</label><br/>
+              <select name="frequency" onChange={this.onChangeHandler} required>
+                <option value="">Please select an option</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div><br/>
             <input type="submit" value="Submit" />
         </form>
       </div>
@@ -95,4 +91,4 @@ class SignUp extends Component {
 }
 
 
-export default SignUp;
+export default withRouter(SignUp);
