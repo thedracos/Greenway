@@ -59,6 +59,7 @@ class Expenses extends Component {
     return (
       <Router>
         <div>
+          <h2>Expenses</h2>
           Income: {this.state.income}<br />
           Expenses: {this.state.bills}<br />
           Remainder: {this.state.income - this.state.bills}<br /><br />
