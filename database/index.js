@@ -19,7 +19,7 @@ const User = sequelize.define('user', {
   name: Sequelize.STRING,
   password: Sequelize.STRING,
   // salt: implement after OAuth?
-  income: Sequelize.STRING,
+  income: Sequelize.INTEGER,
   frequency: Sequelize.STRING,
   date: Sequelize.DATE
 });
