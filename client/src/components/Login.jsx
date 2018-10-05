@@ -1,61 +1,74 @@
 import React, {Component} from 'react';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      password: ''
+      password: '',
     }
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
+    this.onRegister = this.onRegister.bind(this);
   }
 
-  onSubmitHandler(event) {
+  onSubmitHandler(e) {
     console.log('onSubmitHandler',this.state)
-    fetch('/api/users/login',
-    {
+    fetch('/api/users/login', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify(this.state)
-    }).then(data => {
+    })
+    .then(data => {
       this.setState({
         name: '',
         password: ''
       });
       console.log(data)
-    });
-    event.preventDefault();
+    })
+    .then(() => {
+
+    })
+    e.preventDefault();
   }
 
-  onChangeHandler(event) {
+  onChangeHandler(e) {
     this.setState({
-      [event.target.name] : event.target.value
+      [e.target.name] : e.target.value
     }, () => console.log(this.state));
+  }
+
+  onRegister() {
+    this.props.history.push("/signup");
   }
 
   render() {
     return (
-      <div>
-        <h1>Slytherin</h1>
-        <form onSubmit={this.onSubmitHandler}>
-          <div>
-            <input value={this.state.name} type="text" name="name" placeholder="Username" onChange={this.onChangeHandler} required/>
-          </div>
-          <div>
-            <input value={this.state.password} type="password" name="password" placeholder="Password" onChange={this.onChangeHandler} required/>
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
+      <Router>
+        <div>
+          <h1>Slytherin</h1>
+          <form>
+            <div>
+              Login: <br/>
+              <input value={this.state.name} type="text" name="name" placeholder="Username" onChange={this.onChangeHandler} required/>
+            </div><br/>
+            <div>
+              Password: <br/>
+              <input value={this.state.password} type="password" name="password" placeholder="Password" onChange={this.onChangeHandler} required/>
+            </div><br/>
+            <div>
+              <button type="submit" onClick={this.onSubmitHandler}>Login</button>
+              <button type="submit" onClick={this.onRegister}>Register</button>
+            </div>
+          </form>
+        </div>
+      </Router>
     );
   }
-
 }
 
 
-export default Login;
+export default withRouter(Login);
