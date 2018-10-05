@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App.jsx';
 import Login from './Login.jsx';
-import SignUp from './Sign-Up.jsx';
+import SignUp from './SignUp.jsx';
 
 const Root = ({ store }) => {
   return (
