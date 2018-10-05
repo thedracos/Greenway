@@ -7,6 +7,7 @@ class Login extends Component {
     this.state = {
       name: '',
       password: '',
+      isLoggedIn: true
     }
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -14,8 +15,8 @@ class Login extends Component {
   }
 
   onSubmitHandler(e) {
-    console.log('onSubmitHandler',this.state)
-    fetch('/api/users/login', {
+    console.log('onSubmitHandler', this.state)
+    fetch('/api/login', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -23,16 +24,21 @@ class Login extends Component {
       body: JSON.stringify(this.state)
     })
     .then(data => {
+      //if the server indicates that the user is logged in
+      //isLoggedIn is true
       this.setState({
-        name: '',
-        password: ''
+        isLogged: true
       });
-      console.log(data)
     })
     .then(() => {
-
+      if (this.state.isLoggedIn) {
+        this.props.history.push("/home");
+      }
     })
-    e.preventDefault();
+    .catch(() => {
+      window.alert('Incorrect Username and Password. Please try again');
+      //e.preventDefault();
+    })
   }
 
   onChangeHandler(e) {
