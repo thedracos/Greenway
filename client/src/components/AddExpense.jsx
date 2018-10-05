@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createExpense } from '../redux/actions/actions';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
 
 class AddExpense extends Component {
   constructor(props) {
@@ -83,4 +82,4 @@ const mapStateToProps = state => ({
   expense: state.expenses.expense
 })
 
-export default connect(mapStateToProps, { createExpense })(AddExpense);
+export default withRouter(connect(mapStateToProps, { createExpense })(AddExpense));
