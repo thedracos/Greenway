@@ -90,7 +90,7 @@ app.put('/api/expenses', (request, response) => {
   response.send(request.body);
 });
 
-app.get('/api/users', (request, response) => {
+app.post('/api/login', (request, response) => {
   database.userLogin(request.body);
   console.log(request.body);
   response.end(request.body);
@@ -98,7 +98,7 @@ app.get('/api/users', (request, response) => {
 
 app.post('/api/users', (request, response) => {
   database.saveUser(request.body)
-    .then(data => console.log(data));
+  .then(data => console.log(data));
   // console.log(request.body);
   response.end();
 });
