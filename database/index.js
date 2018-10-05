@@ -41,6 +41,19 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
+const Loan = sequelize.define('loan', {
+  name: Sequelize.STRING, // card/load name
+  minimumPayment: Sequelize.INTEGER, // minimum payment to not get penalty
+  actualPayment: Sequelize.INTEGER, // if you paid minimum payment or more than the minimum payment 
+  balance: Sequelize.INTEGER, // balance on card/loan
+  dueDate: Sequelize.DATE, // date payment is due
+  paymentDate: Sequelize.DATE, // when you made payment
+  apr: Sequelize.INTEGER, // interest on card/laod
+  autopay: Sequelize.BOOLEAN, // is autopay setup or not
+  paid: Sequelize.BOOLEAN, // have you made a minimum or more payment yet
+  website: Sequelize.STRING // website link associated to card/loan
+});
+
 const userLogin = (params) => {
   console.log('logging in ', params);
   const { name, password } = params;
