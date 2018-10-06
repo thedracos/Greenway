@@ -25,12 +25,7 @@ class SignUp extends Component {
       },
       body: JSON.stringify(this.state)
     })
-    .then(data => {
-      for(var state in this.state) {
-        this.onChange({target: {name: state, value: ''}});
-      }
-      event.preventDefault();
-    });
+    event.preventDefault();
     this.props.history.push("/");
   }
 
