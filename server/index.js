@@ -96,9 +96,6 @@ app.post('/api/login', (request, response) => {
     console.log('server 96 ', record);
     response.send(record);
   });
-
-
-  //   )
   // .then(() => {
   //   console.log('server 95 ');
   // });
@@ -116,6 +113,18 @@ app.put('/api/users', (request, response) => {
   console.log(request.body);
   response.end();
 });
+
+app.get('/api/lists', (request, response) => {
+};
+
+app.post('/api/lists', (request, response) => {
+};
+
+app.put('/api/lists', (request, response) => {
+};
+
+app.delete('/api/lists', (request, response) => {
+};
 
 // Serves HTML file for React Router
 app.get('/*', (req, res) => {
