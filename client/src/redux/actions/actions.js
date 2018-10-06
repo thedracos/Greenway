@@ -1,4 +1,4 @@
-import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE } from './types';
+import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from './types';
 
 export function fetchExpenses() {
   console.log('fetching from actions');
@@ -44,6 +44,24 @@ export function deleteExpense(expense) {
       type: DELETE_EXPENSE,
       payload: expense
     }));
+  }
+}
+
+export function verifyUser(userInfo) {
+  console.log('verifying user from actions');
+  return function(dispatch) {
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
+    })
+    .then(res => res.json())
+    .then(userInfo => dispatch({
+      type: VERIFY_USER,
+      payload: userInfo
+    }))
   }
 }
 
