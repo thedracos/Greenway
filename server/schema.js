@@ -13,7 +13,7 @@ const database = require('../database');
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
-    // id: {type: GraphQLString},
+    id: {type: GraphQLID},
     name: {type: GraphQLString},
     income: {type: GraphQLInt},
     payday: {type: GraphQLString}
@@ -24,7 +24,7 @@ const ExpenseType = new GraphQLObjectType({
   name: 'Expense',
   fields: () => ({
     id: {type: GraphQLID},
-    // user: {type: GraphQLInt},
+    user: {type: GraphQLInt},
     expense: {type: GraphQLString},
     cost: {type: GraphQLInt},
     category: {type: GraphQLString},
