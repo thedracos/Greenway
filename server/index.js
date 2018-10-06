@@ -91,9 +91,17 @@ app.put('/api/expenses', (request, response) => {
 });
 
 app.post('/api/login', (request, response) => {
-  database.userLogin(request.body);
   console.log(request.body);
-  response.end();
+  database.userLogin(request.body, function(record) {
+    console.log('server 96 ', record);
+    response.send(record);
+  });
+
+
+  //   )
+  // .then(() => {
+  //   console.log('server 95 ');
+  // });
 });
 
 app.post('/api/users', (request, response) => {

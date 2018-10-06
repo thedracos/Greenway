@@ -53,7 +53,7 @@ Expense.belongsTo(User);
 // this might do it already
 User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
-const userLogin = (params) => {
+const userLogin = (params, callback) => {
   console.log('logging in ', params);
   const { name, password } = params;
   User.findOne({ where: {name: name, password: password} })
@@ -62,15 +62,17 @@ const userLogin = (params) => {
   .then(record => {
     // if there's no match, record is null
     if (record) {
-      let matchedName = record.dataValues.name;
+      // let matchedName = {name: record.dataValues.name};
       // if there's a match, record is a big object
       // with more info than we want to send back
 
-      console.log('matched username in db: ', matchedName);
-      return matchedName;
+      // console.log('matched username in db: ', matchedName);
+      callback(record.dataValues.name);
+      // callback(matchedName);
     } else {
-      console.log('this record should be null: ', record);
-      return record;
+      // console.log('this record should be null: ', {name: record});
+      // return {name: record};
+      callback(null);
     }
   });
 
