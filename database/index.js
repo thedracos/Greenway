@@ -14,11 +14,12 @@ const sequelize = new Sequelize(dbUrl, {
 });
 
 const User = sequelize.define('user', {
-  // will uniqueId be added by default?
-  //   make it the primary key for the expense model to associate to?
+  //  id is added by default, incrementing from 1
+  //  is it already the primary key for the expense model to associate to?
+  //  can confirm after user name is passed in with expense record
   name: Sequelize.STRING,
   password: Sequelize.STRING,
-  // salt: implement after OAuth?
+  salt: Sequelize.STRING,
   income: Sequelize.INTEGER,
   frequency: Sequelize.STRING,
   date: Sequelize.DATE
@@ -34,6 +35,10 @@ const Expense = sequelize.define('expense', {
   //     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
   //   }
   // },
+
+  // id is added by default, incrementing from 1
+  // userId is added by default, all entries so far are null
+  //  - not passing user field into expense records yet
   expense: Sequelize.STRING,
   cost: Sequelize.INTEGER,
   category: Sequelize.STRING,
@@ -41,12 +46,40 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
+Expense.belongsTo(User);
+// User.hasMany(Expense);
+//   double-check associations
+
+// this might do it already
+User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
+
 const userLogin = (params) => {
   console.log('logging in ', params);
   const { name, password } = params;
-  User.findOne({ name, password })
+  User.findOne({ where: {name: name, password: password} })
   // GraphQL will also let us confirm the password without having to return it
-  .then(() => { console.log('found user') });
+
+  .then(record => {
+    // if there's no match, record is null
+    if (record) {
+      let matchedName = record.dataValues.name;
+      // if there's a match, record is a big object
+      // with more info than we want to send back
+
+      console.log('matched username in db: ', matchedName);
+      return matchedName;
+    } else {
+      console.log('this record should be null: ', record);
+      return record;
+    }
+  });
+
+
+
+  // older notes:
+  // .then(() => {
+  //   console.log('findOne.then in db.userLogin')
+  // });
   // if user name is found,
   // .then can include the findAll query to the Expense db?
 };
@@ -125,10 +158,6 @@ const updateExpense = (bill) => {
   })
 }
 
-// Expense.belongsTo(User);
-// User.hasMany(Expense);
-//   double-check associations
-// User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
 sequelize
   .authenticate()

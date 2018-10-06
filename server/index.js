@@ -73,27 +73,27 @@ app.get('/api/expenses', (request, response) => {
 app.post('/api/expenses', (request, response) => {
   console.log(request.body);
   database.saveExpense(request.body);
-  response.send(request.body);
+  response.send();
 });
 
 // remove an expense record
 app.delete('/api/expenses', (request, response) => {
   database.deleteExpense(request.body);
   console.log(request.body);
-  response.send(request.body);
+  response.send();
 });
 
 // update an expense record
 app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
   console.log(request.body);
-  response.send(request.body);
+  response.send();
 });
 
 app.post('/api/login', (request, response) => {
   database.userLogin(request.body);
   console.log(request.body);
-  response.end(request.body);
+  response.end();
 });
 
 app.post('/api/users', (request, response) => {
@@ -106,7 +106,7 @@ app.post('/api/users', (request, response) => {
 app.put('/api/users', (request, response) => {
   database.userUpdate(request.body);
   console.log(request.body);
-  response.end(request.body);
+  response.end();
 });
 
 // Serves HTML file for React Router
