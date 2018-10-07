@@ -46,7 +46,7 @@ const Loan = sequelize.define('loan', {
   minimumPayment: Sequelize.INTEGER, // minimum payment to not get penalty
   actualPayment: Sequelize.INTEGER, // if you paid minimum payment or more than the minimum payment 
   balance: Sequelize.INTEGER, // balance on card/loan
-  dueDate: Sequelize.DATE, // date payment is due
+  dayBillDue: Sequelize.STRING, // day bill is due
   paymentDate: Sequelize.DATE, // when you made payment
   apr: Sequelize.INTEGER, // interest on card/laod
   autopay: Sequelize.BOOLEAN, // is autopay setup or not
@@ -138,10 +138,12 @@ const updateExpense = (bill) => {
   })
 }
 
-// Expense.belongsTo(User);
-// User.hasMany(Expense);
-//   double-check associations
-// User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
+Loan.belongsTo(User);
+User.hasMany(Loan, {foreignKey: 'userId', sourceKey: 'id'});
+
+
+Expense.belongsTo(User);
+User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
 sequelize
   .authenticate()

@@ -17,6 +17,7 @@ class SignUp extends Component {
     }
 
     onSubmitHandler (event) {
+        event.preventDefault();
         console.log('hello');
         fetch('/api/users', {
             method: 'POST',
@@ -24,11 +25,6 @@ class SignUp extends Component {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(this.state)
-        }).then(data => {
-            for(var state in this.state) {
-                this.onChange({target: {name: state, value: ''}});
-            }
-            event.preventDefault();
         });
     }
 
