@@ -118,16 +118,16 @@ app.put('/api/users', (request, response) => {
 });
 
 app.get('/api/lists', (request, response) => {
-};
+});
 
 app.post('/api/lists', (request, response) => {
-};
+});
 
 app.put('/api/lists', (request, response) => {
-};
+});
 
 app.delete('/api/lists', (request, response) => {
-};
+});
 
 // Serves HTML file for React Router
 app.get('/*', (req, res) => {
