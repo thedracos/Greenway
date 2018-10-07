@@ -79,7 +79,7 @@ AddExpense.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  expense: state.expenses.expense
+  expense: state.store.expense
 })
 
 export default withRouter(connect(mapStateToProps, { createExpense })(AddExpense));
