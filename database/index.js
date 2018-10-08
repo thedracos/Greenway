@@ -52,7 +52,7 @@ const userLogin = (params, callback) => {
     if (record) {
       // if there's a match, record is a big object
       // with more info than we want to send back
-      callback(record.dataValues.name);
+      callback(record.dataValues.id);
     } else {
       callback(null);
     }

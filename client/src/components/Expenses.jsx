@@ -29,7 +29,7 @@ class Expenses extends Component {
     }
     this.updateExpense = this.updateExpense.bind(this);
   }
-  
+
   componentWillMount() {
     this.props.fetchExpenses();
   }
@@ -54,7 +54,7 @@ class Expenses extends Component {
       editExpense: editExpense
     })
   }
-  
+
   render() {
     return (
       <Router>
