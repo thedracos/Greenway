@@ -1,14 +1,25 @@
+import moment from 'moment';
 import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from './types';
 
-export function fetchExpenses() {
+export function fetchCurrentMonthExpenses(userId, date) {
   console.log('fetching from actions');
   return function(dispatch) {
-    fetch('/api/expenses')
-      .then(res => res.json())
-      .then(expenses => dispatch({
-        type: GET_EXPENSES,
-        payload: expenses
-      }));
+    const currentMonthUserExpenses = {
+      userId: userId,
+      currentMonth: date
+    }
+    fetch('/api/user/expenses', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(currentMonthUserExpenses)
+    })
+    .then(res => res.json())
+    .then(expenses => dispatch({
+      type: GET_EXPENSES,
+      payload: expenses
+    }));
   }
 }
 

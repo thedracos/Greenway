@@ -114,7 +114,7 @@ const userUpdate = (params) => {
 };
 
 const getExpenses = (params) => Expense.findAll({
-  where: { username: params.username},
+  where: { userId: params.userId},
   order: [['cost', 'DESC']]
 });
 
