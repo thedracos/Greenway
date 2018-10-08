@@ -67,7 +67,7 @@ const userLogin = (params, callback) => {
       // with more info than we want to send back
 
       // console.log('matched username in db: ', matchedName);
-      callback(record.dataValues.name);
+      callback(record.dataValues.id);
       // callback(matchedName);
     } else {
       // console.log('this record should be null: ', {name: record});
@@ -114,17 +114,22 @@ const userUpdate = (params) => {
 };
 
 const getExpenses = (params) => Expense.findAll({
-  //where: { username },
-  // if (params.username) {...
-  // if (params.expense) {...
+  where: { 
+    userId: params.userId, 
+    date: {
+      $gte: params.currentMonth,
+      $lte: params.nextMonth
+    }
+  },
   order: [['cost', 'DESC']]
 });
 
 const saveExpense = (bill) => {
   console.log('saving expenses to db', bill);
-  const { expense, cost, category, frequency, date } = bill;
+  const { userId, expense, cost, category, frequency, date } = bill;
+  User.find({})
   Expense.upsert({
-    expense, cost, category, frequency, date
+    userId, expense, cost, category, frequency, date
   })
   .then(() => {
     console.log('successfully saved data into db');

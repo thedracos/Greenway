@@ -15,7 +15,6 @@ class Login extends Component {
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onRegister = this.onRegister.bind(this);
-    this.toggleIsLoggedIn = this.toggleIsLoggedIn.bind(this);
   }
 
   onSubmitHandler(e) {
@@ -28,17 +27,11 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.username) {
+    if (nextProps.userId) {
       this.props.history.push("/home");
     } else {
       alert('Incorrect Username and Password. Please refresh and try again');
     }
-  }
-
-  toggleIsLoggedIn() {
-    this.setState({
-      isLoggedIn: !isLoggedIn
-    })
   }
 
   onChangeHandler(e) {
@@ -52,9 +45,6 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.isLoggedIn) {
-      return <Redirect to="/home" />
-    }
     return (
       <div>
         <h1>Slytherin</h1>
@@ -79,7 +69,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    username: state.store.userInfo.username
+    userId: state.store.userInfo.userId
   }
 }
 
