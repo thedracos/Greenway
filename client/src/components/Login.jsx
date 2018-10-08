@@ -15,7 +15,6 @@ class Login extends Component {
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onRegister = this.onRegister.bind(this);
-    this.toggleIsLoggedIn = this.toggleIsLoggedIn.bind(this);
   }
 
   onSubmitHandler(e) {
@@ -35,12 +34,6 @@ class Login extends Component {
     }
   }
 
-  toggleIsLoggedIn() {
-    this.setState({
-      isLoggedIn: !isLoggedIn
-    })
-  }
-
   onChangeHandler(e) {
     this.setState({
       [e.target.name] : e.target.value
@@ -52,9 +45,6 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.isLoggedIn) {
-      return <Redirect to="/home" />
-    }
     return (
       <div>
         <h1>Slytherin</h1>
