@@ -36,7 +36,8 @@ class Expenses extends Component {
   
   componentWillMount() {
     const currentMonth = moment().format('YYYY-MM');
-    this.props.fetchCurrentMonthExpenses(this.props.userId, currentMonth);
+    const nextMonth = moment(currentMonth).add(1, 'months').calendar();
+    this.props.fetchCurrentMonthExpenses(this.props.userId, currentMonth, nextMonth);
   }
 
   componentDidUpdate() {
@@ -96,7 +97,7 @@ class Expenses extends Component {
             <th>Category</th>
             <th>Frequency</th>
             <th>Date</th>
-            <th>Edit/Delete</th>
+            <th>Delete</th>
           </tr>
           {this.props.expenses.map(expense => {
             return (
@@ -105,9 +106,9 @@ class Expenses extends Component {
                 <td>{`$${expense.cost}`}</td>
                 <td>{expense.category}</td>
                 <td>{expense.frequency}</td>
-                <td>{moment(expense.date).format('MMM YYYY')}</td>
+                <td>{moment(expense.date).format('L')}</td>
                 <td>
-                  <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
+                  {/* <button onClick={() => {this.updateExpense(expense)}}>Edit</button> */}
                   <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
                 </td>
               </tr>

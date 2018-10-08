@@ -1,12 +1,13 @@
 import moment from 'moment';
 import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from './types';
 
-export function fetchCurrentMonthExpenses(userId, date) {
+export function fetchCurrentMonthExpenses(userId, startDate, endDate) {
   console.log('fetching from actions');
   return function(dispatch) {
     const currentMonthUserExpenses = {
       userId: userId,
-      currentMonth: date
+      currentMonth: startDate,
+      nextMonth: endDate
     }
     fetch('/api/user/expenses', {
       method: 'POST',
