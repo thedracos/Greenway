@@ -9,7 +9,6 @@ class AddExpense extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
       expense: '',
       cost: '',
       category: '',
@@ -30,7 +29,7 @@ class AddExpense extends Component {
       alert('Please Complete All Forms');
     } else {
       const newExpense = {
-        user: this.state.user,
+        userId: this.props.userId,
         expense: this.state.expense,
         cost: this.state.cost,
         category: this.state.category,
@@ -75,11 +74,13 @@ class AddExpense extends Component {
 
 AddExpense.propTypes = {
   createExpense: PropTypes.func.isRequired,
-  expense: PropTypes.object.isRequired
+  expense: PropTypes.object.isRequired,
+  userId: PropTypes.number.isRequired
 }
 
 const mapStateToProps = state => ({
-  expense: state.store.expense
+  expense: state.store.expense,
+  userId: state.store.userInfo.userId
 })
 
 export default withRouter(connect(mapStateToProps, { createExpense })(AddExpense));
