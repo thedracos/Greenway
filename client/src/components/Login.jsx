@@ -28,7 +28,7 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.username) {
+    if (nextProps.userId) {
       this.props.history.push("/home");
     } else {
       alert('Incorrect Username and Password. Please refresh and try again');
@@ -79,7 +79,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    username: state.store.userInfo.username
+    userId: state.store.userInfo.userId
   }
 }
 
