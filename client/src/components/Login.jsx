@@ -24,8 +24,15 @@ class Login extends Component {
       name: this.state.name,
       password: this.state.password
     }
-    console.log(verifyUser);
     this.props.verifyUser(user);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.username) {
+      this.props.history.push("/home");
+    } else {
+      alert('Incorrect Username and Password. Please refresh and try again');
+    }
   }
 
   toggleIsLoggedIn() {
@@ -71,9 +78,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
-    username: state.username
+    username: state.store.userInfo.username
   }
 }
 

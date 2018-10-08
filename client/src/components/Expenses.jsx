@@ -105,8 +105,8 @@ Expenses.propTypes = {
 //and defines our state to the data we want to use
 const mapStateToProps = state => {
   return {
-    expenses: state.expenses.expenses,
-    expense: state.expenses.expense
+    expenses: state.store.expenses,
+    //expense: state.store.expense
   }
 };
 
