@@ -73,7 +73,8 @@ class AddExpense extends Component {
             Category: <br/>
             <select name="category" onChange={this.onChange} required>
               <option>{'Selection'}</option>
-              <option>{'Rent/Utilities'}</option>
+              <option>{'Rent/Mortgage'}</option>
+              <option>{'Utilities'}</option>
               <option>{'Transportation'}</option>
               <option>{'Groceries'}</option>
               <option>{'Dining Out'}</option>
