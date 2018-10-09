@@ -44,7 +44,7 @@ ListItem.belongsTo(User);
 User.hasMany(ListItem, {foreignKey: 'userId', sourceKey: 'id'});
 
 const userLogin = (params, callback) => {
-  console.log('logging in ', params);
+  // console.log('logging in ', params);
   const { name, password } = params;
   User.findOne({ where: {name: name, password: password} })
   .then(record => {
@@ -62,39 +62,61 @@ const userLogin = (params, callback) => {
 // User
 
 const userSignup = (params) => {
-  console.log('saving user to db ', params);
+  // console.log('saving user to db ', params);
   const { name, password, income, frequency, date } = params;
   User.findOrCreate({
     name, password, income, frequency, date,
     where: { name: !name }
   })
-  .then(() => { console.log('stored new user') });
+  // .then(() => { console.log('Stored new user') });
 };
 
 const saveUser = (params) => {
-  console.log('saving user to db', params);
+  // console.log('Saving user to db', params);
   const { name, password, income, frequency, date } = params;
   User.upsert({name, password, income, frequency, date})
-  .then(() => {
-    console.log('succesfully saved data into db');
-  })
+  // .then(() => {
+  //   console.log('Successfully saved data into db');
+  // })
   .catch(err => {
-    console.log('Error while saving new user. Line 69 index.js in database folder: ', err);
+    console.log('Error storing new user to db: ', err);
   })
 }
 
-const userUpdate = (params) => {
-  console.log('finish function to update user record ', params);
-  const { id, name, password, income } = params;
-  // this is creating a new record
-  // next step is to update the existing record
-  User.upsert({name, password, income, where: {id: id}})
-  .then(() => {
-    console.log('successfully updated db');
-  })
-  .catch(err => {
-    console.log('Error while updating user. Line 94 db/index.js: ', err);
-  })
+const userUpdate = (params, callback) => {
+  // these are split out because all update fields are optional
+  // and we don't want to overwrite good data with empty strings
+  // - there's probably a better way
+  if (params.name) {
+    User.update({ name: params.name }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated name record');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated name to db ', err);
+    });
+  }
+  if (params.income) {
+    User.update({ income: params.income }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated income record');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated income to db ', err);
+    });
+  }
+  if (params.password) {
+    User.update({ password: params.password }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated password');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated password to db ', err);
+    });
+  }
+  // since no fields are required to update,
+  // we'll finish with a callback instead of the .thens
+  callback(params.id);
 };
 
 // Expense
@@ -107,18 +129,18 @@ const getExpenses = (params) => Expense.findAll({
 });
 
 const saveExpense = (bill) => {
-  console.log('saving expenses to db', bill);
+  console.log('Saving expense to db', bill);
   const { expense, cost, category, frequency, date } = bill;
   Expense.upsert({
     expense, cost, category, frequency, date
   })
   .then(() => {
-    console.log('successfully saved data into db');
+    console.log('Successfully saved data into db');
   })
 };
 
 const deleteExpense = (bill) => {
-  console.log('deleting expense from db', bill);
+  console.log('Deleting expense in db', bill);
   Expense.destroy({
     where: {
       id: bill.id

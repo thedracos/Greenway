@@ -71,59 +71,54 @@ app.get('/api/expenses', (request, response) => {
 
 // store a new expense record
 app.post('/api/expenses', (request, response) => {
-  console.log(request.body);
+  // console.log(request.body);
   database.saveExpense(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
   response.send();
 });
 
 // remove an expense record
 app.delete('/api/expenses', (request, response) => {
   database.deleteExpense(request.body);
-  console.log(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
   response.send();
 });
 
 // update an expense record
 app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
-  console.log(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
   response.send();
 });
 
 app.post('/api/login', (request, response) => {
-  // console.log(request.body);
   database.userLogin(request.body, function(record) {
     const userInfo = {
       username: record
     }
-    console.log('userInfo', userInfo);
     response.send(userInfo);
   });
-  // .then(() => {
-  //   console.log('server 95 ');
-  // });
 });
 
 app.post('/api/users', (request, response) => {
   database.saveUser(request.body)
-  .then(data => console.log(data));
-  // console.log(request.body);
-  response.end();
+  .then(data => {
+    response.end();
+  });
 });
 
 app.put('/api/users/update', (request, response) => {
-  console.log('server ', request.body);
-  const updates = { id: request.body.user };
-  if (request.body.newName) { updates.name = request.body.newName; }
-  if (request.body.newPass) { updates.password = request.body.newPass; }
-  if (request.body.newIncome) { updates.income = request.body.newIncome; }
-  console.log('updates ', updates);
-  database.userUpdate(updates, function(record) {
-    console.log('server record from db ', record);
-    const updatedInfo = {
-    };
-  console.log('updatedInfo ', updatedInfo);
-  response.end(updatedInfo);
+  const updateData = { id: request.body.user };
+  if (request.body.newName) { updateData.name = request.body.newName; }
+  if (request.body.newPass) { updateData.password = request.body.newPass; }
+  if (request.body.newIncome) { updateData.income = request.body.newIncome; }
+  database.userUpdate(updateData, function(record) {
+    // we could pass the id back but the front end already has it
+    // for now, we'll just end the response
+    response.end();
   });
 });
 

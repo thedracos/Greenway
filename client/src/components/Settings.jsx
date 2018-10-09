@@ -21,8 +21,6 @@ class Settings extends Component {
   }
 
   onSubmitHandler (event) {
-    console.log('hello');
-    console.log(this.state);
     fetch('/api/users/update', {
       method: 'PUT',
       headers: {
@@ -32,7 +30,6 @@ class Settings extends Component {
     })
     event.preventDefault();
     this.props.history.push("/signup");
-    console.log('Your updates have been stored');
   }
 
   onChangeHandler(event) {
