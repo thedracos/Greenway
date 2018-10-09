@@ -111,10 +111,13 @@ app.post('/api/users', (request, response) => {
   response.end();
 });
 
-app.put('/api/users', (request, response) => {
-  database.userUpdate(request.body);
-  console.log(request.body);
-  response.end();
+app.put('/api/users/update', (request, response) => {
+  database.userUpdate(request.body, function(record) {
+    const updatedInfo = {
+    }
+  console.log('updatedInfo ', updatedInfo);
+  response.end(updatedInfo);
+  });
 });
 
 app.get('/api/lists', (request, response) => {

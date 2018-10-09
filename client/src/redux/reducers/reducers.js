@@ -1,4 +1,4 @@
-import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from '../actions/types';
+import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER, UPDATE_USER } from '../actions/types';
 
 const initialState = {
   expenses: [],
@@ -33,7 +33,15 @@ export default function(state = initialState, action) {
         ...state,
         userInfo: action.payload
       }
-    default: 
+    case UPDATE_USER:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        userInfo: action.payload
+        // object containing id, income
+        // maybe need password too, frequency, date
+      }
+    default:
       return state;
   }
 }

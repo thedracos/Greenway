@@ -15,7 +15,6 @@ const Root = ({ store }) => {
           <Route exact path="/" component={Login} />
           <Route path="/home" component={App} />
           <Route path="/signup" component={SignUp} />
-
         </div>
       </Router>
     </Provider>
