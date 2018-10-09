@@ -112,9 +112,16 @@ app.post('/api/users', (request, response) => {
 });
 
 app.put('/api/users/update', (request, response) => {
-  database.userUpdate(request.body, function(record) {
+  console.log('server ', request.body);
+  const updates = { id: request.body.user };
+  if (request.body.newName) { updates.name = request.body.newName; }
+  if (request.body.newPass) { updates.password = request.body.newPass; }
+  if (request.body.newIncome) { updates.income = request.body.newIncome; }
+  console.log('updates ', updates);
+  database.userUpdate(updates, function(record) {
+    console.log('server record from db ', record);
     const updatedInfo = {
-    }
+    };
   console.log('updatedInfo ', updatedInfo);
   response.end(updatedInfo);
   });

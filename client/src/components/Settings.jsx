@@ -7,6 +7,7 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: props.user,
       newName: '',
       newPass: '',
       newIncome: ''
@@ -20,7 +21,8 @@ class Settings extends Component {
   }
 
   onSubmitHandler (event) {
-    console.log('hello')
+    console.log('hello');
+    console.log(this.state);
     fetch('/api/users/update', {
       method: 'PUT',
       headers: {
@@ -36,7 +38,7 @@ class Settings extends Component {
   onChangeHandler(event) {
     this.setState({
       [event.target.name] : event.target.value
-    }, () => console.log(this.state));
+    });
   }
 
   confirmPasswordChangeHandler(event) {

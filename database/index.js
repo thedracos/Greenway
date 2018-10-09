@@ -85,7 +85,16 @@ const saveUser = (params) => {
 
 const userUpdate = (params) => {
   console.log('finish function to update user record ', params);
-  // lower priority after login and signup are connected
+  const { id, name, password, income } = params;
+  // this is creating a new record
+  // next step is to update the existing record
+  User.upsert({name, password, income, where: {id: id}})
+  .then(() => {
+    console.log('successfully updated db');
+  })
+  .catch(err => {
+    console.log('Error while updating user. Line 94 db/index.js: ', err);
+  })
 };
 
 // Expense
