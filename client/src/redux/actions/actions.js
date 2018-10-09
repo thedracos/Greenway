@@ -4,12 +4,15 @@ import { GET_MONTH_EXPENSES, GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_U
 export function fetchExpenses(userId) {
   console.log('fetching all expenses from actions');
   return function(dispatch) {
+    const userInfo = {
+      userId: userId
+    }
     fetch('/api/user/expenses', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(userId)
+      body: JSON.stringify(userInfo)
     })
     .then(res => res.json())
     .then(expenses => dispatch({

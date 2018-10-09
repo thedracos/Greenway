@@ -118,6 +118,12 @@ const userUpdate = (params) => {
 };
 
 const getExpenses = (params) => Expense.findAll({
+  where: {
+    userId: params.userId
+  }
+})
+
+const getMonthExpenses = (params) => Expense.findAll({
   where: { 
     userId: params.userId, 
     date: {
@@ -185,6 +191,7 @@ module.exports.userUpdate = userUpdate;
 module.exports.userLogin = userLogin;
 module.exports.userSignup = userSignup;
 module.exports.getExpenses = getExpenses;
+module.exports.getMonthExpenses = getMonthExpenses;
 module.exports.saveExpense = saveExpense;
 module.exports.deleteExpense = deleteExpense;
 module.exports.updateExpense = updateExpense;

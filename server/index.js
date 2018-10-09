@@ -70,7 +70,7 @@ app.post('/api/user/expenses', (request, response) => {
 });
 
 app.post('/api/user/monthExpenses', (request, response) => {
-  database.getExpenses(request.body)
+  database.getMonthExpenses(request.body)
   .then(data => {
     response.send(data);
   })
