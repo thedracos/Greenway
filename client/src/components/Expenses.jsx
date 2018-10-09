@@ -42,7 +42,7 @@ class Expenses extends Component {
     this.props.fetchCurrentMonthExpenses(this.props.userId, currentMonth, nextMonth);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevState) {
     if (this.state.currentMonth !== prevState.currentMonth) {
       const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM');
       const followingSelectedMonth = moment(selectedMonth).add(1, 'months').calendar();
