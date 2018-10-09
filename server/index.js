@@ -69,6 +69,13 @@ app.post('/api/user/expenses', (request, response) => {
   })
 });
 
+app.post('/api/user/monthExpenses', (request, response) => {
+  database.getExpenses(request.body)
+  .then(data => {
+    response.send(data);
+  })
+});
+
 // store a new expense record
 app.post('/api/expenses', (request, response) => {
   console.log(request.body);

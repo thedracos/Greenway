@@ -1,7 +1,8 @@
-import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from '../actions/types';
+import { GET_MONTH_EXPENSES, GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from '../actions/types';
 
 const initialState = {
   expenses: [],
+  monthExpenses: [],
   expense: {},
   userInfo: {}
 }
@@ -21,6 +22,13 @@ export default function(state = initialState, action) {
         ...state,
         expenses: action.payload
       }
+    case GET_MONTH_EXPENSES:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        monthExpenses: action.payload
+      }
+
     case DELETE_EXPENSE:
     console.log(`${action.type}: updating store by reducer`);
       return {

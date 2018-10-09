@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 //connects component to redux
 import { connect } from 'react-redux';
-import { fetchCurrentMonthExpenses, deleteExpense } from '../redux/actions/actions';
+import { fetchExpenses, fetchMonthExpenses, deleteExpense } from '../redux/actions/actions';
 
 //React Router
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -37,10 +37,10 @@ class Expenses extends Component {
   }
   
   componentDidMount() {
-    console.log(moment('11-08-2018').format('LLLL'));
     const currentMonth = this.state.currentMonth;
     const nextMonth = moment(currentMonth).add(1, 'months').calendar();
-    this.props.fetchCurrentMonthExpenses(this.props.userId, currentMonth, nextMonth)
+    this.props.fetchMonthExpenses(this.props.userId, currentMonth, nextMonth);
+    this.props.fetchExpenses(this.props.userId);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -80,20 +80,20 @@ class Expenses extends Component {
           <label></label>
           <select name="month" onChange={this.onChange}>
             <option>Select a Month</option>
-            <option>{moment('2018-09-09 07:00:00 +0000').format('MMM YYYY')}</option>
+            {/* <option>{moment('2018-09-09 07:00:00 +0000').format('MMM YYYY')}</option>
             <option>{moment('2018-10-09 07:00:00 +0000').format('MMM YYYY')}</option>
             <option>{moment('2018-11-09 07:00:00 +0000').format('MMM YYYY')}</option>
-            <option>{moment('2018-12-09 07:00:00 +0000').format('MMM YYYY')}</option>
-            {/* {uniq(this.props.expenses.map(expense => {
+            <option>{moment('2018-12-09 07:00:00 +0000').format('MMM YYYY')}</option> */}
+            {uniq(this.props.monthExpenses.map(expense => {
               return (<option>{moment(expense.date).format('MMM YYYY')}</option>)
-            }))} */}
+            }))}
           </select>
           <h3>{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
           Income: {`$${this.props.income}`}<br />
-          Expenses: {`$${this.props.expenses.reduce((total, expense) => {
+          Expenses: {`$${this.props.monthExpenses.reduce((total, expense) => {
             return total + expense.cost;
           }, 0)}`}<br />
-          Remainder: {`$${this.props.income - this.props.expenses.reduce((total, expense) => {
+          Remainder: {`$${this.props.income - this.props.monthExpenses.reduce((total, expense) => {
             return total + expense.cost;
           }, 0)}`}<br /><br />
           <tr>
@@ -104,7 +104,7 @@ class Expenses extends Component {
             <th>Date</th>
             <th>Delete</th>
           </tr>
-          {this.props.expenses.map(expense => {
+          {this.props.monthExpenses.map(expense => {
             return (
               <tr>
                 <td>{expense.expense}</td>
@@ -128,9 +128,10 @@ class Expenses extends Component {
 }
 
 Expenses.propTypes = {
-  fetchCurrentMonthExpenses: PropTypes.func.isRequired,
+  fetchMonthExpenses: PropTypes.func.isRequired,
   deleteExpense: PropTypes.func.isRequired,
   expenses: PropTypes.array.isRequired,
+  monthExpenses: PropTypes.array.isRequired,
   userId: PropTypes.number.isRequired,
   income: PropTypes.number.isRequired
   //expense: PropTypes.object.isRequired
@@ -140,6 +141,7 @@ Expenses.propTypes = {
 //and defines our state to the data we want to use
 const mapStateToProps = state => {
   return {
+    monthExpenses: state.store.monthExpenses,
     expenses: state.store.expenses,
     userId: state.store.userInfo.userId,
     income: state.store.userInfo.income
@@ -148,4 +150,4 @@ const mapStateToProps = state => {
 };
 
 //https://reacttraining.com/react-router/web/guides/redux-integration
-export default withRouter(connect(mapStateToProps, { fetchCurrentMonthExpenses, deleteExpense })(Expenses));
+export default withRouter(connect(mapStateToProps, { fetchExpenses, fetchMonthExpenses, deleteExpense })(Expenses));
