@@ -67,7 +67,7 @@ class AddExpense extends Component {
           </div>
           <div>
             <label>Cost: </label><br />
-            $<input type="text" name="cost" onChange={this.onChange} required/>
+            $<input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="e.g. 1000.00" required/>
           </div>
           <div>
             Category: <br/>
