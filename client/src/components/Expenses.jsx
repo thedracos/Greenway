@@ -20,7 +20,8 @@ class Expenses extends Component {
     super(props);
     this.state = {
       bills: 1700,
-      currentMonth : moment().format('YYYY-MM')
+      currentMonth : moment().format('YYYY-MM'),
+      uniqueDates: []
     }
     //   
     //   // editExpense: {
@@ -34,6 +35,18 @@ class Expenses extends Component {
     // }
     this.updateExpense = this.updateExpense.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.getUniqueDates = this.getUniqueDates.bind(this);
+  }
+
+  getUniqueDates(array) {
+    console.log('func was called');
+    let allDates = array.map((expense) => {
+      return moment(expense.date).format('MMM YYYY');
+    });
+    let uniqueDates = uniq(allDates);
+    this.setState({
+      uniqueDates
+    });
   }
   
   componentDidMount() {
@@ -44,10 +57,15 @@ class Expenses extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log('prevProps', prevProps);
+    console.log('prevState', prevState);
     if (this.state.currentMonth !== prevState.currentMonth) {
       const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM');
       const followingSelectedMonth = moment(selectedMonth).add(1, 'months').calendar();
-      this.props.fetchCurrentMonthExpenses(this.props.userId, selectedMonth, followingSelectedMonth);
+      this.props.fetchMonthExpenses(this.props.userId, selectedMonth, followingSelectedMonth);
+    }
+    if (this.props.expenses.length > 0 && this.state.uniqueDates.length === 0) {
+      this.getUniqueDates(this.props.expenses);
     }
   }
 
@@ -80,13 +98,9 @@ class Expenses extends Component {
           <label></label>
           <select name="month" onChange={this.onChange}>
             <option>Select a Month</option>
-            {/* <option>{moment('2018-09-09 07:00:00 +0000').format('MMM YYYY')}</option>
-            <option>{moment('2018-10-09 07:00:00 +0000').format('MMM YYYY')}</option>
-            <option>{moment('2018-11-09 07:00:00 +0000').format('MMM YYYY')}</option>
-            <option>{moment('2018-12-09 07:00:00 +0000').format('MMM YYYY')}</option> */}
-            {uniq(this.props.monthExpenses.map(expense => {
-              return (<option>{moment(expense.date).format('MMM YYYY')}</option>)
-            }))}
+            {this.state.uniqueDates.map((date) => {
+              return <option>{date}</option>
+            })}
           </select>
           <h3>{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
           Income: {`$${this.props.income}`}<br />
