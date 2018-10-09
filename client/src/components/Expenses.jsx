@@ -19,16 +19,15 @@ class Expenses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      income: 2000,
       bills: 1700,
-      editExpense: {
-        id: 5,
-        expense: 'Buffalo Wild Wings',
-        cost: 20,
-        category: 'Food',
-        frequency: 'Once',
-        date: '10/02/18'
-      }
+      // editExpense: {
+      //   id: 5,
+      //   expense: 'Buffalo Wild Wings',
+      //   cost: 20,
+      //   category: 'Food',
+      //   frequency: 'Once',
+      //   date: '10/02/18'
+      // }
     }
     this.updateExpense = this.updateExpense.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -88,9 +87,9 @@ class Expenses extends Component {
             }))}
           </select>
           <h3>{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
-          Income: {this.state.income}<br />
+          Income: {`$${this.props.income}`}<br />
           Expenses: {this.state.bills}<br />
-          Remainder: {this.state.income - this.state.bills}<br /><br />
+          Remainder: {this.props.income - this.state.bills}<br /><br />
           <tr>
             <th>Expense</th>
             <th>Cost</th>
@@ -126,17 +125,18 @@ Expenses.propTypes = {
   fetchCurrentMonthExpenses: PropTypes.func.isRequired,
   deleteExpense: PropTypes.func.isRequired,
   expenses: PropTypes.array.isRequired,
-  userId: PropTypes.number.isRequired
+  userId: PropTypes.number.isRequired,
+  income: PropTypes.number.isRequired
   //expense: PropTypes.object.isRequired
 }
 
 //Similar to setState within this component, grabs contents in store
 //and defines our state to the data we want to use
 const mapStateToProps = state => {
-  console.log(state)
   return {
     expenses: state.store.expenses,
-    userId: state.store.userInfo.userId
+    userId: state.store.userInfo.userId,
+    income: state.store.userInfo.income
     //expense: state.store.expense
   }
 };

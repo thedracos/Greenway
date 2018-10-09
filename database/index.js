@@ -67,7 +67,11 @@ const userLogin = (params, callback) => {
       // with more info than we want to send back
 
       // console.log('matched username in db: ', matchedName);
-      callback(record.dataValues.id);
+      const userInfo = {
+        userId: record.dataValues.id,
+        income: record.dataValues.income
+      }
+      callback(userInfo);
       // callback(matchedName);
     } else {
       // console.log('this record should be null: ', {name: record});
