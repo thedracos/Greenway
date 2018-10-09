@@ -37,12 +37,13 @@ class Expenses extends Component {
   }
   
   componentDidMount() {
+    console.log(moment('11-08-2018').format('LLLL'));
     const currentMonth = this.state.currentMonth;
     const nextMonth = moment(currentMonth).add(1, 'months').calendar();
-    this.props.fetchCurrentMonthExpenses(this.props.userId, currentMonth, nextMonth);
+    this.props.fetchCurrentMonthExpenses(this.props.userId, currentMonth, nextMonth)
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.currentMonth !== prevState.currentMonth) {
       const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM');
       const followingSelectedMonth = moment(selectedMonth).add(1, 'months').calendar();
@@ -89,8 +90,12 @@ class Expenses extends Component {
           </select>
           <h3>{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
           Income: {`$${this.props.income}`}<br />
-          Expenses: {this.state.bills}<br />
-          Remainder: {this.props.income - this.state.bills}<br /><br />
+          Expenses: {`$${this.props.expenses.reduce((total, expense) => {
+            return total + expense.cost;
+          }, 0)}`}<br />
+          Remainder: {`$${this.props.income - this.props.expenses.reduce((total, expense) => {
+            return total + expense.cost;
+          }, 0)}`}<br /><br />
           <tr>
             <th>Expense</th>
             <th>Cost</th>
