@@ -48,27 +48,22 @@ class Settings extends Component {
 
   render() {
     return (
-      <div>
-        <h4>Update details</h4>
-        <form onSubmit={this.onSubmitHandler}>
+      <div class="settings">
+        <form class="update-form" onSubmit={this.onSubmitHandler}>
           <div>
-            <label>Update username:</label><br/>
-            <input value={this.state.newName} onChange={this.onChangeHandler} placeholder="Enter new username (optional)" type="text" name="newName" style={this.styles}/>
+            <input value={this.state.newName} onChange={this.onChangeHandler} placeholder="   Update username (optional)" type="text" name="newName" class="update-field" />
           </div><br/>
           <div>
-            <label>Update monthly income</label><br/>
-            <input value={this.state.newIncome} type="number" onChange={this.onChangeHandler} name="newIncome" min="0.00" step="0.01" placeholder="Enter updated income (optional)" style={this.styles}/>
+            <input value={this.state.newIncome} type="number" onChange={this.onChangeHandler} name="newIncome" min="0.00" step="0.01" placeholder="   Update monthly income (optional)" class="update-field" />
           </div><br/>
           <div>
-            <label>Update password:</label><br/>
-            <input name="password" value={this.state.newPass} placeholder="Update password (optional)" type="password" name="newPass" onChange={this.onChangeHandler} style={this.styles}/>
+            <input name="password" value={this.state.newPass} placeholder="   Update password (optional)" type="password" name="newPass" onChange={this.onChangeHandler} class="update-field" />
           </div><br/>
           <div>
-            <label>Re-enter updated password:</label><br/>
-            <input onChange={this.confirmPasswordChangeHandler} type="password" name="confirmPass" placeholder="Confirm password" style={this.styles}/>
+            <input onChange={this.confirmPasswordChangeHandler} type="password" name="confirmPass" placeholder="   Confirm new password" class="update-field" />
           </div><br/>
 
-          <input type="submit" value="Save changes" />
+          <input type="submit" value="Save changes" class="update-btn"/>
         </form>
       </div>
     )
