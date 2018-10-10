@@ -62,8 +62,15 @@ app.use('/graphql', expressGraphQL({
 // });
 
 // get expenses assoc to a user
-app.get('/api/expenses', (request, response) => {
-  database.getExpenses(request.username)
+app.post('/api/user/expenses', (request, response) => {
+  database.getExpenses(request.body)
+  .then(data => {
+    response.send(data);
+  })
+});
+
+app.post('/api/user/monthExpenses', (request, response) => {
+  database.getMonthExpenses(request.body)
   .then(data => {
     response.send(data);
   })
@@ -71,42 +78,85 @@ app.get('/api/expenses', (request, response) => {
 
 // store a new expense record
 app.post('/api/expenses', (request, response) => {
-  console.log(request.body);
+  // console.log(request.body);
   database.saveExpense(request.body);
-  response.send(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
+  response.send();
 });
 
 // remove an expense record
 app.delete('/api/expenses', (request, response) => {
   database.deleteExpense(request.body);
-  console.log(request.body);
-  response.send(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
+  response.send();
 });
 
 // update an expense record
 app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
-  console.log(request.body);
-  response.send(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
+  response.send();
 });
 
-app.get('/api/users', (request, response) => {
-  database.userLogin(request.body);
-  console.log(request.body);
-  response.end(request.body);
+app.post('/api/login', (request, response) => {
+  database.userLogin(request.body, function(record) {
+    // const userInfo = {
+    //   username: record
+    // }
+    console.log(record);
+    response.send(record);
+  });
 });
 
 app.post('/api/users', (request, response) => {
   database.saveUser(request.body)
-    .then(data => console.log(data));
-  // console.log(request.body);
-  response.end();
+  .then(data => {
+    response.end();
+  });
 });
 
-app.put('/api/users', (request, response) => {
-  database.userUpdate(request.body);
+app.put('/api/users/update', (request, response) => {
+  const updateData = { id: request.body.user };
+  if (request.body.newName) { updateData.name = request.body.newName; }
+  if (request.body.newPass) { updateData.password = request.body.newPass; }
+  if (request.body.newIncome) { updateData.income = request.body.newIncome; }
+  database.userUpdate(updateData, function(record) {
+    // we could pass the id back but the front end already has it
+    // for now, we'll just end the response
+    response.end();
+  });
+});
+
+// store a new loan record
+app.post('/api/loans', (request, response) => {
   console.log(request.body);
-  response.end(request.body);
+  database.saveLoan(request.body);
+});
+
+app.get('/api/loans', (request, response) => {
+  database.getLoans(request.body)
+  .then(data => {
+    let loans = data.map(loan => loan.dataValues);
+    console.log('loans', loans);
+    response.send(loans);
+  })
+});
+
+// end of loan endpoints
+
+app.get('/api/lists', (request, response) => {
+});
+
+app.post('/api/lists', (request, response) => {
+});
+
+app.put('/api/lists', (request, response) => {
+});
+
+app.delete('/api/lists', (request, response) => {
 });
 
 // Serves HTML file for React Router

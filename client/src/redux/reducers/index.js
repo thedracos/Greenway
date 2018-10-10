@@ -4,6 +4,6 @@ import reducers from './reducers';
 import { routerReducer } from 'react-router-redux'
 
 export default combineReducers({
-  expenses: reducers,
+  store: reducers,
   routing: routerReducer
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux' 
 class AddLoan extends Component {
   constructor(props) {
     super(props);
@@ -10,14 +10,21 @@ class AddLoan extends Component {
       dayBillDue: '',
       apr: '',
       autopay: false,
-      website: ''
+      website: '',
+      userId: this.props.userId
     }
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
 }
 
   onSubmitHandler (event) {
-    console.log('hello');
+    fetch('/api/user/expenses', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(this.state)
+    })
     this.setState({
       name: '',
       minimumPayment: '',
@@ -28,7 +35,7 @@ class AddLoan extends Component {
       website: ''
     });
     event.preventDefault();
-  }
+}
 
   onChangeHandler(event) {
       this.setState({
@@ -76,4 +83,8 @@ class AddLoan extends Component {
   }
 }
 
-export default AddLoan;
+const mapStateToProps = state => ({
+    userId: state.store.userInfo.userId
+})
+  
+export default connect(mapStateToProps)(AddLoan);

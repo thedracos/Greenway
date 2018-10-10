@@ -1,11 +1,6 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
 
-// below may be needed if Sequelize isn't used
-// const { Client } = require('pg');
-// const client = new Client();
-// client.connect();
-
 // localhost is not correct/complete
 const dbUrl = process.env.DB_URI || localhost;
 
@@ -14,26 +9,21 @@ const sequelize = new Sequelize(dbUrl, {
 });
 
 const User = sequelize.define('user', {
-  // will uniqueId be added by default?
-  //   make it the primary key for the expense model to associate to?
+  //  id is added by default, incrementing from 1
+  //  is it already the primary key for the expense model to associate to?
+  //  can confirm after user name is passed in with expense record
   name: Sequelize.STRING,
   password: Sequelize.STRING,
-  // salt: implement after OAuth?
+  salt: Sequelize.STRING,
   income: Sequelize.INTEGER,
   frequency: Sequelize.STRING,
   date: Sequelize.DATE
 });
 
 const Expense = sequelize.define('expense', {
-  //   this may be handled by belongsTo below
-  // user: {
-  //   type: Sequelize.INTEGER,
-  //   references: {
-  //     model: User,
-  //     key: 'id',
-  //     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-  //   }
-  // },
+  // id is added by default, incrementing from 1
+  // userId is added by default, all entries so far are null
+  //  - not passing user field into expense records yet
   expense: Sequelize.STRING,
   cost: Sequelize.INTEGER,
   category: Sequelize.STRING,
@@ -41,6 +31,7 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
+// Loan Database
 const Loan = sequelize.define('loan', {
   name: Sequelize.STRING, // card/load name
   minimumPayment: Sequelize.INTEGER, // minimum payment to not get penalty
@@ -54,69 +45,195 @@ const Loan = sequelize.define('loan', {
   website: Sequelize.STRING // website link associated to card/loan
 });
 
-const userLogin = (params) => {
-  console.log('logging in ', params);
-  const { name, password } = params;
-  User.findOne({ name, password })
-  // GraphQL will also let us confirm the password without having to return it
-  .then(() => { console.log('found user') });
-  // if user name is found,
-  // .then can include the findAll query to the Expense db?
+Loan.belongsTo(User);
+User.hasMany(Loan);
+
+const Transaction = sequelize.define('transaction', {
+  payment: Sequelize.DECIMAL, // if you paid minimum payment or more than the minimum payment 
+  paymentDate: Sequelize.DATE // when you made payment
+});
+
+Transaction.belongsTo(Loan);
+Loan.hasMany(Transaction);
+
+const saveLoan = params => {
+  console.log(params);
+  const {name, minimumPayment, balance, dayBillDue, apr, autopay, website, userId} = params;
+  console.log('in saveLoan Db')
+  Loan.create({
+    name, 
+    minimumPayment, 
+    balance, 
+    dayBillDue, 
+    apr, 
+    autopay, 
+    website,
+    userId
+  })
+  .then(() => { console.log('stored new loan') });
 };
 
+const getLoans = params => {
+  console.log("params", params)
+  return Loan.findAll();
+  // Loan.findAll({
+  //   where: {
+  //     userId : params.userId
+  //   }
+  // });
+};
+
+// End of Loan Database
+
+const ListItem = sequelize.define('listItem', {
+  listName: Sequelize.STRING,
+  itemContent: Sequelize.STRING,
+  cost: Sequelize.INTEGER
+});
+
+Expense.belongsTo(User);
+User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
+
+ListItem.belongsTo(User);
+User.hasMany(ListItem, {foreignKey: 'userId', sourceKey: 'id'});
+
+const userLogin = (params, callback) => {
+  // console.log('logging in ', params);
+  const { name, password } = params;
+  User.findOne({ where: {name: name, password: password} })
+  .then(record => {
+    // if there's no match, record is null
+    if (record) {
+      // if there's a match, record is a big object
+      // with more info than we want to send back
+      // console.log('matched username in db: ', matchedName);
+      const userInfo = {
+        userId: record.dataValues.id,
+        income: record.dataValues.income
+      }
+      callback(userInfo);
+      // callback(matchedName);
+    } else {
+      callback(null);
+    }
+  });
+};
+
+// User
+
 const userSignup = (params) => {
-  console.log('saving user to db ', params);
+  // console.log('saving user to db ', params);
   const { name, password, income, frequency, date } = params;
   User.findOrCreate({
     name, password, income, frequency, date,
     where: { name: !name }
   })
-  .then(() => { console.log('stored new user') });
+  // .then(() => { console.log('Stored new user') });
 };
 
 const saveUser = (params) => {
-  console.log('saving user to db', params);
+  // console.log('Saving user to db', params);
   const { name, password, income, frequency, date } = params;
   User.upsert({name, password, income, frequency, date})
-  .then(() => {
-    console.log('succesfully saved data into db');
-  })
+  // .then(() => {
+  //   console.log('Successfully saved data into db');
+  // })
   .catch(err => {
-    console.log('Error while saving new user. Line 69 index.js in database folder: ', err);
+    console.log('Error storing new user to db: ', err);
   })
 }
 
-const userUpdate = (params) => {
-  console.log('finish function to update user record ', params);
-  // lower priority after login and signup are connected
+const userUpdate = (params, callback) => {
+  // these are split out because all update fields are optional
+  // and we don't want to overwrite good data with empty strings
+  // - there's probably a better way
+  if (params.name) {
+    User.update({ name: params.name }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated name record');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated name to db ', err);
+    });
+  }
+  if (params.income) {
+    User.update({ income: params.income }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated income record');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated income to db ', err);
+    });
+  }
+  if (params.password) {
+    User.update({ password: params.password }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated password');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated password to db ', err);
+    });
+  }
+  // since no fields are required to update,
+  // we'll finish with a callback instead of the .thens
+  callback(params.id);
 };
 
+// Expense
+
 const getExpenses = (params) => Expense.findAll({
-  //where: { username },
-  // if (params.username) {...
-  // if (params.expense) {...
+  where: {
+    userId: params.userId
+  }
+})
+
+const getMonthExpenses = (params) => Expense.findAll({
+  where: { 
+    userId: params.userId, 
+    date: {
+      $gte: params.currentMonth,
+      $lte: params.nextMonth
+    }
+  },
   order: [['cost', 'DESC']]
 });
 
 const saveExpense = (bill) => {
-  console.log('saving expenses to db', bill);
-  const { expense, cost, category, frequency, date } = bill;
+  console.log('Saving expense to db', bill);
+  const { userId, expense, cost, category, frequency, date } = bill;
+  User.find({})
   Expense.upsert({
-    expense, cost, category, frequency, date
+    userId, expense, cost, category, frequency, date
   })
   .then(() => {
-    console.log('successfully saved data into db');
+    console.log('Successfully saved data into db');
   })
 };
 
 const deleteExpense = (bill) => {
-  console.log('deleting expense from db', bill);
+  console.log('Deleting expense in db', bill);
   Expense.destroy({
     where: {
       id: bill.id
     }
   })
 }
+
+// Loan
+
+
+
+// List
+
+// const getListNames = (params) => {};
+
+// const getListItems = (params) => {};
+
+// const addListItem = (item) => {};
+
+// const editListItem = (item) => {};
+
+// const deleteListItem = (item) => {};
 
 //For whatever reason, this is nonfunctional code. It doesn't break our code though.
 const updateExpense = (bill) => {
@@ -145,6 +262,7 @@ User.hasMany(Loan, {foreignKey: 'userId', sourceKey: 'id'});
 Expense.belongsTo(User);
 User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
+
 sequelize
   .authenticate()
   .then(() => {
@@ -160,7 +278,15 @@ module.exports.userUpdate = userUpdate;
 module.exports.userLogin = userLogin;
 module.exports.userSignup = userSignup;
 module.exports.getExpenses = getExpenses;
+module.exports.getMonthExpenses = getMonthExpenses;
 module.exports.saveExpense = saveExpense;
 module.exports.deleteExpense = deleteExpense;
 module.exports.updateExpense = updateExpense;
 module.exports.saveUser = saveUser;
+// module.exports.getListNames = getListNames;
+// module.exports.getListItems = getListItems;
+// module.exports.addListItem  = addListItem;
+// module.exports.editListItem = editListItem;
+// module.exports.deleteListItem = deleteListItem;
+module.exports.saveLoan = saveLoan;
+module.exports.getLoans = getLoans;
