@@ -98,13 +98,14 @@ body {
 .nav-btn {
   list-style-type: none;
   margin: 0;
-  padding: 14px 8px 8px 8px;
+  padding: 11px 8px 8px 8px;
   display: inline-block;
   width: 20%;
-  height: 60px;
+  height: 50px;
   text-align: center;
+  /*vertical-align: middle;*/
   background-color: #ff00b6;
-  font: 400 24px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #fff;
 }
 
