@@ -35,13 +35,10 @@ const Expense = sequelize.define('expense', {
 const Loan = sequelize.define('loan', {
   name: Sequelize.STRING, // card/load name
   minimumPayment: Sequelize.INTEGER, // minimum payment to not get penalty
-  actualPayment: Sequelize.INTEGER, // if you paid minimum payment or more than the minimum payment 
   balance: Sequelize.INTEGER, // balance on card/loan
   dayBillDue: Sequelize.STRING, // day bill is due
-  paymentDate: Sequelize.DATE, // when you made payment
   apr: Sequelize.INTEGER, // interest on card/laod
   autopay: Sequelize.BOOLEAN, // is autopay setup or not
-  paid: Sequelize.BOOLEAN, // have you made a minimum or more payment yet
   website: Sequelize.STRING // website link associated to card/loan
 });
 
@@ -76,11 +73,6 @@ const saveLoan = params => {
 const getLoans = params => {
   console.log("params", params)
   return Loan.findAll();
-  // Loan.findAll({
-  //   where: {
-  //     userId : params.userId
-  //   }
-  // });
 };
 
 // End of Loan Database
