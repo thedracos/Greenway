@@ -19,7 +19,7 @@ class Login extends Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    const user = {  
+    const user = {
       name: this.state.name,
       password: this.state.password
     }
@@ -27,6 +27,7 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     if (nextProps.userId) {
       this.props.history.push("/home");
     } else {
