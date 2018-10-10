@@ -54,7 +54,10 @@ table {
 */
 
 body {
-  background: #293f50;
+/*  background: #293f50;*/
+/*  background: #42002f;*/
+  /*background: #1e0016;*/
+  background: #160010;
   color: #888;
   font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -118,6 +121,13 @@ body {
   background-color: #ff00b6;
 }
 
+.site-head {
+  text-align: right;
+}
+
+.head-text {
+  margin: 8px 0 1px 0;
+}
 
 /*
   ================================================
@@ -557,13 +567,13 @@ table h4 {
   padding: 0;
   margin: 0;
   list-style: none;
-  
+
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  
+
   -webkit-flex-flow: row wrap;
 }
 
@@ -578,7 +588,7 @@ table h4 {
   font-size: 1em;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    
+
 }
 .flex-item:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
