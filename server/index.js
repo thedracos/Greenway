@@ -103,10 +103,11 @@ app.put('/api/expenses', (request, response) => {
 
 app.post('/api/login', (request, response) => {
   database.userLogin(request.body, function(record) {
-    const userInfo = {
-      username: record
-    }
-    response.send(userInfo);
+    // const userInfo = {
+    //   username: record
+    // }
+    console.log(record);
+    response.send(record);
   });
 });
 
