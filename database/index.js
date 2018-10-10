@@ -31,6 +31,52 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
+// Loan Database
+const Loan = sequelize.define('loan', {
+  name: Sequelize.STRING, // card/load name
+  minimumPayment: Sequelize.INTEGER, // minimum payment to not get penalty
+  balance: Sequelize.INTEGER, // balance on card/loan
+  dayBillDue: Sequelize.STRING, // day bill is due
+  apr: Sequelize.INTEGER, // interest on card/laod
+  autopay: Sequelize.BOOLEAN, // is autopay setup or not
+  website: Sequelize.STRING // website link associated to card/loan
+});
+
+Loan.belongsTo(User);
+User.hasMany(Loan);
+
+const Transaction = sequelize.define('transaction', {
+  payment: Sequelize.DECIMAL, // if you paid minimum payment or more than the minimum payment 
+  paymentDate: Sequelize.DATE // when you made payment
+});
+
+Transaction.belongsTo(Loan);
+Loan.hasMany(Transaction);
+
+const saveLoan = params => {
+  console.log(params);
+  const {name, minimumPayment, balance, dayBillDue, apr, autopay, website, userId} = params;
+  console.log('in saveLoan Db')
+  Loan.create({
+    name, 
+    minimumPayment, 
+    balance, 
+    dayBillDue, 
+    apr, 
+    autopay, 
+    website,
+    userId
+  })
+  .then(() => { console.log('stored new loan') });
+};
+
+const getLoans = params => {
+  console.log("params", params)
+  return Loan.findAll();
+};
+
+// End of Loan Database
+
 const ListItem = sequelize.define('listItem', {
   listName: Sequelize.STRING,
   itemContent: Sequelize.STRING,
@@ -201,6 +247,13 @@ const updateExpense = (bill) => {
   })
 }
 
+Loan.belongsTo(User);
+User.hasMany(Loan, {foreignKey: 'userId', sourceKey: 'id'});
+
+
+Expense.belongsTo(User);
+User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
+
 
 sequelize
   .authenticate()
@@ -227,3 +280,5 @@ module.exports.saveUser = saveUser;
 // module.exports.addListItem  = addListItem;
 // module.exports.editListItem = editListItem;
 // module.exports.deleteListItem = deleteListItem;
+module.exports.saveLoan = saveLoan;
+module.exports.getLoans = getLoans;
