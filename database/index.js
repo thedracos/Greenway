@@ -52,7 +52,13 @@ const userLogin = (params, callback) => {
     if (record) {
       // if there's a match, record is a big object
       // with more info than we want to send back
-      callback(record.dataValues.id);
+      // console.log('matched username in db: ', matchedName);
+      const userInfo = {
+        userId: record.dataValues.id,
+        income: record.dataValues.income
+      }
+      callback(userInfo);
+      // callback(matchedName);
     } else {
       callback(null);
     }
@@ -122,17 +128,28 @@ const userUpdate = (params, callback) => {
 // Expense
 
 const getExpenses = (params) => Expense.findAll({
-  //where: { username },
-  // if (params.username) {...
-  // if (params.expense) {...
+  where: {
+    userId: params.userId
+  }
+})
+
+const getMonthExpenses = (params) => Expense.findAll({
+  where: { 
+    userId: params.userId, 
+    date: {
+      $gte: params.currentMonth,
+      $lte: params.nextMonth
+    }
+  },
   order: [['cost', 'DESC']]
 });
 
 const saveExpense = (bill) => {
   console.log('Saving expense to db', bill);
-  const { expense, cost, category, frequency, date } = bill;
+  const { userId, expense, cost, category, frequency, date } = bill;
+  User.find({})
   Expense.upsert({
-    expense, cost, category, frequency, date
+    userId, expense, cost, category, frequency, date
   })
   .then(() => {
     console.log('Successfully saved data into db');
@@ -200,6 +217,7 @@ module.exports.userUpdate = userUpdate;
 module.exports.userLogin = userLogin;
 module.exports.userSignup = userSignup;
 module.exports.getExpenses = getExpenses;
+module.exports.getMonthExpenses = getMonthExpenses;
 module.exports.saveExpense = saveExpense;
 module.exports.deleteExpense = deleteExpense;
 module.exports.updateExpense = updateExpense;

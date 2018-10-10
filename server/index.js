@@ -62,8 +62,15 @@ app.use('/graphql', expressGraphQL({
 // });
 
 // get expenses assoc to a user
-app.get('/api/expenses', (request, response) => {
-  database.getExpenses(request.username)
+app.post('/api/user/expenses', (request, response) => {
+  database.getExpenses(request.body)
+  .then(data => {
+    response.send(data);
+  })
+});
+
+app.post('/api/user/monthExpenses', (request, response) => {
+  database.getMonthExpenses(request.body)
   .then(data => {
     response.send(data);
   })

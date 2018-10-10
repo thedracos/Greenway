@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createExpense } from '../redux/actions/actions';
+import moment from 'moment';
 
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
 
@@ -9,7 +10,6 @@ class AddExpense extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
       expense: '',
       cost: '',
       category: '',
@@ -30,14 +30,29 @@ class AddExpense extends Component {
       alert('Please Complete All Forms');
     } else {
       const newExpense = {
-        user: this.state.user,
+        userId: this.props.userId,
         expense: this.state.expense,
         cost: this.state.cost,
         category: this.state.category,
         frequency: this.state.frequency,
         date: this.state.date
       }
-      this.props.createExpense(newExpense);
+      if (newExpense.frequency === 'Once') {
+        this.props.createExpense(newExpense);
+      }
+      if (newExpense.frequency === 'Monthly') {
+        for (var i = 0; i < 24; i++) {
+          this.props.createExpense(newExpense);
+          newExpense.date = moment(newExpense.date).add(1, 'months');
+        }
+      }
+      if (newExpense.frequency === 'Yearly') {
+        for (var i = 0; i < 2; i++) {
+          this.props.createExpense(newExpense);
+          newExpense.date = moment(newExpense.date).add(1, 'years');
+        }
+      }
+      
     }
   }
 
@@ -48,23 +63,39 @@ class AddExpense extends Component {
         <form onSubmit={this.onSubmit}>
           <div>
             <label>Expense: </label><br />
-            <input type="text" name="expense" onChange={this.onChange} />
+            <input type="text" name="expense" onChange={this.onChange} required/>
           </div>
           <div>
             <label>Cost: </label><br />
-            $<input type="text" name="cost" onChange={this.onChange} />
+            $<input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="e.g. 1000.00" required/>
           </div>
           <div>
-            <label>Category: </label><br />
-            <input type="text" name="category" onChange={this.onChange} />
+            Category: <br/>
+            <select name="category" onChange={this.onChange} required>
+              <option>{'Selection'}</option>
+              <option>{'Rent/Mortgage'}</option>
+              <option>{'Utilities'}</option>
+              <option>{'Transportation'}</option>
+              <option>{'Groceries'}</option>
+              <option>{'Dining Out'}</option>
+              <option>{'Entertainment'}</option>
+              <option>{'Health/Fitness'}</option>
+              <option>{'Shopping'}</option>
+              <option>{'Miscellaneous'}</option>
+            </select><br />
           </div>
           <div>
-            <label>Frequency: </label><br />
-            <input type="text" name="frequency" onChange={this.onChange} />
+            Frequency: <br/>
+            <select name="frequency" onChange={this.onChange} required>
+              <option>{'Selection'}</option>
+              <option>{'Once'}</option>
+              <option>{'Monthly'}</option>
+              <option>{'Yearly'}</option>
+            </select><br />
           </div>
           <div>
             <label>Date: </label><br />
-            <input type="text" name="date" onChange={this.onChange} />
+            <input type="date" name="date" onChange={this.onChange} required />
           </div><br />
           <button type="submit">Submit</button>
         </form>
@@ -75,11 +106,13 @@ class AddExpense extends Component {
 
 AddExpense.propTypes = {
   createExpense: PropTypes.func.isRequired,
-  expense: PropTypes.object.isRequired
+  expense: PropTypes.object.isRequired,
+  userId: PropTypes.number.isRequired
 }
 
 const mapStateToProps = state => ({
-  expense: state.store.expense
+  expense: state.store.expense,
+  userId: state.store.userInfo.userId
 })
 
 export default withRouter(connect(mapStateToProps, { createExpense })(AddExpense));

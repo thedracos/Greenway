@@ -1,14 +1,47 @@
-import { GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER, UPDATE_USER } from './types';
+import moment from 'moment';
+import { GET_MONTH_EXPENSES, GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from './types';
 
-export function fetchExpenses() {
+export function fetchExpenses(userId) {
+  console.log('fetching all expenses from actions');
+  return function(dispatch) {
+    const userInfo = {
+      userId: userId
+    }
+    fetch('/api/user/expenses', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
+    })
+    .then(res => res.json())
+    .then(expenses => dispatch({
+      type: GET_EXPENSES,
+      payload: expenses
+    }))
+  }
+}
+
+export function fetchMonthExpenses(userId, startDate, endDate) {
   console.log('fetching from actions');
   return function(dispatch) {
-    fetch('/api/expenses')
-      .then(res => res.json())
-      .then(expenses => dispatch({
-        type: GET_EXPENSES,
-        payload: expenses
-      }));
+    const currentMonthUserExpenses = {
+      userId: userId,
+      currentMonth: startDate,
+      nextMonth: endDate
+    }
+    fetch('/api/user/monthExpenses', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(currentMonthUserExpenses)
+    })
+    .then(res => res.json())
+    .then(expenses => dispatch({
+      type: GET_MONTH_EXPENSES,
+      payload: expenses
+    }));
   }
 }
 
