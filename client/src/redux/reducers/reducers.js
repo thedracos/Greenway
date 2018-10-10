@@ -41,7 +41,15 @@ export default function(state = initialState, action) {
         ...state,
         userInfo: action.payload
       }
-    default: 
+    case UPDATE_USER:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        userInfo: action.payload
+        // object containing id, income
+        // maybe need password too, frequency, date
+      }
+    default:
       return state;
   }
 }

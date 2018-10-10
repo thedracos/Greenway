@@ -14,20 +14,20 @@ const App = ({ match }) => {
     <Router>
       <div>
         <h1>Slytherin</h1>
-        <ul>
-          <li>
+        <ul class="nav-bar">
+          <li class="nav-btn">
             <Link to="/home">Expenses</Link>
           </li>
-          <li>
+          <li class="nav-btn">
             <Link to="/savings">Savings</Link>
           </li>
-          <li>
+          <li class="nav-btn">
             <Link to="/loans">Loans</Link>
           </li>
-          <li>
+          <li class="nav-btn">
             <Link to="/retirement">Retirement</Link>
           </li>
-          <li>
+          <li class="nav-btn">
             <Link to="/settings">Settings</Link>
           </li>
         </ul>

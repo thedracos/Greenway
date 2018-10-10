@@ -78,43 +78,67 @@ app.post('/api/user/monthExpenses', (request, response) => {
 
 // store a new expense record
 app.post('/api/expenses', (request, response) => {
-  console.log(request.body);
+  // console.log(request.body);
   database.saveExpense(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
   response.send();
 });
 
 // remove an expense record
 app.delete('/api/expenses', (request, response) => {
   database.deleteExpense(request.body);
-  console.log(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
   response.send();
 });
 
 // update an expense record
 app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
-  console.log(request.body);
+  // if we don't tie the response in, it could send the same response
+  // even if the db action isn't successful?
   response.send();
 });
 
 app.post('/api/login', (request, response) => {
-  // console.log(request.body);
   database.userLogin(request.body, function(record) {
-    response.send(record);
+    const userInfo = {
+      username: record
+    }
+    response.send(userInfo);
   });
 });
 
 app.post('/api/users', (request, response) => {
   database.saveUser(request.body)
-  .then(data => console.log(data));
-  // console.log(request.body);
-  response.end();
+  .then(data => {
+    response.end();
+  });
 });
 
-app.put('/api/users', (request, response) => {
-  database.userUpdate(request.body);
-  console.log(request.body);
-  response.end();
+app.put('/api/users/update', (request, response) => {
+  const updateData = { id: request.body.user };
+  if (request.body.newName) { updateData.name = request.body.newName; }
+  if (request.body.newPass) { updateData.password = request.body.newPass; }
+  if (request.body.newIncome) { updateData.income = request.body.newIncome; }
+  database.userUpdate(updateData, function(record) {
+    // we could pass the id back but the front end already has it
+    // for now, we'll just end the response
+    response.end();
+  });
+});
+
+app.get('/api/lists', (request, response) => {
+});
+
+app.post('/api/lists', (request, response) => {
+});
+
+app.put('/api/lists', (request, response) => {
+});
+
+app.delete('/api/lists', (request, response) => {
 });
 
 // Serves HTML file for React Router

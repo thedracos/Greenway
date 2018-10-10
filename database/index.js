@@ -1,11 +1,6 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
 
-// below may be needed if Sequelize isn't used
-// const { Client } = require('pg');
-// const client = new Client();
-// client.connect();
-
 // localhost is not correct/complete
 const dbUrl = process.env.DB_URI || localhost;
 
@@ -26,16 +21,6 @@ const User = sequelize.define('user', {
 });
 
 const Expense = sequelize.define('expense', {
-  //   this may be handled by belongsTo below
-  // user: {
-  //   type: Sequelize.INTEGER,
-  //   references: {
-  //     model: User,
-  //     key: 'id',
-  //     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-  //   }
-  // },
-
   // id is added by default, incrementing from 1
   // userId is added by default, all entries so far are null
   //  - not passing user field into expense records yet
@@ -46,26 +31,27 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
-Expense.belongsTo(User);
-// User.hasMany(Expense);
-//   double-check associations
+const ListItem = sequelize.define('listItem', {
+  listName: Sequelize.STRING,
+  itemContent: Sequelize.STRING,
+  cost: Sequelize.INTEGER
+});
 
-// this might do it already
+Expense.belongsTo(User);
 User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
+ListItem.belongsTo(User);
+User.hasMany(ListItem, {foreignKey: 'userId', sourceKey: 'id'});
+
 const userLogin = (params, callback) => {
-  console.log('logging in ', params);
+  // console.log('logging in ', params);
   const { name, password } = params;
   User.findOne({ where: {name: name, password: password} })
-  // GraphQL will also let us confirm the password without having to return it
-
   .then(record => {
     // if there's no match, record is null
     if (record) {
-      // let matchedName = {name: record.dataValues.name};
       // if there's a match, record is a big object
       // with more info than we want to send back
-
       // console.log('matched username in db: ', matchedName);
       const userInfo = {
         userId: record.dataValues.id,
@@ -74,48 +60,72 @@ const userLogin = (params, callback) => {
       callback(userInfo);
       // callback(matchedName);
     } else {
-      // console.log('this record should be null: ', {name: record});
-      // return {name: record};
       callback(null);
     }
   });
-
-
-
-  // older notes:
-  // .then(() => {
-  //   console.log('findOne.then in db.userLogin')
-  // });
-  // if user name is found,
-  // .then can include the findAll query to the Expense db?
 };
 
+// User
+
 const userSignup = (params) => {
-  console.log('saving user to db ', params);
+  // console.log('saving user to db ', params);
   const { name, password, income, frequency, date } = params;
   User.findOrCreate({
     name, password, income, frequency, date,
     where: { name: !name }
   })
-  .then(() => { console.log('stored new user') });
+  // .then(() => { console.log('Stored new user') });
 };
 
 const saveUser = (params) => {
-  console.log('saving user to db', params);
+  // console.log('Saving user to db', params);
   const { name, password, income, frequency, date } = params;
   User.upsert({name, password, income, frequency, date})
-  .then(() => {
-    console.log('succesfully saved data into db');
-  })
+  // .then(() => {
+  //   console.log('Successfully saved data into db');
+  // })
   .catch(err => {
-    console.log('Error while saving new user. Line 69 index.js in database folder: ', err);
+    console.log('Error storing new user to db: ', err);
   })
 }
 
-const userUpdate = (params) => {
-  console.log('finish function to update user record ', params);
-  // lower priority after login and signup are connected
+const userUpdate = (params, callback) => {
+  // these are split out because all update fields are optional
+  // and we don't want to overwrite good data with empty strings
+  // - there's probably a better way
+  if (params.name) {
+    User.update({ name: params.name }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated name record');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated name to db ', err);
+    });
+  }
+  if (params.income) {
+    User.update({ income: params.income }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated income record');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated income to db ', err);
+    });
+  }
+  if (params.password) {
+    User.update({ password: params.password }, { where: { id: params.id } })
+    // .then(() => {
+    //   console.log('Updated password');
+    // })
+    .catch(err => {
+      console.warn('Error storing updated password to db ', err);
+    });
+  }
+  // since no fields are required to update,
+  // we'll finish with a callback instead of the .thens
+  callback(params.id);
 };
+
+// Expense
 
 const getExpenses = (params) => Expense.findAll({
   where: {
@@ -135,25 +145,41 @@ const getMonthExpenses = (params) => Expense.findAll({
 });
 
 const saveExpense = (bill) => {
-  console.log('saving expenses to db', bill);
+  console.log('Saving expense to db', bill);
   const { userId, expense, cost, category, frequency, date } = bill;
   User.find({})
   Expense.upsert({
     userId, expense, cost, category, frequency, date
   })
   .then(() => {
-    console.log('successfully saved data into db');
+    console.log('Successfully saved data into db');
   })
 };
 
 const deleteExpense = (bill) => {
-  console.log('deleting expense from db', bill);
+  console.log('Deleting expense in db', bill);
   Expense.destroy({
     where: {
       id: bill.id
     }
   })
 }
+
+// Loan
+
+
+
+// List
+
+// const getListNames = (params) => {};
+
+// const getListItems = (params) => {};
+
+// const addListItem = (item) => {};
+
+// const editListItem = (item) => {};
+
+// const deleteListItem = (item) => {};
 
 //For whatever reason, this is nonfunctional code. It doesn't break our code though.
 const updateExpense = (bill) => {
@@ -196,3 +222,8 @@ module.exports.saveExpense = saveExpense;
 module.exports.deleteExpense = deleteExpense;
 module.exports.updateExpense = updateExpense;
 module.exports.saveUser = saveUser;
+// module.exports.getListNames = getListNames;
+// module.exports.getListItems = getListItems;
+// module.exports.addListItem  = addListItem;
+// module.exports.editListItem = editListItem;
+// module.exports.deleteListItem = deleteListItem;

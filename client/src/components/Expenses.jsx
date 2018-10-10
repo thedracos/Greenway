@@ -48,7 +48,7 @@ class Expenses extends Component {
       uniqueDates
     });
   }
-  
+
   componentDidMount() {
     const currentMonth = this.state.currentMonth;
     const nextMonth = moment(currentMonth).add(1, 'months').calendar();
@@ -83,7 +83,7 @@ class Expenses extends Component {
       editExpense: editExpense
     })
   }
-  
+
   onChange(e) {
     this.setState({
       currentMonth: e.target.value
