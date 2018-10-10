@@ -10,29 +10,12 @@ class Savings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      remaining: 200,
-      savings: [
-        {
-          id: 1,
-          name: 'PS4',
-          amountRemaining: 220,
-        },
-        {
-          id: 2,
-          name: 'Hawaii',
-          amountRemaining: 3010,
-        },
-        {
-          id: 3,
-          name: 'Dragon Egg',
-          amountRemaining: 1120,
-        }
-      ]
+      remaining: 200
     }
   }
 
   componentDidMount() {
-    //this.props.fetchSavings(this.props.userId);
+    this.props.fetchSavings(this.props.userId);
   }
 
   render() {
@@ -48,18 +31,18 @@ class Savings extends Component {
           <th>Months Remaining</th>
           <th>Submit</th>
         </tr>
-        {this.state.savings.map(item => {
+        {this.props.savings.map(item => {
           return (
             <tr>
-              <td>{item.name}</td>
-              <td>{`$${item.amountRemaining}`}</td>
+              <td>{item.item}</td>
+              <td>{`$${item.cost}`}</td>
               <td>
                 <form>
                   <label>$</label>
                   <input type="text" name= {item.id}/>
                 </form>
               </td>
-              <td>{item.amountRemaining / 19}</td>
+              <td>{item.cost / 19}</td>
               <td><button type="submit">Save!</button></td>
             </tr>
           )

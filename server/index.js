@@ -145,6 +145,25 @@ app.get('/api/loans', (request, response) => {
   })
 });
 
+//SAVINGS 
+
+//Get all Savings
+app.post('/api/savings', (request, response) => {
+  database.getSavings(request.body)
+  .then(data => {
+    response.send(data);
+  })
+})
+
+//Post Saving
+app.post('/api/user/savings', (request, response) => {
+  console.log('this is request.body', request.body);
+  database.saveSavingItem(request.body)
+  .then(data => {
+    response.send(data);
+  })
+})
+
 // end of loan endpoints
 
 app.get('/api/lists', (request, response) => {

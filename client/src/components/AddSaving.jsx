@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-//import { createSavings } from '../redux/actions/actions';
+import { createSavings } from '../redux/actions/actions';
 
 class AddSaving extends Component {
   constructor(props) {
@@ -50,14 +50,12 @@ class AddSaving extends Component {
 }
 
 AddSaving.propTypes = {
-  createExpense: PropTypes.func.isRequired,
-  expense: PropTypes.object.isRequired,
+  createSavings: PropTypes.func.isRequired,
   userId: PropTypes.number.isRequired
 }
 
 const mapStateToProps = state => ({
-  expense: state.store.expense,
   userId: state.store.userInfo.userId
 })
 
-export default connect(mapStateToProps)(AddSaving);
+export default connect(mapStateToProps, { createSavings })(AddSaving);

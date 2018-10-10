@@ -112,7 +112,7 @@ export function fetchSavings(userId) {
     const userInfo = {
       userId: userId
     }
-    fetch('/api/user/expenses', {
+    fetch('/api/savings', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -130,7 +130,7 @@ export function fetchSavings(userId) {
 export function createSavings(newSavings) {
   console.log('creating savings from actions');
   return function(dispatch) {
-    fetch('/api/savings', {
+    fetch('/api/user/savings', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
