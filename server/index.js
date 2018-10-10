@@ -130,6 +130,23 @@ app.put('/api/users/update', (request, response) => {
   });
 });
 
+// store a new loan record
+app.post('/api/loans', (request, response) => {
+  console.log(request.body);
+  database.saveLoan(request.body);
+});
+
+app.get('/api/loans', (request, response) => {
+  database.getLoans(request.body)
+  .then(data => {
+    let loans = data.map(loan => loan.dataValues);
+    console.log('loans', loans);
+    response.send(loans);
+  })
+});
+
+// end of loan endpoints
+
 app.get('/api/lists', (request, response) => {
 });
 
