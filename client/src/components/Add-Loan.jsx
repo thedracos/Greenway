@@ -18,7 +18,7 @@ class AddLoan extends Component {
 }
 
   onSubmitHandler (event) {
-    fetch('/api/user/expenses', {
+    fetch('/api/loans', {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -41,6 +41,11 @@ class AddLoan extends Component {
       this.setState({
           [event.target.name] : event.target.value
       });
+  }
+
+  componentDidMount() {
+    console.log("from componentDidMount AddLoan",this.state.userId);
+    this.props.getLoans(this.state.userId);
   }
 
   render() {
