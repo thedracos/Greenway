@@ -4,6 +4,7 @@ import {
   ADD_EXPENSE, 
   ADD_SAVINGS, 
   GET_SAVINGS,
+  EDIT_SAVINGS,
   DELETE_EXPENSE, 
   VERIFY_USER,
 } from '../actions/types';
@@ -57,6 +58,12 @@ export default function(state = initialState, action) {
         savings: action.payload
       }
     case ADD_SAVINGS:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        savingsItem: action.payload
+      }
+    case EDIT_SAVINGS:
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
