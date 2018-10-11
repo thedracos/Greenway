@@ -158,10 +158,16 @@ app.post('/api/savings', (request, response) => {
 
 //Post Saving
 app.post('/api/user/savings', (request, response) => {
-  console.log('this is request.body', request.body);
   database.saveSavingItem(request.body)
   .then(data => {
     response.send(data);
+  })
+})
+
+app.put('/api/user/savings', (request, response) => {
+  console.log('this is request.body', request.body);
+  database.updateSavings(request.body, () => {
+    response.end();
   })
 })
 

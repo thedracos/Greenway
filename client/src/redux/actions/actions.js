@@ -5,6 +5,7 @@ import {
   ADD_EXPENSE, 
   ADD_SAVINGS, 
   GET_SAVINGS,
+  EDIT_SAVINGS,
   DELETE_EXPENSE, 
   VERIFY_USER,
 } from './types';
@@ -136,6 +137,24 @@ export function createSavings(newSavings) {
         'content-type': 'application/json'
       },
       body: JSON.stringify(newSavings)
+    })
+    .then(res => res.json())
+    .then(savings => dispatch({
+      type: ADD_SAVINGS,
+      payload: savings
+    }));
+  }
+}
+
+export function editSavings(editedItem) {
+  console.log('updating edit from actions');
+  return function(dispatch) {
+    fetch('/api/user/savings', {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(editedItem)
     })
     .then(res => res.json())
     .then(savings => dispatch({
