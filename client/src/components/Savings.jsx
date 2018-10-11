@@ -63,7 +63,7 @@ class Savings extends Component {
                   <input type="number" name="editedItem" onChange={this.onChange} />
                 </form>
               </td>
-              <td className="savings-chart gray">{item.cost / 19}</td>
+              <td className="savings-chart gray">{(item.cost / this.state.editedItem).toFixed(2) || 'Infinity'}</td>
               <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
             </tr>
           )
