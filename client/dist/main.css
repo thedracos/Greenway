@@ -234,7 +234,7 @@ h3 {
   /*vertical-align: middle;*/
 /*  background-color: #ff00b6;*/
 /*  background-color: #00ff5d;*/
-  background-color: #ede4ce;
+  background-color: #ffcc00;
 
 /*  font: 400 22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 /*  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -244,14 +244,14 @@ h3 {
 }
 
 .nav-btn:hover {
-  background-color: #ffd87c;
+  background-color: #ede4ce;
   color: #53A245;
 }
 
 .nav-bar {
   width: 100%;
   /*background-color: #ff00b6;*/
-  background-color: #ede4ce;
+  background-color: #ffd87c;
   font: 500 21px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /*color: #fff;    */
   color: #001e1e;
