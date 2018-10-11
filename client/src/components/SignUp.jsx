@@ -46,7 +46,7 @@ class SignUp extends Component {
   render () {
     return (
       <div>
-        <div className="site-head"><h3 className="head-text">Slytherin&nbsp;</h3></div>
+        <div className="site-head"><h3 className="head-text">Moneyway&nbsp;</h3></div>
         <div className="signup">
           <form onSubmit={this.onSubmitHandler}>
             <div className="signup-header">Sign up:</div>
