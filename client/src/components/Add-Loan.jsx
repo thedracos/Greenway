@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
 class AddLoan extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +45,7 @@ class AddLoan extends Component {
 
   render() {
     return (
+      <div className="add-loan">
       <form onSubmit={this.onSubmitHandler}>
         <div>
           <input value={this.state.name} onChange={this.onChangeHandler} name="name" placeholder="Card or loan name (e.g. American Express, Discover, etc)" type="text" required />
@@ -79,6 +80,7 @@ class AddLoan extends Component {
           <input type="submit" value="Submit" />
         </div>
       </form>
+      </div>
     );
   }
 }
@@ -86,5 +88,5 @@ class AddLoan extends Component {
 const mapStateToProps = state => ({
     userId: state.store.userInfo.userId
 })
-  
+
 export default connect(mapStateToProps)(AddLoan);

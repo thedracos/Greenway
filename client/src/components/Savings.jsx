@@ -21,32 +21,32 @@ class Savings extends Component {
   render() {
     return (
       <div>
-        <h2>Savings</h2>
-        Total Remaining: {`$${this.state.remaining}`}< br/>
-        < br/>
+        <div className="savings-title">Savings</div>
+        <div className="savings-total">Total Remaining: {`$${this.state.remaining}`}< br/>
+        < br/></div>
         <tr>
-          <th>Goal</th>
-          <th>Remaining</th>
-          <th>Amount Saving</th>
-          <th>Months Remaining</th>
-          <th>Submit</th>
+          <th className="gray savings-head">Goal</th>
+          <th className="gray savings-head">Remaining</th>
+          <th className="gray savings-head">Amount Saving ($)</th>
+          <th className="gray savings-head">Months Remaining</th>
+          <th className="gray savings-head"></th>
         </tr>
         {this.props.savings.map(item => {
           return (
             <tr>
-              <td>{item.item}</td>
-              <td>{`$${item.cost}`}</td>
-              <td>
-                <form>
-                  <label>$</label>
+              <td className="savings-chart">{item.item}</td>
+              <td className="savings-head">{`$${item.cost}`}</td>
+              <td className="savings-chart gray">
+                <form className="saving-amount">
                   <input type="text" name= {item.id}/>
                 </form>
               </td>
-              <td>{item.cost / 19}</td>
-              <td><button type="submit">Save!</button></td>
+              <td className="savings-chart gray">{item.cost / 19}</td>
+              <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
             </tr>
           )
         })}
+        <div className="savings-bottom"></div>
         <AddSaving />
       </div>
     )
