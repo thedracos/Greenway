@@ -772,7 +772,7 @@ table h4 {
 }
 
 .flex-item {
-  background: #34495E;
+  background: rgba(206, 169, 5, 0.363);
   padding: 5px;
   width: auto;
   margin: 10px;
@@ -786,4 +786,8 @@ table h4 {
 
 .flex-item:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+form {
+  margin: 10px;
 }
