@@ -170,6 +170,8 @@ body {
 .login-btn:hover,
 .big-btn:hover,
 .add-save-btn:hover,
+.add-exp-btn:hover,
+.loan-btn:hover,
 .reg-btn:hover {
   background: #ffd87c;
   color: #001e1e;
@@ -179,6 +181,8 @@ body {
 .login-btn:active,
 .big-btn:active,
 .add-save-btn:active,
+.add-exp-btn:active,
+.loan-btn:active,
 .reg-btn:active {
   background: #ffcc00;
   color: #001e1e;
@@ -371,6 +375,43 @@ body {
   /*padding-left: 60px;*/
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ffd87c;
+}
+
+.add-loan-header {
+  margin: 40px 0 20px 0;
+  /*padding-left: 60px;*/
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffd87c;
+}
+
+.add-loan {
+  /*margin-top: 40px;*/
+  display: flex;
+  justify-content: center;
+  /*margin-top: 20px;*/
+  /*padding: 20px 0;*/
+  margin-bottom: 40px;
+  color: #888;
+}
+
+.loan-form {
+  /*display: flex;*/
+  /*justify-content: center;*/
+}
+
+.loan-field {
+  width: 460px;
+  margin-bottom: 20px;
+}
+
+.loan-btn {
+  width: 460px;
+  margin-top: 10px;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  background: #53A245;
+  color: #001e1e;
 }
 
 input[type="date"]:before {

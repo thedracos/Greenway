@@ -39,7 +39,9 @@ class Loans extends Component {
             this.state.loans.map((loan, index) => <Loan {...loan} key={index} />)
           }
         </ul>
-        <AddLoan updateLoans={this.updateLoans} />
+        <div className="add-loan">
+        <AddLoan className="add-loan" updateLoans={this.updateLoans} />
+        </div>
       </div>
     )
   }

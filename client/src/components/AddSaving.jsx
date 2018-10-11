@@ -29,7 +29,7 @@ class AddSaving extends Component {
     return (
       <div className="add-save">
         <form onSubmit={this.onSubmit}>
-        <div className="add-save-header">Add expense:</div>
+        <div className="add-save-header">Add goal:</div>
           <div className="pad-exp">
             <label>Saving Goal: </label><br />
             <input type="text" name="item" onChange={this.onChange} required/>
