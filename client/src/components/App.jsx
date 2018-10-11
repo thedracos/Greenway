@@ -13,7 +13,7 @@ const App = ({ match }) => {
   return (
     <Router>
       <div>
-        <div class="site-head"><h3 class="head-text">Slytherin&nbsp;</h3></div>
+        <div class="site-head"><h3 class="head-text">Greenway&nbsp;</h3></div>
         <ul class="nav-bar">
           <Link to="/home">
             <li class="nav-btn">Expenses</li>

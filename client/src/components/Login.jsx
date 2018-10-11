@@ -48,7 +48,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <div className="site-head"><h3 className="head-text">Slytherin&nbsp;</h3></div>
+        <div className="site-head"><h3 className="head-text">Greenway&nbsp;</h3></div>
         <div className="login">
 
           <form className="login-form">

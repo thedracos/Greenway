@@ -94,6 +94,13 @@ body {
   color: #ffd87c;
 }
 
+.ret-header {
+  margin: 40px 0 20px 10px;
+  /*padding-left: 60px;*/
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffd87c;
+}
+
 .big-form {
   margin: 20px 0;
   padding: 20px 0;
@@ -282,7 +289,8 @@ body {
 }
 
 .exp-name {
-  margin-left: 5px;
+  margin-left: 10px;
+  padding-left: 10px;
   width: 35%;
 }
 
@@ -780,6 +788,7 @@ table h4 {
   color: white;
   font-weight: bold;
   font-size: 1em;
+  font: 500 16px/22px "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
 }
