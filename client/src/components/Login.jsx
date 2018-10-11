@@ -48,21 +48,22 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h1>Slytherin</h1>
-        <form>
-          <div>
-            Login: <br/>
-            <input value={this.state.name} type="text" name="name" placeholder="Username" onChange={this.onChangeHandler} required/>
-          </div><br/>
-          <div>
-            Password: <br/>
-            <input value={this.state.password} type="password" name="password" placeholder="Password" onChange={this.onChangeHandler} required/>
-          </div><br/>
-          <div>
-            <button type="submit" onClick={this.onSubmitHandler}>Login</button>
-            <button type="submit" onClick={this.onRegister}>Register</button>
-          </div>
-        </form>
+        <div className="site-head"><h3 className="head-text">Slytherin&nbsp;</h3></div>
+        <div className="login">
+
+          <form className="login-form">
+            <div className="login-header">Log in:</div>
+            <div>
+              <input value={this.state.name} type="text" name="name" placeholder="   Username" onChange={this.onChangeHandler} className="big-field" required/>
+            </div><br/>
+            <div>
+              <input value={this.state.password} type="password" name="password" placeholder="   Password" onChange={this.onChangeHandler} className="big-field" required/>
+            </div><br/>
+            <div className="login-btn-container">
+              <button type="submit" onClick={this.onSubmitHandler} className="login-btn">Log in</button> <div className="login-btn-space"></div><button type="submit" onClick={this.onRegister} className="reg-btn">Register</button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
