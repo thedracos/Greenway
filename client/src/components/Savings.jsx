@@ -42,7 +42,7 @@ class Savings extends Component {
   render() {
     return (
       <div>
-        <div className="savings-title">Savings</div>
+        <div className="component-title">Savings</div>
         <div className="savings-total">Total Remaining: {`$${this.state.remaining}`}< br/>
         < br/></div>
         <tr>
@@ -62,7 +62,7 @@ class Savings extends Component {
                   <input type="number" name="editedItem" onChange={this.onChange} />
                 </form>
               </td>
-              <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td>
+              <td className="savings-chart gray">{(item.cost / this.state.editedItem).toFixed(2) || 'Infinity'}</td>
               <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
             </tr>
           )

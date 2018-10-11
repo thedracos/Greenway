@@ -51,9 +51,9 @@ class AddLoan extends Component {
   render() {
     return (
       <div>
-      <div className="add-loan">
+      <div className="add-comp">
       <form className="loan-form" onSubmit={this.onSubmitHandler}>
-        <div className="add-loan-header">Add account:</div>
+        <div className="add-record-header">Add account:</div>
         <div>
           <input className="loan-field" value={this.state.name} onChange={this.onChangeHandler} name="name" placeholder=" Card or loan name (e.g. American Express, Discover, etc)" type="text" required />
         </div>

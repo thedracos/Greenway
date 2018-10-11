@@ -1,4 +1,5 @@
-/* http://meyerweb.com/eric/tools/css/reset/
+/*
+   http://meyerweb.com/eric/tools/css/reset/
    2. v2.0 | 20110126
    License: none (public domain)
 */
@@ -49,68 +50,117 @@ table {
 
 /*
   ================================================
-  Custom styles
+  Styles
   ================================================
 */
 
 body {
-/*  background: #293f50;*/
-/*  background: #42002f;*/
-  /*background: #1e0016;*/
-/*  background: #160010;*/
   background: #001e1e;
   color: #ffd87c;
   font: 300 16px/22px "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.info {
-/*  background: #ffe500;*/
-  background: #001e1e;
-  display: flex;
-  justify-content: center;
-/*  font: 400 24px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  margin-top: 20px;
-  padding: 20px 0;
+.site-head {
+  text-align: right;
+  color: #53A245;
 }
 
+.head-text {
+  margin: 8px 0 2px 0;
+  font: 400 22px "Comfortaa", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
+.gray {
+  color: #888;
+}
 
-/*.login {
-  padding-top: 1000px;
-  margin-top: 1000px;
-}*/
+h2, h3 {
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/*
+  ================================================
+  Headers
+  ================================================
+*/
+
+.component-title {
+  margin: 40px 0 15px 5px;
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffd87c;
+}
 
 .login-header {
   margin: 160px 0 20px 0;
-  /*padding-left: 60px;*/
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ffd87c;
 }
 
 .signup-header {
   margin: 40px 0 20px 0;
-  /*padding-left: 60px;*/
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ffd87c;
 }
 
 .ret-header {
   margin: 40px 0 20px 5px;
-  /*padding-left: 60px;*/
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ffd87c;
+}
+
+/*
+  ================================================
+  Nav
+  ================================================
+*/
+
+.nav-bar {
+  width: 100%;
+  background-color: #ffd87c;
+  font: 500 21px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #001e1e;
+  text-decoration: none;
+}
+
+.nav-btn {
+  list-style-type: none;
+  margin: 0;
+  padding: 21px 8px 8px 8px;
+  display: inline-block;
+  width: 20%;
+  height: 70px;
+  text-align: center;
+  background-color: #ffcc00;
+  color: #001e1e;
+  text-decoration: none;
+}
+
+.nav-btn:hover {
+  background-color: #ffd87c;
+  color: #53A245;
+}
+
+/*
+  ================================================
+  Input forms
+  ================================================
+*/
+
+.info {
+  background: #001e1e;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px 0;
 }
 
 .big-form {
   margin: 20px 0;
   padding: 20px 0;
-
 }
 
 .login-form {
-  /*margin: 200px 0;*/
   padding: 20px 0;
-
 }
 
 .big-field {
@@ -121,79 +171,6 @@ body {
   margin-top: 5px;
   font: 200 22px "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #003f3f;
-
-}
-
-.big-btn {
-  width: 540px;
-  height: 80px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 3px;
-  /*background: #75fffc;*/
-  background: #53A245;
-  /*color: #888;*/
-  color: #001e1e;
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.login-btn-container {
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-btn {
-/*  display: flex;
-  flex-grow: 1;
-  align-items: center;
-*/  width: 340px;
-  height: 80px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 3px;
-  background: #53A245;
-  /*color: #888;*/
-  color: #001e1e;
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.reg-btn {
-/*  display: flex;
-  flex-grow: 1;
-  align-items: center;
-*/  width: 170px;
-  height: 80px;
-  margin-top: 10px;
-  border: 1px solid #ffd87c;
-  border-radius: 3px;
-  background: #001e1e;
-  /*color: #888;*/
-  color: #ffd87c;
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.login-btn:hover,
-.big-btn:hover,
-.add-save-btn:hover,
-.add-exp-btn:hover,
-.loan-btn:hover,
-.reg-btn:hover {
-  background: #ffd87c;
-  color: #001e1e;
-  border: 1px solid #ffd87c;
-}
-
-.login-btn:active,
-.big-btn:active,
-.add-save-btn:active,
-.add-exp-btn:active,
-.loan-btn:active,
-.reg-btn:active {
-  background: #ffcc00;
-  color: #001e1e;
-  border: 1px solid #ffd87c;
 }
 
 .login {
@@ -203,71 +180,63 @@ body {
   padding: 20px 0;
 }
 
-.signup {
+.add-comp {
   display: flex;
   justify-content: center;
-  /*margin-top: 20px;*/
-  /*padding: 20px 0;*/
   margin-bottom: 40px;
   color: #888;
 }
 
-.login-btn-space {
-  width: 30px;
-}
-
-.gray {
+.add-exp {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
   color: #888;
 }
 
-.savings-head {
-  width: 20%;
-  padding: 5px;
-  text-align: center;
-/*  display: flex;
-  justify-content: center;*/
+.exp-field {
+  width: 174px;
 }
+
+.add-record-header {
+  margin: 40px 0 20px 0;
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffd87c;
+}
+
+.loan-form {
+}
+
+.loan-field {
+  width: 460px;
+  margin-bottom: 20px;
+}
+
+input[type="date"]:before {
+  content: attr(placeholder);
+  color: #001e1e;
+  margin: 0 0.5em 0 0.7em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+  content: "";
+}
+
+/*
+  ================================================
+  Tables
+  ================================================
+*/
 
 .savings-chart {
   width: 20%;
   padding: 5px;
-  /*text-align: center;*/
-/*  display: flex;
-  justify-content: center;*/
-}
-
-.savings-btn {
-  /*width: 100%;*/
-  margin: 0 5px 0 20px;
-  /*display: flex;*/
-  /*justify-content: center;*/
-  text-align: center;
 }
 
 .saving-amount {
   width: 80%;
   margin: 0 20px;
-}
-
-.savings-title {
-  margin: 40px 0 15px 5px;
-  /*padding-left: 60px;*/
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffd87c;
-}
-
-.expenses-title {
-  margin: 40px 0 15px 5px;
-  /*padding-left: 60px;*/
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffd87c;
-}
-
-.loans-title {
-  margin: 40px 0 15px 5px;
-  /*padding-left: 60px;*/
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffd87c;
 }
 
 .savings-total {
@@ -278,14 +247,10 @@ body {
   height: 40px;
 }
 
-.add-exp {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  /*margin-top: 20px;*/
-  /*padding: 20px 0;*/
-  margin-bottom: 10px;
-  color: #888;
+.savings-head {
+  width: 20%;
+  padding: 5px;
+  text-align: center;
 }
 
 .exp-name {
@@ -328,14 +293,107 @@ body {
   margin: 10px 0;
 }
 
-.add-save {
-  /*margin-top: 40px;*/
+/*
+  ================================================
+  Elements
+  ================================================
+*/
+
+form {
+  margin-bottom: 22px;
+}
+
+a {
+  color: #001e1e;
+  text-decoration: none;
+}
+
+input,
+select,
+textarea {
+  background-color: #ede4ce;
+  font: 300 16px/22px "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+::placeholder {
+  color: #001e1e;
+}
+
+/*
+  ================================================
+  Buttons
+  ================================================
+*/
+
+.big-btn {
+  width: 540px;
+  height: 80px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 3px;
+  background: #53A245;
+  color: #001e1e;
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.login-btn-container {
   display: flex;
+  flex-grow: 1;
   justify-content: center;
-  /*margin-top: 20px;*/
-  /*padding: 20px 0;*/
-  margin-bottom: 40px;
-  color: #888;
+  align-items: center;
+}
+
+.login-btn {
+  width: 340px;
+  height: 80px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 3px;
+  background: #53A245;
+  color: #001e1e;
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.reg-btn {
+  width: 170px;
+  height: 80px;
+  margin-top: 10px;
+  border: 1px solid #ffd87c;
+  border-radius: 3px;
+  background: #001e1e;
+  color: #ffd87c;
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.login-btn:hover,
+.big-btn:hover,
+.add-save-btn:hover,
+.add-exp-btn:hover,
+.loan-btn:hover,
+.reg-btn:hover {
+  background: #ffd87c;
+  color: #001e1e;
+  border: 1px solid #ffd87c;
+}
+
+.login-btn:active,
+.big-btn:active,
+.add-save-btn:active,
+.add-exp-btn:active,
+.loan-btn:active,
+.reg-btn:active {
+  background: #ffcc00;
+  color: #001e1e;
+  border: 1px solid #ffd87c;
+}
+
+.login-btn-space {
+  width: 30px;
+}
+
+.savings-btn {
+  margin: 0 5px 0 20px;
+  text-align: center;
 }
 
 .add-save-btn {
@@ -358,60 +416,6 @@ body {
   color: #001e1e;
 }
 
-.exp-field {
-  width: 174px;
-}
-
-/*.signup {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  /*padding: 20px 0;*/
-  /*margin-bottom: 40px;*/
-  /*color: #888;*/
-/*}*/
-
-.add-exp-header {
-  margin: 40px 0 20px 0;
-  /*padding-left: 60px;*/
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffd87c;
-}
-
-.add-save-header {
-  margin: 40px 0 20px 0;
-  /*padding-left: 60px;*/
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffd87c;
-}
-
-.add-loan-header {
-  margin: 40px 0 20px 0;
-  /*padding-left: 60px;*/
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffd87c;
-}
-
-.add-loan {
-  /*margin-top: 40px;*/
-  display: flex;
-  justify-content: center;
-  /*margin-top: 20px;*/
-  /*padding: 20px 0;*/
-  margin-bottom: 40px;
-  color: #888;
-}
-
-.loan-form {
-  /*display: flex;*/
-  /*justify-content: center;*/
-}
-
-.loan-field {
-  width: 460px;
-  margin-bottom: 20px;
-}
-
 .loan-btn {
   width: 460px;
   margin-top: 10px;
@@ -422,97 +426,16 @@ body {
   color: #001e1e;
 }
 
-input[type="date"]:before {
-  content: attr(placeholder);
-  color: #001e1e;
-  margin: 0 0.5em 0 0.7em;
-}
-input[type="date"]:focus:before,
-input[type="date"]:valid:before {
-  content: "";
-}
-
-.head-text {
-  margin: 8px 0 2px 0;
-  font: 400 22px "Comfortaa", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-h2 {
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-h3 {
-  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.nav-btn {
-  list-style-type: none;
-  margin: 0;
-  padding: 21px 8px 8px 8px;
+.btn {
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
   display: inline-block;
-  width: 20%;
-  height: 70px;
-  text-align: center;
-  /*vertical-align: middle;*/
-/*  background-color: #ff00b6;*/
-/*  background-color: #00ff5d;*/
-  background-color: #ffcc00;
-
-/*  font: 400 22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-/*  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  /*color: #fff;*/
-  color: #001e1e;
-  text-decoration: none;
+  font-weight: 400;
+  letter-spacing: .5px;
+  margin: 0;
+  text-transform: uppercase;
 }
-
-.nav-btn:hover {
-  background-color: #ffd87c;
-  color: #53A245;
-}
-
-.nav-bar {
-  width: 100%;
-  /*background-color: #ff00b6;*/
-  background-color: #ffd87c;
-  font: 500 21px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  /*color: #fff;    */
-  color: #001e1e;
-  text-decoration: none;
-}
-
-.site-head {
-  text-align: right;
-  color: #53A245;
-}
-
-form {
-  margin-bottom: 22px;
-}
-
-
-select {
-  background-color: #ede4ce;
-}
-
-input {
-  background-color: #ede4ce;
-}
-
-a {
-  color: #001e1e;
-  text-decoration: none;
-}
-
-input,
-select,
-textarea {
-  font: 300 16px/22px "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-::placeholder {
-  color: #001e1e;
-}
-
 
 /*
   ================================================
@@ -527,73 +450,6 @@ textarea {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/*.grid,
-.col-1-3,
-.col-2-3 {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.container,
-.grid {
-  margin: 0 auto;
-  width: 960px;
-}
-.col-1-3,
-.col-2-3 {
-  display: inline-block;
-  vertical-align: top;
-}
-.container {
-  padding-left: 30px;
-  padding-right: 30px;
-}
-.col-1-3 {
-  width: 33.33%;
-}
-.col-2-3 {
-  width: 66.66%;
-}
-*/
-/*
-  ================================================
-  Clearfix
-  ================================================
-*/
-
-/*.group:before,
-.group:after {
-  content: "";
-  display: table;
-}
-.group:after {
-  clear: both;
-}
-.group {
-  clear: both;
-  *zoom: 1;
-}
-*/
-/*
-  ================================================
-  Rows
-  ================================================
-*/
-
-.row {
-  background: #fff;
-  padding: 66px 0 44px 0;
-}
-.row,
-.row-alt {
-  min-width: 960px;
-}
-.row-alt {
-  background: #cbe2c1;
-  background: -webkit-linear-gradient(to right, #a1d3b0, #f6f1d3);
-  background: -moz-linear-gradient(to right, #a1d3b0, #f6f1d3);
-  background: linear-gradient(to right, #a1d3b0, #f6f1d3);
-  padding: 44px 0 22px 0;
-}
 
 /*
   ================================================
@@ -604,9 +460,7 @@ textarea {
 h1, h3, h4, h5, p {
   margin-bottom: 22px;
 }
-h1, h2, h3, h4 {
-  /*color: #648880;*/
-}
+
 h1 {
   font-size: 36px;
   line-height: 44px;
@@ -637,40 +491,6 @@ em {
 
 /*
   ================================================
-  Links
-  ================================================
-*/
-
-/*a:hover {
-  color: #a9b2b9;
-}
-a {
-  color: #648880;
-  text-decoration: none;
-}*/
-/*p a {
-  border-bottom: 1px solid #dfe2e5;
-}*/
-
-/*
-  ================================================
-  Buttons
-  ================================================
-*/
-
-.btn {
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: 400;
-  letter-spacing: .5px;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-/*
-  ================================================
   Navigation
   ================================================
 */
@@ -689,15 +509,7 @@ a {
 
 /*
   ================================================
-  Register
-  ================================================
-*/
-
-
-
-/*
-  ================================================
-  Schedule
+  Tables
   ================================================
 */
 
@@ -754,9 +566,6 @@ table a {
 }
 table h4 {
   margin-bottom: 0;
-}
-.schedule-offset {
-  color: #a9b2b9;
 }
 
 /*

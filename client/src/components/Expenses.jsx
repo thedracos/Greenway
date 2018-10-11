@@ -94,7 +94,7 @@ class Expenses extends Component {
     return (
       <Router>
         <div>
-          <div className="expenses-title">Expenses</div>
+          <div className="component-title">Expenses</div>
           <label></label>
           <select className="exp-month-select" name="month" onChange={this.onChange}>
             <option>Select a Month</option>

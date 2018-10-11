@@ -60,7 +60,7 @@ class AddExpense extends Component {
     return (
       <div className="add-exp">
         <form onSubmit={this.onSubmit}>
-        <div className="add-exp-header">Add expense:</div>
+        <div className="add-record-header">Add expense:</div>
           <div>
             <label>Expense: </label><br />
             <input className="exp-field" type="text" name="expense" onChange={this.onChange} required/>
