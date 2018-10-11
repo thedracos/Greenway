@@ -52,26 +52,28 @@ class AddExpense extends Component {
           newExpense.date = moment(newExpense.date).add(1, 'years');
         }
       }
-      
+
     }
   }
 
   render() {
     return (
-      <div>
-        <h3>Add Expense</h3>
+      <div className="add-exp">
         <form onSubmit={this.onSubmit}>
+        <div className="add-exp-header">Add expense:</div>
           <div>
             <label>Expense: </label><br />
-            <input type="text" name="expense" onChange={this.onChange} required/>
+            <input className="exp-field" type="text" name="expense" onChange={this.onChange} required/>
           </div>
+          <div className="pad-exp"></div>
           <div>
-            <label>Cost: </label><br />
-            $<input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="e.g. 1000.00" required/>
+            <label>Cost ($): </label><br />
+            <input className="exp-field" type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  e.g. 1000.00" required/>
           </div>
+          <div className="pad-exp"></div>
           <div>
             Category: <br/>
-            <select name="category" onChange={this.onChange} required>
+            <select className="exp-field" name="category" onChange={this.onChange} required>
               <option>{'Selection'}</option>
               <option>{'Rent/Mortgage'}</option>
               <option>{'Utilities'}</option>
@@ -84,20 +86,22 @@ class AddExpense extends Component {
               <option>{'Miscellaneous'}</option>
             </select><br />
           </div>
+          <div className="pad-exp"></div>
           <div>
             Frequency: <br/>
-            <select name="frequency" onChange={this.onChange} required>
+            <select className="exp-field" name="frequency" onChange={this.onChange} required>
               <option>{'Selection'}</option>
               <option>{'Once'}</option>
               <option>{'Monthly'}</option>
               <option>{'Yearly'}</option>
             </select><br />
           </div>
+          <div className="pad-exp"></div>
           <div>
             <label>Date: </label><br />
-            <input type="date" name="date" onChange={this.onChange} required />
+            <input className="exp-field" type="date" name="date" onChange={this.onChange} required />
           </div><br />
-          <button type="submit">Submit</button>
+          <button className="add-exp-btn" type="submit">Save</button>
         </form>
       </div>
     )

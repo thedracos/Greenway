@@ -48,22 +48,22 @@ class Settings extends Component {
 
   render() {
     return (
-      <div class="settings">
-        <form class="update-form" onSubmit={this.onSubmitHandler}>
-          <div>
-            <input value={this.state.newName} onChange={this.onChangeHandler} placeholder="   Update username (optional)" type="text" name="newName" class="update-field" />
+      <div class="info">
+        <form class="big-form" onSubmit={this.onSubmitHandler}>
+          <div >
+            <input value={this.state.newName} onChange={this.onChangeHandler} placeholder="   Update username (optional)" type="text" name="newName" class="big-field" />
           </div><br/>
           <div>
-            <input value={this.state.newIncome} type="number" onChange={this.onChangeHandler} name="newIncome" min="0.00" step="0.01" placeholder="   Update monthly income (optional)" class="update-field" />
+            <input value={this.state.newIncome} type="number" onChange={this.onChangeHandler} name="newIncome" min="0.00" step="0.01" placeholder="   Update monthly income (optional)" class="big-field" />
           </div><br/>
           <div>
-            <input name="password" value={this.state.newPass} placeholder="   Update password (optional)" type="password" name="newPass" onChange={this.onChangeHandler} class="update-field" />
+            <input name="password" value={this.state.newPass} placeholder="   Update password (optional)" type="password" name="newPass" onChange={this.onChangeHandler} class="big-field" />
           </div><br/>
           <div>
-            <input onChange={this.confirmPasswordChangeHandler} type="password" name="confirmPass" placeholder="   Confirm new password" class="update-field" />
+            <input onChange={this.confirmPasswordChangeHandler} type="password" name="confirmPass" placeholder="   Confirm new password" class="big-field" />
           </div><br/>
 
-          <input type="submit" value="Save changes" class="update-btn"/>
+          <input type="submit" value="Save changes" class="big-btn"/>
         </form>
       </div>
     )

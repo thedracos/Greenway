@@ -40,46 +40,48 @@ class SignUp extends Component {
       event.target.setCustomValidity("Passwords Don't Match");
     } else {
       event.target.setCustomValidity("");
-    }                
+    }
   }
 
   render () {
     return (
       <div>
-        <h1>Slytherin</h1>
-        <form onSubmit={this.onSubmitHandler}>
-          <h2>Sign Up</h2>
+        <div className="site-head"><h3 className="head-text">Slytherin&nbsp;</h3></div>
+        <div className="signup">
+          <form onSubmit={this.onSubmitHandler}>
+            <div className="signup-header">Sign up:</div>
             <div>
-              <label>Username:</label><br/>
-              <input value={this.state.name} onChange={this.onChangeHandler} placeholder="name" type="text" name="name" required />
+              <label>Username</label><br/>
+              <input value={this.state.name} onChange={this.onChangeHandler} placeholder="   Username" type="text" name="name" className="big-field" required />
             </div><br/>
             <div>
-              <label>Password:</label><br/>
-              <input name="password" value={this.state.password} placeholder="password" type="password" onChange={this.onChangeHandler} required />
+              <label>Password</label><br/>
+              <input name="password" value={this.state.password} placeholder="   Password" type="password" onChange={this.onChangeHandler} className="big-field" required />
             </div><br/>
             <div>
-              <label>Re-enter Password:</label><br/>
-              <input onChange={this.confirmPasswordChangeHandler} type="password" placeholder="confirm password" required />
+              <label>Confirm password</label><br/>
+              <input onChange={this.confirmPasswordChangeHandler} type="password" placeholder="   Confirm password" className="big-field" required />
             </div><br/>
             <div>
-              <label>Monthly Income</label><br/>
-              $<input value={this.state.income} type="number" onChange={this.onChangeHandler} name="income" min="0.00" step="0.01" placeholder="e.g. 1000.00" required />
+              <label>Monthly income ($)</label><br/>
+              <input value={this.state.income} type="number" onChange={this.onChangeHandler} name="income" min="0.00" step="0.01" placeholder="   e.g. 1000" className="big-field" required />
             </div><br/>
             <div>
-              <label>Payday</label><br/>
-              <input value={this.state.date} type="date" onChange={this.onChangeHandler} name="date" required />
+              <label>Deposit date</label><br/>
+              <input value={this.state.date} type="date" onChange={this.onChangeHandler} name="date" placeholder="    Date:" className="big-field" required />
             </div><br/>
             <div>
-              <label>Pay Frequency</label><br/>
-              <select name="frequency" onChange={this.onChangeHandler} required>
-                <option value="">Please select an option</option>
-                <option value="biweekly">Biweekly</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
+              <label>Deposit frequency</label><br/>
+              <select name="frequency" onChange={this.onChangeHandler} className="big-field" required>
+                <option value="">&nbsp;&nbsp;Please select a frequency</option>
+                <option value="biweekly">&nbsp;&nbsp;Biweekly</option>
+                <option value="weekly">&nbsp;&nbsp;Weekly</option>
+                <option value="monthly">&nbsp;&nbsp;Monthly</option>
               </select>
             </div><br/>
-            <input type="submit" value="Submit" />
-        </form>
+            <input type="submit" className="big-btn" value="Sign up" />
+          </form>
+        </div>
       </div>
     );
   }

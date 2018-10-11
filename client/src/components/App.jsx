@@ -13,23 +13,23 @@ const App = ({ match }) => {
   return (
     <Router>
       <div>
-        <h1>Slytherin</h1>
+        <div class="site-head"><h3 class="head-text">Slytherin&nbsp;</h3></div>
         <ul class="nav-bar">
-          <li class="nav-btn">
-            <Link to="/home">Expenses</Link>
-          </li>
-          <li class="nav-btn">
-            <Link to="/savings">Savings</Link>
-          </li>
-          <li class="nav-btn">
-            <Link to="/loans">Loans</Link>
-          </li>
-          <li class="nav-btn">
-            <Link to="/retirement">Retirement</Link>
-          </li>
-          <li class="nav-btn">
-            <Link to="/settings">Settings</Link>
-          </li>
+          <Link to="/home">
+            <li class="nav-btn">Expenses</li>
+          </Link>
+          <Link to="/savings">
+            <li class="nav-btn">Savings</li>
+          </Link>
+          <Link to="/loans">
+            <li class="nav-btn">Loans</li>
+          </Link>
+          <Link to="/retirement">
+            <li class="nav-btn">Retirement</li>
+          </Link>
+          <Link to="/settings">
+            <li class="nav-btn">Settings</li>
+          </Link>
         </ul>
         <Route path='/home' component={Expenses} />
         <Route path='/savings' component={Savings} />
