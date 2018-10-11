@@ -50,7 +50,7 @@ class Settings extends Component {
     return (
       <div class="info">
         <form class="big-form" onSubmit={this.onSubmitHandler}>
-          <div>
+          <div >
             <input value={this.state.newName} onChange={this.onChangeHandler} placeholder="   Update username (optional)" type="text" name="newName" class="big-field" />
           </div><br/>
           <div>

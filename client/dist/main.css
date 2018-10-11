@@ -85,6 +85,13 @@ body {
   color: #ffd87c;
 }
 
+.signup-header {
+  margin: 40px 0 20px 0;
+  /*padding-left: 60px;*/
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffd87c;
+}
+
 .big-form {
   margin: 20px 0;
   padding: 20px 0;
@@ -159,6 +166,7 @@ body {
 }
 
 .login-btn:hover,
+.big-btn:hover,
 .reg-btn:hover {
   background: #ffd87c;
   color: #001e1e;
@@ -166,6 +174,7 @@ body {
 }
 
 .login-btn:active,
+.big-btn:active,
 .reg-btn:active {
   background: #ffcc00;
   color: #001e1e;
@@ -179,8 +188,26 @@ body {
   padding: 20px 0;
 }
 
+.signup {
+  display: flex;
+  justify-content: center;
+  /*margin-top: 20px;*/
+  /*padding: 20px 0;*/
+  margin-bottom: 40px;
+}
+
 .login-btn-space {
   width: 30px;
+}
+
+input[type="date"]:before {
+  content: attr(placeholder);
+  color: #001e1e;
+  margin: 0 0.5em 0 0.7em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+  content: "";
 }
 
 .head-text {

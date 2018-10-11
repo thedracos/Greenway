@@ -60,7 +60,7 @@ class Login extends Component {
               <input value={this.state.password} type="password" name="password" placeholder="   Password" onChange={this.onChangeHandler} className="big-field" required/>
             </div><br/>
             <div className="login-btn-container">
-              <button type="submit" onClick={this.onSubmitHandler} className="login-btn">Log in</button> <div className="login-btn-space"></div><button type="submit" onClick={this.onRegister} className="reg-btn">Register</button>
+              <button type="submit" onClick={this.onSubmitHandler} className="login-btn">Log in</button> <div className="login-btn-space"></div><button type="submit" onClick={this.onRegister} className="reg-btn">Sign up</button>
             </div>
           </form>
         </div>
