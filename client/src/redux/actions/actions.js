@@ -1,5 +1,13 @@
 import moment from 'moment';
-import { GET_MONTH_EXPENSES, GET_EXPENSES, ADD_EXPENSE, DELETE_EXPENSE, VERIFY_USER } from './types';
+import { 
+  GET_MONTH_EXPENSES, 
+  GET_EXPENSES, 
+  ADD_EXPENSE, 
+  ADD_SAVINGS, 
+  GET_SAVINGS,
+  DELETE_EXPENSE, 
+  VERIFY_USER,
+} from './types';
 
 export function fetchExpenses(userId) {
   console.log('fetching all expenses from actions');
@@ -95,6 +103,45 @@ export function verifyUser(userInfo) {
       type: VERIFY_USER,
       payload: userInfo
     }))
+  }
+}
+
+export function fetchSavings(userId) {
+  console.log('fetching all expenses from actions');
+  return function(dispatch) {
+    const userInfo = {
+      userId: userId
+    }
+    fetch('/api/savings', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
+    })
+    .then(res => res.json())
+    .then(savings => dispatch({
+      type: GET_SAVINGS,
+      payload: savings
+    }))
+  }
+}
+
+export function createSavings(newSavings) {
+  console.log('creating savings from actions');
+  return function(dispatch) {
+    fetch('/api/user/savings', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(newSavings)
+    })
+    .then(res => res.json())
+    .then(savings => dispatch({
+      type: ADD_SAVINGS,
+      payload: savings
+    }));
   }
 }
 

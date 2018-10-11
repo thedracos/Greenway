@@ -31,6 +31,11 @@ const Expense = sequelize.define('expense', {
   date: Sequelize.DATE
 });
 
+const Saving = sequelize.define('saving', {
+  item: Sequelize.STRING,
+  cost: Sequelize.INTEGER
+})
+
 // Loan Database
 const Loan = sequelize.define('loan', {
   name: Sequelize.STRING, // card/load name
@@ -44,6 +49,7 @@ const Loan = sequelize.define('loan', {
 
 Loan.belongsTo(User);
 User.hasMany(Loan);
+
 
 const Transaction = sequelize.define('transaction', {
   payment: Sequelize.DECIMAL, // if you paid minimum payment or more than the minimum payment 
@@ -88,6 +94,9 @@ User.hasMany(Expense, {foreignKey: 'userId', sourceKey: 'id'});
 
 ListItem.belongsTo(User);
 User.hasMany(ListItem, {foreignKey: 'userId', sourceKey: 'id'});
+
+Saving.belongsTo(User);
+User.hasMany(Saving, {foreignKey: 'userId', sourceKey: 'id'})
 
 const userLogin = (params, callback) => {
   // console.log('logging in ', params);
@@ -170,6 +179,25 @@ const userUpdate = (params, callback) => {
   // we'll finish with a callback instead of the .thens
   callback(params.id);
 };
+
+
+//Savings
+const getSavings = params => Saving.findAll({
+  where: {
+    userId: params.userId
+  }
+})
+
+const saveSavingItem = params => {
+  const { userId, item, cost } = params;
+  User.find({})
+  Saving.upsert({
+    userId, item, cost
+  })
+  .then(() => {
+    console.log('Succesfully saved Saving into DB');
+  })
+}
 
 // Expense
 
@@ -282,3 +310,5 @@ module.exports.saveUser = saveUser;
 // module.exports.deleteListItem = deleteListItem;
 module.exports.saveLoan = saveLoan;
 module.exports.getLoans = getLoans;
+module.exports.getSavings = getSavings;
+module.exports.saveSavingItem = saveSavingItem;
