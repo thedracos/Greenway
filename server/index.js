@@ -136,8 +136,9 @@ app.post('/api/loans', (request, response) => {
   database.saveLoan(request.body);
 });
 
-app.get('/api/loans', (request, response) => {
-  database.getLoans(request.body)
+app.get('/api/loans/:userId', (request, response) => {
+  console.log("gets request", request.params.userId);
+  database.getLoans(request.params)
   .then(data => {
     let loans = data.map(loan => loan.dataValues);
     console.log('loans', loans);

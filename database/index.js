@@ -78,7 +78,7 @@ const saveLoan = params => {
 
 const getLoans = params => {
   console.log("params", params)
-  return Loan.findAll();
+  return Loan.findAll({where: params});
 };
 
 // End of Loan Database

@@ -15,7 +15,7 @@ const Loan = props => {
         }
         return i + "th";
     }
-    
+
     return (
         <li className="flex-item">
             <div style={{"text-align": 'center'}}>{props.name}</div>
