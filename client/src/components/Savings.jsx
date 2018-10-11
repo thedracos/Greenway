@@ -59,7 +59,7 @@ class Savings extends Component {
               <td className="savings-head">{`$${item.cost}`}</td>
               <td className="savings-chart gray">
                 <form className="saving-amount">
-                  <label>$</label>
+                  <label></label>
                   <input type="number" name="editedItem" onChange={this.onChange} />
                 </form>
               </td>
