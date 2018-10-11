@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { fetchSavings } from '../redux/actions/actions';
+import { fetchSavings, editSavings } from '../redux/actions/actions';
 
 import AddSaving from './AddSaving.jsx';
 
@@ -12,10 +12,31 @@ class Savings extends Component {
     this.state = {
       remaining: 200
     }
+    this.updateSavings = this.updateSavings.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchSavings(this.props.userId);
+  }
+
+  updateSavings(savingItem) {
+    const cost = savingItem.cost - this.state.editedItem;
+    const editedItem = {
+      userId: this.props.userId,
+      item: savingItem.item,
+      cost: cost
+    }
+    console.log(editedItem);
+    this.props.editSavings(editedItem);
+  }
+
+  onChange(e) {
+    console.log('this is e.target.name', e.target.name);
+    console.log('this is e.target.value', e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   render() {
@@ -38,7 +59,8 @@ class Savings extends Component {
               <td className="savings-head">{`$${item.cost}`}</td>
               <td className="savings-chart gray">
                 <form className="saving-amount">
-                  <input type="text" name= {item.id}/>
+                  <label>$</label>
+                  <input type="number" name="editedItem" onChange={this.onChange} />
                 </form>
               </td>
               <td className="savings-chart gray">{item.cost / 19}</td>
@@ -65,4 +87,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchSavings })(Savings);
+export default connect(mapStateToProps, { fetchSavings, editSavings })(Savings);

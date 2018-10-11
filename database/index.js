@@ -180,6 +180,14 @@ const userUpdate = (params, callback) => {
   callback(params.id);
 };
 
+const updateSavings = (params, callback) => {
+  console.log('this is params', params)
+  Saving.update({ cost: params.cost }, { where: { userId: params.userId, item: params.item} })
+  .catch(err => {
+    console.log('Error string updated savings to DB');
+  })
+}
+
 
 //Savings
 const getSavings = params => Saving.findAll({
@@ -312,3 +320,4 @@ module.exports.saveLoan = saveLoan;
 module.exports.getLoans = getLoans;
 module.exports.getSavings = getSavings;
 module.exports.saveSavingItem = saveSavingItem;
+module.exports.updateSavings = updateSavings;

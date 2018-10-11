@@ -6,3 +6,4 @@ export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const VERIFY_USER = 'VERIFY_USER';
 export const ADD_SAVINGS = 'ADD_SAVINGS';
 export const GET_SAVINGS = 'GET_SAVINGS';
+export const EDIT_SAVINGS = 'EDIT_SAVINGS';
