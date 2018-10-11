@@ -23,7 +23,7 @@ class Expenses extends Component {
       currentMonth : moment().format('YYYY-MM'),
       uniqueDates: []
     }
-    //   
+    //
     //   // editExpense: {
     //   //   id: 5,
     //   //   expense: 'Buffalo Wild Wings',
@@ -89,20 +89,21 @@ class Expenses extends Component {
       currentMonth: e.target.value
     })
   }
-  
+
   render() {
     return (
       <Router>
         <div>
-          <h2>Expenses</h2>
+          <div className="expenses-title">Expenses</div>
           <label></label>
-          <select name="month" onChange={this.onChange}>
+          <select className="exp-month-select" name="month" onChange={this.onChange}>
             <option>Select a Month</option>
             {this.state.uniqueDates.map((date) => {
               return <option>{date}</option>
             })}
           </select>
-          <h3>{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
+          <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
+          <div className="exp-nums">
           Income: {`$${this.props.income}`}<br />
           Expenses: {`$${this.props.monthExpenses.reduce((total, expense) => {
             return total + expense.cost;
@@ -110,23 +111,24 @@ class Expenses extends Component {
           Remainder: {`$${this.props.income - this.props.monthExpenses.reduce((total, expense) => {
             return total + expense.cost;
           }, 0)}`}<br /><br />
+          </div>
           <tr>
-            <th>Expense</th>
-            <th>Cost</th>
-            <th>Category</th>
-            <th>Frequency</th>
-            <th>Date</th>
-            <th>Delete</th>
+            <th className="gray exp-name exp-center">Expense</th>
+            <th className="gray exp-10 exp-center">Cost</th>
+            <th className="gray exp-width exp-center">Category</th>
+            <th className="gray exp-10 exp-center">Frequency</th>
+            <th className="gray exp-10 exp-center">Date</th>
+            <th className="gray exp-width exp-center"> </th>
           </tr>
           {this.props.monthExpenses.map(expense => {
             return (
               <tr>
-                <td>{expense.expense}</td>
-                <td>{`$${expense.cost}`}</td>
-                <td>{expense.category}</td>
-                <td>{expense.frequency}</td>
-                <td>{moment(expense.date).format('L')}</td>
-                <td>
+                <td className="exp-name">{expense.expense}</td>
+                <td className="exp-10">{`$${expense.cost}`}</td>
+                <td className="gray exp-width">{expense.category}</td>
+                <td className="gray exp-10 ">{expense.frequency}</td>
+                <td className="exp-10">{moment(expense.date).format('L')}</td>
+                <td className="exp-del-btn exp-width">
                   {/* <button onClick={() => {this.updateExpense(expense)}}>Edit</button> */}
                   <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
                 </td>

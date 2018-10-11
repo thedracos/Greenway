@@ -33,12 +33,15 @@ class Loans extends Component {
   render() {
     return (
       <div>
+        <div className="loans-title">Loans</div>
         <ul className="flex-container">
           {
             this.state.loans.map((loan, index) => <Loan {...loan} key={index} />)
           }
         </ul>
-        <AddLoan updateLoans={this.updateLoans} />
+        <div className="add-loan">
+        <AddLoan className="add-loan" updateLoans={this.updateLoans} />
+        </div>
       </div>
     )
   }
