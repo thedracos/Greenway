@@ -66,7 +66,7 @@ class SignUp extends Component {
               <label>Monthly income ($)</label><br/>
               <input value={this.state.income} type="number" onChange={this.onChangeHandler} name="income" min="0.00" step="0.01" placeholder="   e.g. 1000" className="big-field" required />
             </div><br/>
-            <div>
+            {/* <div>
               <label>Deposit date</label><br/>
               <input value={this.state.date} type="date" onChange={this.onChangeHandler} name="date" placeholder="    Date:" className="big-field" required />
             </div><br/>
@@ -78,7 +78,7 @@ class SignUp extends Component {
                 <option value="weekly">&nbsp;&nbsp;Weekly</option>
                 <option value="monthly">&nbsp;&nbsp;Monthly</option>
               </select>
-            </div><br/>
+            </div><br/> */}
             <input type="submit" className="big-btn" value="Sign up" />
           </form>
         </div>
