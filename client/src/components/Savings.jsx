@@ -49,7 +49,9 @@ class Savings extends Component {
           <th className="gray savings-head">Goal</th>
           <th className="gray savings-head">Remaining</th>
           <th className="gray savings-head">Amount Saving ($)</th>
-          <th className="gray savings-head">Months Remaining</th>
+          {/* <th className="gray savings-head">Months Remaining</th> */}
+          <th className="gray savings-head">Start Date</th>
+          <th className="gray savings-head">End Date</th>
           <th className="gray savings-head"></th>
         </tr>
         {this.props.savings.map(item => {
@@ -62,7 +64,9 @@ class Savings extends Component {
                   <input type="number" name="editedItem" onChange={this.onChange} />
                 </form>
               </td>
-              <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td>
+              {/* <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td> */}
+              <td className="savings-chart">{item.start_date}</td>
+              <td className="savings-chart">{item.end_date}</td>
               <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
             </tr>
           )
