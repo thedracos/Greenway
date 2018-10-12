@@ -22,7 +22,7 @@ class AddSaving extends Component {
     let savingsItem = {
       userId: this.props.userId,
       item: this.state.item,
-      cost: this.state.cost,
+      cost: Number(this.state.cost),
       start_date: this.state.startDate,
       current_date: this.state.startDate,
       end_date: this.state.endDate
