@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import moment from 'moment';
-import { uniq } from 'underscore';
+import { uniq, sortBy } from 'underscore';
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';
@@ -39,13 +39,16 @@ class Expenses extends Component {
   }
 
   getUniqueDates(array) {
-    console.log('func was called');
     let allDates = array.map((expense) => {
-      return moment(expense.date).format('MMM YYYY');
+      return expense.date.slice(0, 7);
     });
     let uniqueDates = uniq(allDates);
+    let sortedDates = sortBy(uniqueDates);
+    let dropdownDates = sortedDates.map((date) => {
+      return moment(date).format('MMM YYYY');
+    })
     this.setState({
-      uniqueDates
+      uniqueDates: dropdownDates
     });
   }
 
@@ -110,7 +113,8 @@ class Expenses extends Component {
           }, 0)}`}<br />
           Remainder: {`$${this.props.income - this.props.monthExpenses.reduce((total, expense) => {
             return total + expense.cost;
-          }, 0)}`}<br /><br />
+          }, 0)}`}<br />
+          <button>Convert Remaining to Savings!</button>
           </div>
           <tr>
             <th className="gray exp-name exp-center">Expense</th>
