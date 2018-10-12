@@ -110,12 +110,10 @@ class AddExpense extends Component {
 
 AddExpense.propTypes = {
   createExpense: PropTypes.func.isRequired,
-  expense: PropTypes.object.isRequired,
   userId: PropTypes.number.isRequired
 }
 
 const mapStateToProps = state => ({
-  expense: state.store.expense,
   userId: state.store.userInfo.userId
 })
 

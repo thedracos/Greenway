@@ -19,7 +19,6 @@ class Expenses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: 1700,
       currentMonth : moment().format('YYYY-MM'),
       uniqueDates: []
     }
@@ -164,7 +163,7 @@ const mapStateToProps = state => {
     monthExpenses: state.store.monthExpenses,
     expenses: state.store.expenses,
     userId: state.store.userInfo.userId,
-    income: state.store.userInfo.income
+    income: state.store.userInfo.income,
     //expense: state.store.expense
   }
 };

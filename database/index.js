@@ -33,7 +33,9 @@ const Expense = sequelize.define('expense', {
 
 const Saving = sequelize.define('saving', {
   item: Sequelize.STRING,
-  cost: Sequelize.INTEGER
+  cost: Sequelize.INTEGER,
+  start_date: Sequelize.DATE,
+  end_date: Sequelize.DATE
 })
 
 // Loan Database
@@ -197,10 +199,10 @@ const getSavings = params => Saving.findAll({
 })
 
 const saveSavingItem = params => {
-  const { userId, item, cost } = params;
+  const { userId, item, cost, start_date, end_date } = params;
   User.find({})
   Saving.upsert({
-    userId, item, cost
+    userId, item, cost, start_date, end_date
   })
   .then(() => {
     console.log('Succesfully saved Saving into DB');
