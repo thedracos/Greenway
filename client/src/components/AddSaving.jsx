@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSavings } from '../redux/actions/actions';
 
+import moment from 'moment';
+
 class AddSaving extends Component {
   constructor(props) {
     super(props);
@@ -17,14 +19,25 @@ class AddSaving extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const savingsItem = {
+    let savingsItem = {
       userId: this.props.userId,
       item: this.state.item,
       cost: this.state.cost,
       start_date: this.state.startDate,
+      current_date: this.state.startDate,
       end_date: this.state.endDate
     }
+    //POST 1st Month
     this.props.createSavings(savingsItem);
+    //POST Last Month
+    savingsItem.current_date = this.state.endDate;
+    this.props.createSavings(savingsItem);
+    //POST InBetween Months
+    const dateDifference = Math.floor(moment(this.state.endDate).diff(moment(this.state.startDate), 'months', true));
+    for (var i = 1; i < dateDifference; i++) {
+      savingsItem.current_date = moment(this.state.startDate).add(i, 'months').calendar();
+      this.props.createSavings(savingsItem);
+    }
   }
 
   render() {
