@@ -225,7 +225,7 @@ input[type="date"]:valid:before {
 
 /*
   ================================================
-  Tables
+  Records
   ================================================
 */
 
@@ -487,24 +487,6 @@ strong {
 cite,
 em {
   font-style: italic;
-}
-
-/*
-  ================================================
-  Navigation
-  ================================================
-*/
-
-.nav {
-  text-align: right;
-}
-.nav li {
-  display: inline-block;
-  margin: 0 10px;
-  vertical-align: top;
-}
-.nav li:last-child {
-  margin-right: 0;
 }
 
 /*
