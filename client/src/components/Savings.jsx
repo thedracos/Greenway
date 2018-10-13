@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { fetchSavings, fetchMonthSavings, editSavings } from '../redux/actions/actions';
 
 import moment from 'moment';
+import { uniq, sortBy } from 'underscore';
+
 import AddSaving from './AddSaving.jsx';
 
 class Savings extends Component {
@@ -22,7 +24,7 @@ class Savings extends Component {
 
   getUniqueDates(array) {
     let allDates = array.map((expense) => {
-      return expense.date.slice(0, 7);
+      return expense.current_date.slice(0, 7);
     });
     let uniqueDates = uniq(allDates);
     let sortedDates = sortBy(uniqueDates);
@@ -49,9 +51,10 @@ class Savings extends Component {
       const followingSelectedMonth = moment(selectedMonth).add(1, 'months').subtract(1, 'days').calendar();
       this.props.fetchMonthSavings(this.props.userId, selectedMonth, followingSelectedMonth);
     }
-    // if (this.props.savings.length > 0 && this.state.uniqueDates.length === 0) {
-    //   this.getUniqueDates(this.props.savings);
-    // }
+    if (this.props.savings.length > 0 && this.state.uniqueDates.length === 0) {
+      console.log('savings', this.props.savings);
+      this.getUniqueDates(this.props.savings);
+    }
   }
 
   updateSavings(savingItem) {
@@ -77,6 +80,13 @@ class Savings extends Component {
     return (
       <div>
         <div className="savings-title">Savings</div>
+        <select className="exp-month-select" name="currentMonth" onChange={this.onChange}>
+          <option>Select a Month</option>
+          {this.state.uniqueDates.map((date) => {
+            return <option>{date}</option>
+          })}
+        </select>
+        <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
         <div className="savings-total">Total Remaining: {`$${this.state.remaining}`}< br/>
         < br/></div>
         <tr>
@@ -85,6 +95,7 @@ class Savings extends Component {
           <th className="gray savings-head">Amount Saving ($)</th>
           {/* <th className="gray savings-head">Months Remaining</th> */}
           <th className="gray savings-head">Start Date</th>
+          <th className="gray savings-head">Current Date</th>
           <th className="gray savings-head">End Date</th>
           <th className="gray savings-head"></th>
         </tr>
@@ -99,8 +110,9 @@ class Savings extends Component {
                 </form>
               </td>
               {/* <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td> */}
-              <td className="savings-chart">{item.start_date}</td>
-              <td className="savings-chart">{item.end_date}</td>
+              <td className="savings-chart">{moment(item.start_date).format('MM-DD-YYYY')}</td>
+              <td className="savings-chart">{moment(item.current_date).format('MM-DD-YYYY')}</td>
+              <td className="savings-chart">{moment(item.end_date).format('MM-DD-YYYY')}</td>
               <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
             </tr>
           )
