@@ -17,6 +17,21 @@ class Savings extends Component {
     }
     this.updateSavings = this.updateSavings.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.getUniqueDates = this.getUniqueDates.bind(this);
+  }
+
+  getUniqueDates(array) {
+    let allDates = array.map((expense) => {
+      return expense.date.slice(0, 7);
+    });
+    let uniqueDates = uniq(allDates);
+    let sortedDates = sortBy(uniqueDates);
+    let dropdownDates = sortedDates.map((date) => {
+      return moment(date).format('MMM YYYY');
+    })
+    this.setState({
+      uniqueDates: dropdownDates
+    });
   }
 
   componentDidMount() {
@@ -24,6 +39,19 @@ class Savings extends Component {
     const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').calendar();
     this.props.fetchMonthSavings(this.props.userId, currentMonth, nextMonth);
     this.props.fetchSavings(this.props.userId);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('prevProps', prevProps);
+    console.log('prevState', prevState);
+    if (this.state.currentMonth !== prevState.currentMonth) {
+      const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM');
+      const followingSelectedMonth = moment(selectedMonth).add(1, 'months').subtract(1, 'days').calendar();
+      this.props.fetchMonthSavings(this.props.userId, selectedMonth, followingSelectedMonth);
+    }
+    // if (this.props.savings.length > 0 && this.state.uniqueDates.length === 0) {
+    //   this.getUniqueDates(this.props.savings);
+    // }
   }
 
   updateSavings(savingItem) {
@@ -60,7 +88,7 @@ class Savings extends Component {
           <th className="gray savings-head">End Date</th>
           <th className="gray savings-head"></th>
         </tr>
-        {this.props.savings.map(item => {
+        {this.props.monthSavings.map(item => {
           return (
             <tr>
               <td className="savings-chart">{item.item}</td>
@@ -92,6 +120,7 @@ Savings.propTypes = {
 
 const mapStateToProps = state => {
   return {
+    monthSavings: state.store.monthSavings,
     savings: state.store.savings,
     userId: state.store.userInfo.userId
   }
