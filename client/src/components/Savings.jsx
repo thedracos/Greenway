@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { fetchSavings, editSavings } from '../redux/actions/actions';
+import { fetchSavings, fetchMonthSavings, editSavings } from '../redux/actions/actions';
 
+import moment from 'moment';
 import AddSaving from './AddSaving.jsx';
 
 class Savings extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentMonth : moment().format('YYYY-MM'),
+      uniqueDates: [],
       remaining: 200
     }
     this.updateSavings = this.updateSavings.bind(this);
@@ -17,6 +20,9 @@ class Savings extends Component {
   }
 
   componentDidMount() {
+    const currentMonth = this.state.currentMonth;
+    const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').calendar();
+    this.props.fetchMonthSavings(this.props.userId, currentMonth, nextMonth);
     this.props.fetchSavings(this.props.userId);
   }
 
@@ -79,6 +85,7 @@ class Savings extends Component {
 }
 
 Savings.propTypes = {
+  fetchMonthSavings: PropTypes.func.isRequired,
   savings: PropTypes.array.isRequired,
   fetchSavings: PropTypes.func.isRequired
 }
@@ -90,4 +97,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchSavings, editSavings })(Savings);
+export default connect(mapStateToProps, { fetchSavings, fetchMonthSavings, editSavings })(Savings);

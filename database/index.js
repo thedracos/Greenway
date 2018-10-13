@@ -227,6 +227,17 @@ const getSavings = params => Saving.findAll({
   }
 })
 
+const getMonthSavings = (params) => Saving.findAll({
+  where: { 
+    userId: params.userId, 
+    current_date: {
+      $gte: params.currentMonth,
+      $lte: params.nextMonth
+    }
+  },
+  order: [['cost', 'DESC']]
+});
+
 const saveSavingItem = params => {
   const { userId, item, cost, start_date, current_date, end_date } = params;
   User.find({})
@@ -350,7 +361,7 @@ module.exports.saveUser = saveUser;
 module.exports.saveLoan = saveLoan;
 module.exports.getLoans = getLoans;
 module.exports.getSavings = getSavings;
+module.exports.getMonthSavings = getMonthSavings;
 module.exports.saveSavingItem = saveSavingItem;
-module.exports.updateSavings = updateSavings;
-module.exports.getTransactionsForMonth = getTransactionsForMonth
+module.exports.updateSavings = updateSavings;module.exports.getTransactionsForMonth = getTransactionsForMonth
 module.exports.getTransactionsLoan = getTransactionsLoan

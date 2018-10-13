@@ -70,6 +70,7 @@ app.post('/api/user/expenses', (request, response) => {
 });
 
 app.post('/api/user/monthExpenses', (request, response) => {
+  console.log('this is request.body in expenses', request.body);
   database.getMonthExpenses(request.body)
   .then(data => {
     response.send(data);
@@ -174,12 +175,20 @@ app.post('/api/savings', (request, response) => {
 
 //Post Saving
 app.post('/api/user/savings', (request, response) => {
-  console.log('this is request.body', request.body);
   database.saveSavingItem(request.body)
   .then(data => {
     response.end(data);
   })
 })
+
+app.post('/api/user/monthSavings', (request, response) => {
+  console.log('this is request.body', request.body);
+  database.getMonthSavings(request.body)
+  .then(data => {
+    console.log('this is data', data);
+    response.send(data);
+  })
+});
 
 app.put('/api/user/savings', (request, response) => {
   console.log('this is request.body', request.body);
