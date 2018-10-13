@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import axios from 'axios';
+
 class AddLoan extends Component {
   constructor(props) {
     super(props);
@@ -18,22 +19,20 @@ class AddLoan extends Component {
 }
 
   onSubmitHandler (event) {
-    fetch('/api/loans', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(this.state)
+    axios.post('/api/loans', this.state)
+    .then(results => {
+      this.props.updateLoans(results);
+      this.setState({
+        name: '',
+        minimumPayment: '',
+        balance: '',
+        dayBillDue: '',
+        apr: '',
+        autopay: false,
+        website: ''
+      });
     })
-    this.setState({
-      name: '',
-      minimumPayment: '',
-      balance: '',
-      dayBillDue: '',
-      apr: '',
-      autopay: false,
-      website: ''
-    });
+    .catch(err => console.log('Error onSubmitHandler. Line 35 Add-Loans.jsx', err));
     event.preventDefault();
 }
 
@@ -41,11 +40,6 @@ class AddLoan extends Component {
       this.setState({
           [event.target.name] : event.target.value
       });
-  }
-
-  componentDidMount() {
-    console.log("from componentDidMount AddLoan",this.state.userId);
-    this.props.getLoans(this.state.userId);
   }
 
   render() {
@@ -65,11 +59,11 @@ class AddLoan extends Component {
         </div>
         <div>
           <select className="loan-field" name="dayBillDue" onChange={this.onChangeHandler} value={this.state.dayBillDue}required>
-            <option value="">Select which day of the month your recurring payment is due</option>
+            <option value="" key={27}>Select which day of the month your recurring payment is due</option>
             {
-              Array.apply(null, Array(27)).map((_, i) => <option value={`${i + 1}`}>{i + 1}</option>)
+              Array.apply(null, Array(27)).map((_, i) => <option value={`${i + 1}`} key={i}>{i + 1}</option>)
             }
-            <option value="last day of month">Last day of month</option>
+            <option value="last day of month" key={28}>Last day of month</option>
           </select>
         </div>
         <div>
@@ -93,8 +87,4 @@ class AddLoan extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-    userId: state.store.userInfo.userId
-})
-
-export default connect(mapStateToProps)(AddLoan);
+export default AddLoan;

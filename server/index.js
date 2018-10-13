@@ -134,17 +134,31 @@ app.put('/api/users/update', (request, response) => {
 
 // store a new loan record
 app.post('/api/loans', (request, response) => {
-  console.log(request.body);
-  database.saveLoan(request.body);
+  database.saveLoan(request.body)
+  .then(loans => {
+    response.send(loans.map(loan => loan.dataValues))
+    response.end();
+  })
+  .catch(err => console.log('Error while saving loan. Line 140 server/index.js', err));
 });
 
 app.get('/api/loans/:userId', (request, response) => {
-  console.log("gets request", request.params.userId);
   database.getLoans(request.params)
+  .then(loans => {
+    response.send(loans.map(loan => loan.dataValues))
+    response.end();
+  })  
+  .catch(err => console.log('Error while retrieving loans. Line 149 server/index.js', err))
+});
+
+//Transactions
+app.get('/api/transactions/:loanId', (request, response) => {
+  console.log("gets request", request.params.loanId);
+  database.getTransactionsForMonth(request.params)
   .then(data => {
-    let loans = data.map(loan => loan.dataValues);
-    console.log('loans', loans);
-    response.send(loans);
+    let transactions = data.map(transaction => transction.dataValues);
+    console.log('transactions', transactions);
+    response.send(transactions);
   })
 });
 
