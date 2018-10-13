@@ -18,7 +18,7 @@ const Loan = props => {
 
     return (
         <li className="flex-item">
-            <div style={{"text-align": 'center'}}>{props.name}</div>
+            <div style={{textAlign: 'center'}}>{props.name}</div>
             <hr/>
             <div>Minimum Payment: ${props.minimumPayment}</div>
             <div>Bill due on or before the {ordinal_suffix_of(props.dayBillDue)}</div>

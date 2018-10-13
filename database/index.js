@@ -42,10 +42,10 @@ const Saving = sequelize.define('saving', {
 // Loan Database
 const Loan = sequelize.define('loan', {
   name: Sequelize.STRING, // card/load name
-  minimumPayment: Sequelize.INTEGER, // minimum payment to not get penalty
-  balance: Sequelize.INTEGER, // balance on card/loan
+  minimumPayment: Sequelize.FLOAT, // minimum payment to not get penalty
+  balance: Sequelize.FLOAT, // balance on card/loan
   dayBillDue: Sequelize.STRING, // day bill is due
-  apr: Sequelize.INTEGER, // interest on card/laod
+  apr: Sequelize.FLOAT, // interest on card/laod
   autopay: Sequelize.BOOLEAN, // is autopay setup or not
   website: Sequelize.STRING // website link associated to card/loan
 });
@@ -55,7 +55,7 @@ User.hasMany(Loan);
 
 
 const Transaction = sequelize.define('transaction', {
-  payment: Sequelize.DECIMAL, // if you paid minimum payment or more than the minimum payment 
+  payment: Sequelize.FLOAT, // if you paid minimum payment or more than the minimum payment 
   paymentDate: Sequelize.DATE // when you made payment
 });
 
@@ -63,10 +63,8 @@ Transaction.belongsTo(Loan);
 Loan.hasMany(Transaction);
 
 const saveLoan = params => {
-  console.log(params);
-  const {name, minimumPayment, balance, dayBillDue, apr, autopay, website, userId} = params;
-  console.log('in saveLoan Db')
-  Loan.create({
+  const {name, minimumPayment, balance, dayBillDue, apr, autopay, website, userId} = params
+  return Loan.create({
     name, 
     minimumPayment, 
     balance, 
@@ -76,12 +74,42 @@ const saveLoan = params => {
     website,
     userId
   })
+  .then(() => getLoans({userId: params.userId}) )
+  .catch(err => console.log('line 74 db', err));
+};
+
+const getLoans = params => Loan.findAll({where: params});
+
+// Save and Get for Transactions
+
+const saveTransaction = params => {
+  const {payment, paymentDate, loanId} = params
+  Transaction.create({
+    payment, paymentDate, loanId
+  })
   .then(() => { console.log('stored new loan') });
 };
 
-const getLoans = params => {
-  console.log("params", params)
-  return Loan.findAll({where: params});
+const getTransactionsForMonth = params => {
+  var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+  var firstDay = new Date(y, m, 1);
+  var lastDay = new Date(y, m + 1, 1);
+  console.log("params in getTransactionsForMonth in db", params)
+  console.log("Here are the first and last day of the current month",firstDay, lastDay)
+  return Transaction.findAll({
+    where: {
+      loanId: params.loanId,
+      createdAt: {
+        $gt: firstDay,
+        $lt: lastDay
+      }
+    }
+  });
+};
+
+const getTransactionsLoan = params => {
+  console.log("params in getTransactionsLoan in db", params)
+  return Transaction.findAll({where: params.loanId});
 };
 
 // End of Loan Database
@@ -324,3 +352,5 @@ module.exports.getLoans = getLoans;
 module.exports.getSavings = getSavings;
 module.exports.saveSavingItem = saveSavingItem;
 module.exports.updateSavings = updateSavings;
+module.exports.getTransactionsForMonth = getTransactionsForMonth
+module.exports.getTransactionsLoan = getTransactionsLoan
