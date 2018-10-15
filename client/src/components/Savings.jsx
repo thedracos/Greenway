@@ -3,25 +3,17 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { fetchSavings, fetchMonthSavings, editSavings } from '../redux/actions/actions';
-<<<<<<< HEAD
 
 import moment from 'moment';
 import { uniq, sortBy } from 'underscore';
-=======
->>>>>>> Merge Loan Component
 
-import moment from 'moment';
 import AddSaving from './AddSaving.jsx';
 
 class Savings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       currentMonth : moment().format('YYYY-MM-01 00:00:00.000'),
-=======
-      currentMonth : moment().format('YYYY-MM'),
->>>>>>> Merge Loan Component
       uniqueDates: [],
       remaining: 200
     }
@@ -46,11 +38,7 @@ class Savings extends Component {
 
   componentDidMount() {
     const currentMonth = this.state.currentMonth;
-<<<<<<< HEAD
     const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
-=======
-    const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').calendar();
->>>>>>> Merge Loan Component
     this.props.fetchMonthSavings(this.props.userId, currentMonth, nextMonth);
     this.props.fetchSavings(this.props.userId);
   }
