@@ -13,7 +13,7 @@ class Savings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentMonth : moment().format('YYYY-MM'),
+      currentMonth : moment().format('YYYY-MM-01 00:00:00.000'),
       uniqueDates: [],
       remaining: 200
     }
@@ -38,21 +38,19 @@ class Savings extends Component {
 
   componentDidMount() {
     const currentMonth = this.state.currentMonth;
-    const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').calendar();
+    const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
     this.props.fetchMonthSavings(this.props.userId, currentMonth, nextMonth);
     this.props.fetchSavings(this.props.userId);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevProps', prevProps);
-    console.log('prevState', prevState);
     if (this.state.currentMonth !== prevState.currentMonth) {
-      const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM');
-      const followingSelectedMonth = moment(selectedMonth).add(1, 'months').subtract(1, 'days').calendar();
+      const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM-01 00:00:00.000');
+      const followingSelectedMonth = moment(selectedMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
+      console.log('selectedMonth', selectedMonth , 'followingSelectedMonth', followingSelectedMonth);
       this.props.fetchMonthSavings(this.props.userId, selectedMonth, followingSelectedMonth);
     }
     if (this.props.savings.length > 0 && this.state.uniqueDates.length === 0) {
-      console.log('savings', this.props.savings);
       this.getUniqueDates(this.props.savings);
     }
   }
@@ -100,6 +98,7 @@ class Savings extends Component {
           <th className="gray savings-head"></th>
         </tr>
         {this.props.monthSavings.map(item => {
+          console.log('item', item);
           return (
             <tr>
               <td className="savings-chart">{item.item}</td>
@@ -110,9 +109,9 @@ class Savings extends Component {
                 </form>
               </td>
               {/* <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td> */}
-              <td className="savings-chart">{moment(item.start_date).format('MM-DD-YYYY')}</td>
-              <td className="savings-chart">{moment(item.current_date).format('MM-DD-YYYY')}</td>
-              <td className="savings-chart">{moment(item.end_date).format('MM-DD-YYYY')}</td>
+              <td className="savings-chart">{moment(item.start_date.slice(0, 10)).format('MM-DD-YYYY')}</td>
+              <td className="savings-chart">{moment(item.current_date.slice(0, 10)).format('MM-DD-YYYY')}</td>
+              <td className="savings-chart">{moment(item.end_date.slice(0, 10)).format('MM-DD-YYYY')}</td>
               <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
             </tr>
           )

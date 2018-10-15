@@ -23,19 +23,19 @@ class AddSaving extends Component {
       userId: this.props.userId,
       item: this.state.item,
       cost: Number(this.state.cost),
-      start_date: this.state.startDate,
-      current_date: this.state.startDate,
-      end_date: this.state.endDate
+      start_date: moment(this.state.startDate).format('YYYY-MM-DD 00:00:00.000'),
+      current_date: moment(this.state.startDate).format('YYYY-MM-DD 00:00:00.000'),
+      end_date: moment(this.state.endDate).format('YYYY-MM-DD 00:00:00.000')
     }
     //POST 1st Month
     this.props.createSavings(savingsItem);
     //POST Last Month
-    savingsItem.current_date = this.state.endDate;
+    savingsItem.current_date = moment(this.state.endDate).format('YYYY-MM-DD 00:00:00.000');
     this.props.createSavings(savingsItem);
     //POST InBetween Months
     const dateDifference = Math.floor(moment(this.state.endDate).diff(moment(this.state.startDate), 'months', true));
     for (var i = 1; i < dateDifference; i++) {
-      savingsItem.current_date = moment(this.state.startDate).add(i, 'months').calendar();
+      savingsItem.current_date = moment(this.state.startDate).add(i, 'months').format('YYYY-MM-01 00:00:00.000');
       this.props.createSavings(savingsItem);
     }
   }
