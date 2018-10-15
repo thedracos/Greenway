@@ -74,11 +74,19 @@ const saveLoan = params => {
     website,
     userId
   })
-  .then(() => getLoans({userId: params.userId}) )
-  .catch(err => console.log('line 74 db', err));
+  .then(() => getLoans({userId: params.userId}))
+  .catch(err => console.log('saveLoan, line 78 db', err));
 };
 
 const getLoans = params => Loan.findAll({where: params});
+
+const deleteLoan = params => Loan.destroy({
+    where: {
+      id: params.id
+    }
+  })
+  .then(results => getLoans({userId: params.userId}))
+  .catch(err => console.log('Error deleteLoan line 90 db', err));
 
 // Save and Get for Transactions
 
@@ -347,10 +355,13 @@ module.exports.saveUser = saveUser;
 // module.exports.addListItem  = addListItem;
 // module.exports.editListItem = editListItem;
 // module.exports.deleteListItem = deleteListItem;
-module.exports.saveLoan = saveLoan;
-module.exports.getLoans = getLoans;
 module.exports.getSavings = getSavings;
 module.exports.saveSavingItem = saveSavingItem;
 module.exports.updateSavings = updateSavings;
+
+// Loan methods export
+module.exports.saveLoan = saveLoan;
+module.exports.getLoans = getLoans;
+module.exports.deleteLoan = deleteLoan;
 module.exports.getTransactionsForMonth = getTransactionsForMonth
 module.exports.getTransactionsLoan = getTransactionsLoan
