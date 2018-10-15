@@ -279,7 +279,7 @@ const getMonthExpenses = (params) => Expense.findAll({
   order: [['cost', 'DESC']]
 });
 
-const saveExpense = (bill) => {
+const saveExpense = (bill, cb) => {
   console.log('Saving expense to db', bill);
   const { userId, expense, cost, category, frequency, date } = bill;
   User.find({})
@@ -288,6 +288,7 @@ const saveExpense = (bill) => {
   })
   .then(() => {
     console.log('Successfully saved data into db');
+    cb(bill);
   })
 };
 

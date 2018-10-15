@@ -80,12 +80,11 @@ app.post('/api/user/monthExpenses', (request, response) => {
 // store a new expense record
 app.post('/api/expenses', (request, response) => {
   // console.log(request.body);
-  database.saveExpense(request.body)
+  database.saveExpense(request.body, (bill) => {
+    response.send(request.body);
+  })
   // if we don't tie the response in, it could send the same response
   // even if the db action isn't successful?
-  .then(data => {
-    response.send(data);
-  })
 });
 
 // remove an expense record
