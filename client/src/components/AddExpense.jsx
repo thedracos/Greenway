@@ -35,21 +35,21 @@ class AddExpense extends Component {
         cost: this.state.cost,
         category: this.state.category,
         frequency: this.state.frequency,
-        date: this.state.date
+        date: moment(this.state.date).format('YYYY-MM-DD 00:00:00.000')
       }
       if (newExpense.frequency === 'Once') {
         this.props.createExpense(newExpense);
       }
       if (newExpense.frequency === 'Monthly') {
-        for (var i = 0; i < 24; i++) {
+        for (var i = 0; i < 12; i++) {
           this.props.createExpense(newExpense);
-          newExpense.date = moment(newExpense.date).add(1, 'months');
+          newExpense.date = moment(newExpense.date).add(1, 'months').format('YYYY-MM-DD 00:00:00.000');
         }
       }
       if (newExpense.frequency === 'Yearly') {
         for (var i = 0; i < 2; i++) {
           this.props.createExpense(newExpense);
-          newExpense.date = moment(newExpense.date).add(1, 'years');
+          newExpense.date = moment(newExpense.date).add(1, 'years').format('YYYY-MM-DD 00:00:00.000');
         }
       }
 

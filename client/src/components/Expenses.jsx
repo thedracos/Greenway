@@ -19,7 +19,7 @@ class Expenses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentMonth : moment().format('YYYY-MM'),
+      currentMonth : moment().format('YYYY-MM-01 00:00:00.000'),
       uniqueDates: []
     }
     //
@@ -53,7 +53,7 @@ class Expenses extends Component {
 
   componentDidMount() {
     const currentMonth = this.state.currentMonth;
-    const nextMonth = moment(currentMonth).add(1, 'months').calendar();
+    const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
     this.props.fetchMonthExpenses(this.props.userId, currentMonth, nextMonth);
     this.props.fetchExpenses(this.props.userId);
   }
@@ -62,8 +62,8 @@ class Expenses extends Component {
     console.log('prevProps', prevProps);
     console.log('prevState', prevState);
     if (this.state.currentMonth !== prevState.currentMonth) {
-      const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM');
-      const followingSelectedMonth = moment(selectedMonth).add(1, 'months').calendar();
+      const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM-01 00:00:00.000');
+      const followingSelectedMonth = moment(selectedMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
       this.props.fetchMonthExpenses(this.props.userId, selectedMonth, followingSelectedMonth);
     }
     if (this.props.expenses.length > 0 && this.state.uniqueDates.length === 0) {
