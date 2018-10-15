@@ -221,7 +221,18 @@ const userUpdate = (params, callback) => {
 
 const updateSavings = (params, callback) => {
   console.log('this is params', params)
-  Saving.update({ cost: params.cost }, { where: { userId: params.userId, item: params.item} })
+  Saving.update(
+    { cost: params.cost }, 
+    { 
+      where: { 
+        userId: params.userId, 
+        item: params.item, 
+        current_date: {
+          $gte: params.current_date,
+          $lte: params.end_date
+        }
+      } 
+    })
   .catch(err => {
     console.log('Error string updated savings to DB');
   })
@@ -234,6 +245,17 @@ const getSavings = params => Saving.findAll({
     userId: params.userId
   }
 })
+
+const getMonthSavings = (params) => Saving.findAll({
+  where: { 
+    userId: params.userId, 
+    current_date: {
+      $gte: params.currentMonth,
+      $lte: params.nextMonth
+    }
+  },
+  order: [['cost', 'DESC']]
+});
 
 const saveSavingItem = params => {
   const { userId, item, cost, start_date, current_date, end_date } = params;
@@ -265,7 +287,7 @@ const getMonthExpenses = (params) => Expense.findAll({
   order: [['cost', 'DESC']]
 });
 
-const saveExpense = (bill) => {
+const saveExpense = (bill, cb) => {
   console.log('Saving expense to db', bill);
   const { userId, expense, cost, category, frequency, date } = bill;
   User.find({})
@@ -274,6 +296,7 @@ const saveExpense = (bill) => {
   })
   .then(() => {
     console.log('Successfully saved data into db');
+    cb(bill);
   })
 };
 
@@ -356,6 +379,7 @@ module.exports.saveUser = saveUser;
 // module.exports.editListItem = editListItem;
 // module.exports.deleteListItem = deleteListItem;
 module.exports.getSavings = getSavings;
+module.exports.getMonthSavings = getMonthSavings;
 module.exports.saveSavingItem = saveSavingItem;
 module.exports.updateSavings = updateSavings;
 

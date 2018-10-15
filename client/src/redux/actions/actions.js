@@ -3,7 +3,8 @@ import {
   GET_MONTH_EXPENSES, 
   GET_EXPENSES, 
   ADD_EXPENSE, 
-  ADD_SAVINGS, 
+  ADD_SAVINGS,
+  GET_MONTH_SAVINGS, 
   GET_SAVINGS,
   EDIT_SAVINGS,
   DELETE_EXPENSE, 
@@ -125,6 +126,29 @@ export function fetchSavings(userId) {
       type: GET_SAVINGS,
       payload: savings
     }))
+  }
+}
+
+export function fetchMonthSavings(userId, startDate, endDate) {
+  console.log('fetchMonthSavings from actions');
+  return function(dispatch) {
+    const currentMonthUserSavings = {
+      userId: userId,
+      currentMonth: startDate,
+      nextMonth: endDate
+    }
+    fetch('/api/user/monthSavings', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(currentMonthUserSavings)
+    })
+    .then(res => res.json())
+    .then(savings => dispatch({
+      type: GET_MONTH_SAVINGS,
+      payload: savings
+    }));
   }
 }
 
