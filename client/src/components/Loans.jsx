@@ -12,24 +12,35 @@ class Loans extends Component {
     }
     this.getLoans = this.getLoans.bind(this);
     this.updateLoans = this.updateLoans.bind(this);
+    this.deleteLoan = this.deleteLoan.bind(this);
   }
 
   updateLoans(loans) {
     this.setState({loans: loans.data});
   }
 
-  getLoans(userId) {
-    console.log("from getLoans", userId);
-    axios.get(`/api/loans/${userId}`)
+  getLoans() {
+    axios.get(`/api/loans/${this.props.userId}`)
     .then(this.updateLoans)
     .catch(err =>
       console.log('Error while getting loans from db. Line 26 getLoans', err)
     );
   }
   
+  deleteLoan(loanIdAndUserId) {
+    console.log('deleteLoan line 31 Loans.jsx. Return value', loanIdAndUserId)
+    axios.delete('/api/loans/', {data: loanIdAndUserId})
+    .then(results => {
+      console.log('deleteLoan line 34 Loans.jsx. Return value', results)
+      this.updateLoans(results);
+    })
+    .catch(err =>
+      console.log('Error while getting loans from db. Line 26 getLoans', err)
+    );
+  }
+
   componentDidMount() {
-    console.log('in componemtDidMount of Loans component')
-    this.getLoans(this.props.userId);
+    this.getLoans();
   }
 
   render() {
@@ -38,7 +49,7 @@ class Loans extends Component {
         <div className="loans-title">Loans</div>
         <ul className="flex-container">
           {
-            this.state.loans.map((loan, index) => <Loan {...loan} key={index} />)
+            this.state.loans.map((loan, index) => <Loan {...loan} deleteLoan={this.deleteLoan} key={index} userId={this.props.userId}/>)
           }
         </ul>
         <div className="add-loan">

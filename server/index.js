@@ -151,6 +151,15 @@ app.get('/api/loans/:userId', (request, response) => {
   .catch(err => console.log('Error while retrieving loans. Line 149 server/index.js', err))
 });
 
+app.delete('/api/loans', (request, response) => {
+  database.deleteLoan(request.body)
+  .then(loans => {
+    response.send(loans.map(loan => loan.dataValues))
+    response.end();
+  })
+  .catch(err => console.log('Error while deleting loan. Line 160 server/index.js', err));
+});
+
 //Transactions
 app.get('/api/transactions/:loanId', (request, response) => {
   console.log("gets request", request.params.loanId);
