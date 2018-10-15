@@ -800,3 +800,8 @@ table h4 {
 form {
   margin: 10px;
 }
+
+.flex-item label {
+  font-weight: bold;
+  color: black
+}
