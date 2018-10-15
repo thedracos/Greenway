@@ -213,7 +213,18 @@ const userUpdate = (params, callback) => {
 
 const updateSavings = (params, callback) => {
   console.log('this is params', params)
-  Saving.update({ cost: params.cost }, { where: { userId: params.userId, item: params.item} })
+  Saving.update(
+    { cost: params.cost }, 
+    { 
+      where: { 
+        userId: params.userId, 
+        item: params.item, 
+        current_date: {
+          $gte: params.current_date,
+          $lte: params.end_date
+        }
+      } 
+    })
   .catch(err => {
     console.log('Error string updated savings to DB');
   })

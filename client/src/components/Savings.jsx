@@ -56,19 +56,19 @@ class Savings extends Component {
   }
 
   updateSavings(savingItem) {
-    const cost = savingItem.cost - this.state.editedItem;
+    const cost = savingItem.cost - Number(this.state.editedItem);
     const editedItem = {
       userId: this.props.userId,
       item: savingItem.item,
-      cost: cost
+      cost: cost,
+      current_date: savingItem.current_date,
+      end_date: savingItem.end_date
     }
-    console.log(editedItem);
+    console.log('editedItem yo', editedItem);
     this.props.editSavings(editedItem);
   }
 
   onChange(e) {
-    console.log('this is e.target.name', e.target.name);
-    console.log('this is e.target.value', e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -97,7 +97,6 @@ class Savings extends Component {
           <th className="gray savings-head"></th>
         </tr>
         {this.props.monthSavings.map(item => {
-          console.log('item', item);
           return (
             <tr>
               <td className="savings-chart">{item.item}</td>
@@ -110,7 +109,7 @@ class Savings extends Component {
               {/* <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td> */}
               <td className="savings-chart">{moment(item.start_date.slice(0, 10)).format('L')}</td>
               <td className="savings-chart">{moment(item.end_date.slice(0, 10)).format('L')}</td>
-              <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
+              <td className="savings-chart"><button class="savings-btn" type="submit" onClick={()=> {this.updateSavings(item)}}>Save!</button></td>
             </tr>
           )
         })}
