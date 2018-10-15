@@ -93,7 +93,6 @@ class Savings extends Component {
           <th className="gray savings-head">Amount Saving ($)</th>
           {/* <th className="gray savings-head">Months Remaining</th> */}
           <th className="gray savings-head">Start Date</th>
-          <th className="gray savings-head">Current Date</th>
           <th className="gray savings-head">End Date</th>
           <th className="gray savings-head"></th>
         </tr>
@@ -109,9 +108,8 @@ class Savings extends Component {
                 </form>
               </td>
               {/* <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td> */}
-              <td className="savings-chart">{moment(item.start_date.slice(0, 10)).format('MM-DD-YYYY')}</td>
-              <td className="savings-chart">{moment(item.current_date.slice(0, 10)).format('MM-DD-YYYY')}</td>
-              <td className="savings-chart">{moment(item.end_date.slice(0, 10)).format('MM-DD-YYYY')}</td>
+              <td className="savings-chart">{moment(item.start_date.slice(0, 10)).format('L')}</td>
+              <td className="savings-chart">{moment(item.end_date.slice(0, 10)).format('L')}</td>
               <td className="savings-chart"><button class="savings-btn" type="submit">Save!</button></td>
             </tr>
           )
