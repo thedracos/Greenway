@@ -58,7 +58,19 @@ class ExpensesChart extends Component {
   render() {
     return (
       <div>
-        <Doughnut data={this.state} />
+        <Doughnut 
+          data={this.state} 
+          width={300}
+          height={300}
+          options={{
+            maintainAspectRatio: false
+          }}
+          legend={{
+            //display: false
+            position: 'right',
+            fullWidth: false
+          }}
+        />
       </div>
     );
   }
