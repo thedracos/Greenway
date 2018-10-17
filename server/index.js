@@ -98,9 +98,7 @@ app.delete('/api/expenses', (request, response) => {
 // update an expense record
 app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
-  // if we don't tie the response in, it could send the same response
-  // even if the db action isn't successful?
-  response.send();
+  response.send(request.body);
 });
 
 app.post('/api/login', (request, response) => {

@@ -2,6 +2,8 @@ import {
   GET_MONTH_EXPENSES, 
   GET_EXPENSES, 
   ADD_EXPENSE, 
+  UPDATE_EXPENSE,
+  UPDATE_EXPENSES,
   ADD_SAVINGS, 
   GET_SAVINGS,
   GET_MONTH_SAVINGS,
@@ -14,6 +16,7 @@ const initialState = {
   expenses: [],
   monthExpenses: [],
   expense: {},
+  updated: {},
   userInfo: {},
   savingsItem: {},
   savings: [],
@@ -40,6 +43,18 @@ export default function(state = initialState, action) {
       return {
         ...state,
         monthExpenses: action.payload
+      }
+    case UPDATE_EXPENSE:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        updated: action.payload
+      }
+    case UPDATE_EXPENSES:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        updated: action.payload
       }
     case DELETE_EXPENSE:
     console.log(`${action.type}: updating store by reducer`);

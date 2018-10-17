@@ -334,22 +334,26 @@ const deleteExpense = (bill) => {
 // const deleteListItem = (item) => {};
 
 //For whatever reason, this is nonfunctional code. It doesn't break our code though.
-const updateExpense = (bill) => {
-  const { id, expense, cost, category, frequency, date } = bill;
-  return Expense.update(
-    { expense },
-    { cost },
-    { category },
-    { frequency },
-    { date },
-    { returning: true, where: { id } },
-  )
-  .then((data) => {
-    if (data[0]) {
-      console.log('it worked');
-    } else {
-      console.log('it didnt work');
+const updateExpense = (params) => {
+  console.log(params);
+  Expense.update({
+    expense: params.expense,
+    cost: params.cost,
+    category: params.category,
+    frequency: params.frequency,
+    date: params.date
+  },
+  {
+    where: {
+      userId: params.userId,
+      id: params.id
     }
+  })
+  .then(() => {
+    console.log('Succesfully Updated Expense in DB');
+  })
+  .catch(err => {
+    console.log('Error string updated savings to DB');
   })
 }
 
