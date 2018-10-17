@@ -22,7 +22,7 @@ class Expenses extends Component {
     this.state = {
       currentMonth : moment().format('YYYY-MM-01 00:00:00.000'),
       uniqueDates: [],
-      view: 'add',
+      view: '',
       editExpense: {}
     }
     this.updateExpense = this.updateExpense.bind(this);
@@ -51,6 +51,9 @@ class Expenses extends Component {
     const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
     this.props.fetchMonthExpenses(this.props.userId, currentMonth, nextMonth);
     this.props.fetchExpenses(this.props.userId);
+    this.setState({
+      view: 'add'
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {

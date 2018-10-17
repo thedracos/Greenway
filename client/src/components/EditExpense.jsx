@@ -40,6 +40,12 @@ class EditExpense extends Component {
     if (updatedExpense.frequency === 'Once') {
       this.props.updateExpense(updatedExpense);
       this.props.viewChangeAdd();
+    } else {
+      if (confirm('Would you like to update your changes for the entire subscription?')) {
+        console.log('ok making changes');
+      } else {
+        this.props.updateExpense(updatedExpense);
+      }
     }
   }
 
