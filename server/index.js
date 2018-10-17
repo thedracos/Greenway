@@ -200,9 +200,11 @@ app.post('/api/savings', (request, response) => {
 
 //Post Saving
 app.post('/api/user/savings', (request, response) => {
-  database.saveSavingItem(request.body)
-  .then(data => {
-    response.end(data);
+  database.saveSavingItem(request.body, () => {
+    database.getMonthSavings(request.body)
+    .then(data => {
+      response.send(data);
+    })
   })
 })
 

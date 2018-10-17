@@ -25,7 +25,9 @@ class AddSaving extends Component {
       cost: Number(this.state.cost),
       start_date: moment(this.state.startDate).format('YYYY-MM-DD 00:00:00.000'),
       current_date: moment(this.state.startDate).format('YYYY-MM-DD 00:00:00.000'),
-      end_date: moment(this.state.endDate).format('YYYY-MM-DD 00:00:00.000')
+      end_date: moment(this.state.endDate).format('YYYY-MM-DD 00:00:00.000'),
+      currentMonth: this.props.currentMonth,
+      nextMonth: moment(this.props.currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999')
     }
     //POST 1st Month
     this.props.createSavings(savingsItem);

@@ -115,7 +115,7 @@ class Savings extends Component {
           )
         })}
         <div className="savings-bottom"></div>
-        <AddSaving />
+        <AddSaving currentMonth={this.state.currentMonth}/>
         <SavingsChart />
       </div>
     )

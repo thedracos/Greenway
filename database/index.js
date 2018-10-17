@@ -265,7 +265,7 @@ const getMonthSavings = (params) => Saving.findAll({
   order: [['cost', 'DESC']]
 });
 
-const saveSavingItem = params => {
+const saveSavingItem = (params, cb) => {
   const { userId, item, cost, start_date, current_date, end_date } = params;
   User.find({})
   Saving.upsert({
@@ -273,6 +273,7 @@ const saveSavingItem = params => {
   })
   .then(() => {
     console.log('Succesfully saved Saving into DB');
+    cb();
   })
 }
 
