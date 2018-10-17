@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
 
 // localhost is not correct/complete
 const dbUrl = process.env.DB_URI || localhost;
@@ -52,7 +53,7 @@ User.hasMany(Loan);
 
 
 const Transaction = sequelize.define('transaction', {
-  payment: Sequelize.DECIMAL, // if you paid minimum payment or more than the minimum payment 
+  payment: Sequelize.DECIMAL, // if you paid minimum payment or more than the minimum payment
   paymentDate: Sequelize.DATE // when you made payment
 });
 
@@ -64,12 +65,12 @@ const saveLoan = params => {
   const {name, minimumPayment, balance, dayBillDue, apr, autopay, website, userId} = params;
   console.log('in saveLoan Db')
   Loan.create({
-    name, 
-    minimumPayment, 
-    balance, 
-    dayBillDue, 
-    apr, 
-    autopay, 
+    name,
+    minimumPayment,
+    balance,
+    dayBillDue,
+    apr,
+    autopay,
     website,
     userId
   })
@@ -98,6 +99,8 @@ User.hasMany(ListItem, {foreignKey: 'userId', sourceKey: 'id'});
 Saving.belongsTo(User);
 User.hasMany(Saving, {foreignKey: 'userId', sourceKey: 'id'})
 
+// User
+
 const userLogin = (params, callback) => {
   // console.log('logging in ', params);
   const { name, password } = params;
@@ -120,22 +123,33 @@ const userLogin = (params, callback) => {
   });
 };
 
-// User
+const salt = bcrypt.genSaltSync(10);
 
-const userSignup = (params) => {
-  // console.log('saving user to db ', params);
-  const { name, password, income, frequency, date } = params;
-  User.findOrCreate({
-    name, password, income, frequency, date,
-    where: { name: !name }
-  })
-  // .then(() => { console.log('Stored new user') });
-};
+// this function is not in use?
+// const userSignup = (params) => {
+//   // console.log('saving user to db ', params);
+//   const hashedPass = bcrypt.hash(params.password, salt)
+//   // const { name, password, income, frequency, date } = params;
+//   const { name, income, frequency, date } = params;
+//   User.findOrCreate({
+//     name, hashedPass, income, frequency, date,
+//     // name, password, income, frequency, date,
+//     where: { name: !name }
+//   })
+//   // .then(() => { console.log('Stored new user') });
+// };
 
-const saveUser = (params) => {
+const saveUser = (params, callback) => {
   // console.log('Saving user to db', params);
-  const { name, password, income, frequency, date } = params;
-  User.upsert({name, password, income, frequency, date})
+
+  const password = bcrypt.hashSync(params.password, salt);
+  // console.log(password);
+
+  // const { name, password, income, frequency, date } = params;
+  const { name, income } = params;
+
+  // User.upsert({name, password, income, frequency, date})
+  User.upsert({name, password, income})
   // .then(() => {
   //   console.log('Successfully saved data into db');
   // })
@@ -216,8 +230,8 @@ const getExpenses = (params) => Expense.findAll({
 })
 
 const getMonthExpenses = (params) => Expense.findAll({
-  where: { 
-    userId: params.userId, 
+  where: {
+    userId: params.userId,
     date: {
       $gte: params.currentMonth,
       $lte: params.nextMonth
@@ -304,7 +318,7 @@ sequelize.sync();
 
 module.exports.userUpdate = userUpdate;
 module.exports.userLogin = userLogin;
-module.exports.userSignup = userSignup;
+// module.exports.userSignup = userSignup;
 module.exports.getExpenses = getExpenses;
 module.exports.getMonthExpenses = getMonthExpenses;
 module.exports.saveExpense = saveExpense;

@@ -114,10 +114,11 @@ app.post('/api/login', (request, response) => {
 });
 
 app.post('/api/users', (request, response) => {
-  database.saveUser(request.body)
-  .then(data => {
-    response.end();
-  });
+  database.saveUser(request.body);
+  // doesn't like .then
+  // .then(data => {
+  response.end();
+  // });
 });
 
 app.put('/api/users/update', (request, response) => {
