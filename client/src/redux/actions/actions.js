@@ -104,9 +104,9 @@ export function updateExpenses(edittedExpense) {
       body: JSON.stringify(edittedExpense)
     })
     .then(res => res.json())
-    .then(expense => dispatch({
+    .then(expenses => dispatch({
       type: UPDATE_EXPENSES,
-      payload: expense
+      payload: expenses
     }));
   }
 }

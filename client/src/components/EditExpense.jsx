@@ -35,7 +35,9 @@ class EditExpense extends Component {
       cost: this.state.cost,
       category: this.state.category,
       frequency: this.state.frequency,
-      date: this.state.date
+      date: this.state.date,
+      currentMonth: this.props.currentMonth,
+      nextMonth: moment(this.props.currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999')
     }
     if (updatedExpense.frequency === 'Once') {
       this.props.updateExpense(updatedExpense);

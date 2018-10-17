@@ -348,7 +348,7 @@ const deleteExpense = (bill, cb) => {
 // const deleteListItem = (item) => {};
 
 //For whatever reason, this is nonfunctional code. It doesn't break our code though.
-const updateExpense = (params) => {
+const updateExpense = (params, cb) => {
   console.log(params);
   Expense.update({
     expense: params.expense,
@@ -365,6 +365,7 @@ const updateExpense = (params) => {
   })
   .then(() => {
     console.log('Succesfully Updated Expense in DB');
+    cb();
   })
   .catch(err => {
     console.log('Error string updated savings to DB');

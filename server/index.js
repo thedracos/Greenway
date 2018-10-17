@@ -103,8 +103,12 @@ app.delete('/api/expenses', (request, response) => {
 
 // update an expense record
 app.put('/api/expenses', (request, response) => {
-  database.updateExpense(request.body);
-  response.send(request.body);
+  database.updateExpense(request.body, () => {
+    database.getMonthExpenses(request.body)
+    .then(data => {
+      response.send(data);
+    })
+  });
 });
 
 app.post('/api/login', (request, response) => {

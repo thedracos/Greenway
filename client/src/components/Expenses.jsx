@@ -98,7 +98,7 @@ class Expenses extends Component {
       return (<AddExpense currentMonth={this.state.currentMonth}/>)
     }
     if (this.state.view === 'edit') {
-      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.viewChangeAdd}/>)
+      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.viewChangeAdd} currentMonth={this.state.currentMonth}/>)
     }
   }
 
