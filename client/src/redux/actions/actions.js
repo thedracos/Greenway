@@ -2,7 +2,9 @@ import moment from 'moment';
 import { 
   GET_MONTH_EXPENSES, 
   GET_EXPENSES, 
-  ADD_EXPENSE, 
+  ADD_EXPENSE,
+  UPDATE_EXPENSE,
+  UPDATE_EXPENSES,
   ADD_SAVINGS,
   GET_MONTH_SAVINGS, 
   GET_SAVINGS,
@@ -68,6 +70,42 @@ export function createExpense(newExpense) {
     .then(res => res.json())
     .then(expense => dispatch({
       type: ADD_EXPENSE,
+      payload: expense
+    }));
+  }
+}
+
+export function updateExpense(edittedExpense) {
+  console.log('updating expense from actions');
+  return function(dispatch) {
+    fetch('/api/expenses', {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(edittedExpense)
+    })
+    .then(res => res.json())
+    .then(expense => dispatch({
+      type: UPDATE_EXPENSE,
+      payload: expense
+    }));
+  }
+}
+
+export function updateExpenses(edittedExpense) {
+  console.log('updating expenses from actions');
+  return function(dispatch) {
+    fetch('/api/user/expenses', {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(edittedExpense)
+    })
+    .then(res => res.json())
+    .then(expense => dispatch({
+      type: UPDATE_EXPENSES,
       payload: expense
     }));
   }

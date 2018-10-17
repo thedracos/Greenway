@@ -21,21 +21,15 @@ class Expenses extends Component {
     super(props);
     this.state = {
       currentMonth : moment().format('YYYY-MM-01 00:00:00.000'),
-      uniqueDates: []
+      uniqueDates: [],
+      view: 'add',
+      editExpense: {}
     }
-    //
-    //   // editExpense: {
-    //   //   id: 5,
-    //   //   expense: 'Buffalo Wild Wings',
-    //   //   cost: 20,
-    //   //   category: 'Food',
-    //   //   frequency: 'Once',
-    //   //   date: '10/02/18'
-    //   // }
-    // }
     this.updateExpense = this.updateExpense.bind(this);
     this.onChange = this.onChange.bind(this);
     this.getUniqueDates = this.getUniqueDates.bind(this);
+    this.viewChanger = this.viewChanger.bind(this);
+    this.viewChangeAdd = this.viewChangeAdd.bind(this);
   }
 
   getUniqueDates(array) {
@@ -71,7 +65,7 @@ class Expenses extends Component {
   }
 
   updateExpense(expense) {
-    console.log(expense);
+    console.log('this is expense', expense);
     const editExpense = {
       id: expense.id,
       expense: expense.expense,
@@ -83,11 +77,29 @@ class Expenses extends Component {
     this.setState({
       editExpense: editExpense
     })
+    this.setState({
+      view: 'edit'
+    })
   }
 
   onChange(e) {
     this.setState({
       currentMonth: e.target.value
+    })
+  }
+
+  viewChanger() {
+    if (this.state.view === 'add') {
+      return (<AddExpense />)
+    }
+    if (this.state.view === 'edit') {
+      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.viewChangeAdd}/>)
+    }
+  }
+
+  viewChangeAdd() {
+    this.setState({
+      view: 'add'
     })
   }
 
@@ -131,15 +143,18 @@ class Expenses extends Component {
                 <td className="gray exp-10 ">{expense.frequency}</td>
                 <td className="exp-10">{moment(expense.date).format('L')}</td>
                 <td className="exp-del-btn exp-width">
-                  {/* <button onClick={() => {this.updateExpense(expense)}}>Edit</button> */}
+                  <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
                   <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
                 </td>
               </tr>
             )
           })}
-          <AddExpense />
-          <ExpensesChart />
-          {/* <EditExpense editExpense={this.state.editExpense}/> */}
+          <div>
+            {this.viewChanger()}
+          </div>
+          <div>
+            <ExpensesChart />
+          </div>
         </div>
       </Router>
     )
