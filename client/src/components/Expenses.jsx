@@ -93,7 +93,7 @@ class Expenses extends Component {
       return (<AddExpense />)
     }
     if (this.state.view === 'edit') {
-      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.state.viewChangeAdd}/>)
+      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.viewChangeAdd}/>)
     }
   }
 

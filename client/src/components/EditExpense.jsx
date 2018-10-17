@@ -39,6 +39,7 @@ class EditExpense extends Component {
     }
     if (updatedExpense.frequency === 'Once') {
       this.props.updateExpense(updatedExpense);
+      this.props.viewChangeAdd();
     }
   }
 
