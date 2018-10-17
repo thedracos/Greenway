@@ -15,7 +15,7 @@ import {
 const initialState = {
   expenses: [],
   monthExpenses: [],
-  expense: {},
+  // expense: {},
   updated: {},
   userInfo: {},
   savingsItem: {},
@@ -27,10 +27,11 @@ const initialState = {
 export default function(state = initialState, action) {
   switch(action.type) {
     case ADD_EXPENSE:
+    console.log('this is action.payload', action.payload);
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        expense: action.payload
+        monthExpenses: action.payload
       }
     case GET_EXPENSES:
     console.log(`${action.type}: updating store by reducer`);

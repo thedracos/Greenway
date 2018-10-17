@@ -68,9 +68,9 @@ export function createExpense(newExpense) {
       body: JSON.stringify(newExpense)
     })
     .then(res => res.json())
-    .then(expense => dispatch({
+    .then(expenses => dispatch({
       type: ADD_EXPENSE,
-      payload: expense
+      payload: expenses
     }));
   }
 }

@@ -26,33 +26,30 @@ class AddExpense extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    if (this.state.expense.length === 0 || this.state.cost.length === 0 || this.state.category === 0 || this.state.frequency.length === 0 || this.state.date.length === 0) {
-      alert('Please Complete All Forms');
-    } else {
-      const newExpense = {
-        userId: this.props.userId,
-        expense: this.state.expense,
-        cost: this.state.cost,
-        category: this.state.category,
-        frequency: this.state.frequency,
-        date: moment(this.state.date).format('YYYY-MM-DD 00:00:00.000')
-      }
-      if (newExpense.frequency === 'Once') {
+    const newExpense = {
+      userId: this.props.userId,
+      expense: this.state.expense,
+      cost: this.state.cost,
+      category: this.state.category,
+      frequency: this.state.frequency,
+      date: moment(this.state.date).format('YYYY-MM-DD 00:00:00.000'),
+      currentMonth: this.props.currentMonth,
+      nextMonth: moment(this.props.currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999')
+    }
+    if (newExpense.frequency === 'Once') {
+      this.props.createExpense(newExpense);
+    }
+    if (newExpense.frequency === 'Monthly') {
+      for (var i = 0; i < 12; i++) {
         this.props.createExpense(newExpense);
+        newExpense.date = moment(newExpense.date).add(1, 'months').format('YYYY-MM-DD 00:00:00.000');
       }
-      if (newExpense.frequency === 'Monthly') {
-        for (var i = 0; i < 12; i++) {
-          this.props.createExpense(newExpense);
-          newExpense.date = moment(newExpense.date).add(1, 'months').format('YYYY-MM-DD 00:00:00.000');
-        }
+    }
+    if (newExpense.frequency === 'Yearly') {
+      for (var i = 0; i < 2; i++) {
+        this.props.createExpense(newExpense);
+        newExpense.date = moment(newExpense.date).add(1, 'years').format('YYYY-MM-DD 00:00:00.000');
       }
-      if (newExpense.frequency === 'Yearly') {
-        for (var i = 0; i < 2; i++) {
-          this.props.createExpense(newExpense);
-          newExpense.date = moment(newExpense.date).add(1, 'years').format('YYYY-MM-DD 00:00:00.000');
-        }
-      }
-
     }
   }
 
