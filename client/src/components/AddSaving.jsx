@@ -42,9 +42,9 @@ class AddSaving extends Component {
 
   render() {
     return (
-      <div className="add-save">
+      <div className="add-comp">
         <form onSubmit={this.onSubmit}>
-        <div className="add-save-header">Add goal:</div>
+        <div className="add-record-header">Add goal:</div>
           <div className="pad-exp">
             <label>Saving Goal: </label><br />
             <input type="text" name="item" onChange={this.onChange} required/>

@@ -80,7 +80,7 @@ class Loans extends Component {
   render() {
     return (
       <div>
-        <div className="loans-title">Loans</div>
+        <div className="component-title">Loans</div>
         <ul className="flex-container">
           {
             this.state.loans.map(loan => <Loan {...loan} deleteLoan={this.deleteLoan} showUpdateLoanForm={this.showUpdateLoanForm} key={loan.id}/>)

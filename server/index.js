@@ -2,10 +2,10 @@ const express = require('express');
 const expressGraphQL = require('express-graphql');
 const path = require('path');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const cookieParser = require('cookie-parser');
+// const session = require('express-session');
+// const passport = require('passport');
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const schema = require('./schema.js');
 const database = require('../database');
 
@@ -112,10 +112,11 @@ app.post('/api/login', (request, response) => {
 });
 
 app.post('/api/users', (request, response) => {
-  database.saveUser(request.body)
-  .then(data => {
-    response.end();
-  });
+  database.saveUser(request.body);
+  // doesn't like .then
+  // .then(data => {
+  response.end();
+  // });
 });
 
 app.put('/api/users/update', (request, response) => {
@@ -178,10 +179,13 @@ app.get('/api/transactions/:loanId', (request, response) => {
   })
 });
 
-//SAVINGS 
+//SAVINGS
 
 //Get all Savings
 app.post('/api/savings', (request, response) => {
+// app.post('/api/savings', (request, response, next) => {
+  // const serviceUri = process.env.SAVINGS_SERVICE_URI + '/api/savings';
+  // req.redirect(serviceUri);
   database.getSavings(request.body)
   .then(data => {
     response.send(data);

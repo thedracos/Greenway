@@ -78,7 +78,7 @@ class Savings extends Component {
   render() {
     return (
       <div>
-        <div className="savings-title">Savings</div>
+        <div className="component-title">Savings</div>
         <select className="exp-month-select" name="currentMonth" onChange={this.onChange}>
           <option>Select a Month</option>
           {this.state.uniqueDates.map((date) => {
