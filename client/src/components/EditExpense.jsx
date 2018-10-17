@@ -15,7 +15,7 @@ class EditExpense extends Component {
       cost: this.props.editExpense.cost,
       category: this.props.editExpense.category,
       frequency: this.props.editExpense.frequency,
-      date: this.props.editExpense.date
+      date: moment(this.props.editExpense.date).format('MM/DD/YYYY')
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -45,10 +45,9 @@ class EditExpense extends Component {
 
   onCancel(e) {
     e.preventDefault();
-    //alert('Are you sure you want to cancel?');
-    //if yes => take back to add
-    //if no => stay on same component
-    this.props.viewChangeAdd();
+    if (confirm('Are you sure you want to cancel changes?')) {
+      this.props.viewChangeAdd();
+    }
   }
 
   render() {
@@ -88,7 +87,7 @@ class EditExpense extends Component {
           </div>
           <div>
             <label>Date: </label><br />
-            <input type="text" name="date" onChange={this.onChange} value={moment(this.props.editExpense.date).format('MM/DD/YYYY')} required/>
+            <input type="text" name="date" onChange={this.onChange} defaultValue={this.state.date} required/>
           </div><br />
           <button type="submit" onClick={this.onSubmit}>Save</button>
           <button type="submit" onClick={this.onCancel}>Cancel</button>
