@@ -2,10 +2,10 @@ const express = require('express');
 const expressGraphQL = require('express-graphql');
 const path = require('path');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const cookieParser = require('cookie-parser');
+// const session = require('express-session');
+// const passport = require('passport');
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const schema = require('./schema.js');
 const database = require('../database');
 
@@ -148,14 +148,16 @@ app.get('/api/loans/:userId', (request, response) => {
   })
 });
 
-//SAVINGS 
+//SAVINGS
 
 //Get all Savings
-app.post('/api/savings', (request, response) => {
-  database.getSavings(request.body)
-  .then(data => {
-    response.send(data);
-  })
+app.post('/api/savings', (request, response, next) => {
+  const serviceUri = process.env.SAVINGS_SERVICE_URI + '/api/savings';
+  req.redirect(serviceUri);
+  // database.getSavings(request.body)
+  // .then(data => {
+  //   response.send(data);
+  // })
 })
 
 //Post Saving
