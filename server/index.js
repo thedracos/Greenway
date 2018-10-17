@@ -151,13 +151,14 @@ app.get('/api/loans/:userId', (request, response) => {
 //SAVINGS
 
 //Get all Savings
-app.post('/api/savings', (request, response, next) => {
-  const serviceUri = process.env.SAVINGS_SERVICE_URI + '/api/savings';
-  req.redirect(serviceUri);
-  // database.getSavings(request.body)
-  // .then(data => {
-  //   response.send(data);
-  // })
+app.post('/api/savings', (request, response) => {
+// app.post('/api/savings', (request, response, next) => {
+  // const serviceUri = process.env.SAVINGS_SERVICE_URI + '/api/savings';
+  // req.redirect(serviceUri);
+  database.getSavings(request.body)
+  .then(data => {
+    response.send(data);
+  })
 })
 
 //Post Saving
