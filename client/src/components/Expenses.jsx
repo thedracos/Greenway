@@ -14,6 +14,7 @@ import { uniq, sortBy } from 'underscore';
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';
+import ExpensesChart from './ExpensesChart.js';
 
 class Expenses extends Component {
   constructor(props) {
@@ -59,8 +60,6 @@ class Expenses extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevProps', prevProps);
-    console.log('prevState', prevState);
     if (this.state.currentMonth !== prevState.currentMonth) {
       const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM-01 00:00:00.000');
       const followingSelectedMonth = moment(selectedMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
@@ -139,6 +138,7 @@ class Expenses extends Component {
             )
           })}
           <AddExpense />
+          <ExpensesChart />
           {/* <EditExpense editExpense={this.state.editExpense}/> */}
         </div>
       </Router>

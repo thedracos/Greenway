@@ -8,6 +8,7 @@ import moment from 'moment';
 import { uniq, sortBy } from 'underscore';
 
 import AddSaving from './AddSaving.jsx';
+import SavingsChart from './SavingsChart.js';
 
 class Savings extends Component {
   constructor(props) {
@@ -115,6 +116,7 @@ class Savings extends Component {
         })}
         <div className="savings-bottom"></div>
         <AddSaving />
+        <SavingsChart />
       </div>
     )
   }
