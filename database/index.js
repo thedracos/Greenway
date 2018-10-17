@@ -309,12 +309,26 @@ const saveExpense = (bill, cb) => {
 };
 
 const deleteExpense = (bill) => {
+  console.log(bill);
   console.log('Deleting expense in db', bill);
-  Expense.destroy({
-    where: {
-      id: bill.id
-    }
-  })
+  if (bill.frequency === 'Once') {
+    Expense.destroy({
+      where: {
+        expense: bill.expense
+      }
+    })
+  } else {
+    Expense.destroy({
+      where: {
+        userId: bill.userId,
+        expense: bill.expense
+      },
+      current_date: {
+        $gte: bill.date
+      }
+    })
+  }
+  
 }
 
 // Loan

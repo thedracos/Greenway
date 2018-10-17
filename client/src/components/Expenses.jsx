@@ -30,6 +30,7 @@ class Expenses extends Component {
     this.getUniqueDates = this.getUniqueDates.bind(this);
     this.viewChanger = this.viewChanger.bind(this);
     this.viewChangeAdd = this.viewChangeAdd.bind(this);
+    this.renderDeleteOrUnsubscribe = this.renderDeleteOrUnsubscribe.bind(this);
   }
 
   getUniqueDates(array) {
@@ -106,6 +107,14 @@ class Expenses extends Component {
     })
   }
 
+  renderDeleteOrUnsubscribe(expense) {
+    if (expense.frequency === 'Once') {
+      return 'Delete';
+    } else {
+      return 'Unsubscribe';
+    }
+  }
+
   render() {
     return (
       <Router>
@@ -147,7 +156,7 @@ class Expenses extends Component {
                 <td className="exp-10">{moment(expense.date).format('L')}</td>
                 <td className="exp-del-btn exp-width">
                   <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
-                  <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
+                  <button onClick={() => {this.props.deleteExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
                 </td>
               </tr>
             )
