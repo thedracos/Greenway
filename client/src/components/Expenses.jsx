@@ -10,58 +10,53 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import moment from 'moment';
-import { uniq } from 'underscore';
+import { uniq, sortBy } from 'underscore';
 
 import AddExpense from './AddExpense.jsx';
 import EditExpense from './EditExpense.jsx';
+import ExpensesChart from './ExpensesChart.js';
 
 class Expenses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bills: 1700,
-      currentMonth : moment().format('YYYY-MM'),
-      uniqueDates: []
+      currentMonth : moment().format('YYYY-MM-01 00:00:00.000'),
+      uniqueDates: [],
+      view: 'add',
+      editExpense: {}
     }
-    //
-    //   // editExpense: {
-    //   //   id: 5,
-    //   //   expense: 'Buffalo Wild Wings',
-    //   //   cost: 20,
-    //   //   category: 'Food',
-    //   //   frequency: 'Once',
-    //   //   date: '10/02/18'
-    //   // }
-    // }
     this.updateExpense = this.updateExpense.bind(this);
     this.onChange = this.onChange.bind(this);
     this.getUniqueDates = this.getUniqueDates.bind(this);
+    this.viewChanger = this.viewChanger.bind(this);
+    this.viewChangeAdd = this.viewChangeAdd.bind(this);
   }
 
   getUniqueDates(array) {
-    console.log('func was called');
     let allDates = array.map((expense) => {
-      return moment(expense.date).format('MMM YYYY');
+      return expense.date.slice(0, 7);
     });
     let uniqueDates = uniq(allDates);
+    let sortedDates = sortBy(uniqueDates);
+    let dropdownDates = sortedDates.map((date) => {
+      return moment(date).format('MMM YYYY');
+    })
     this.setState({
-      uniqueDates
+      uniqueDates: dropdownDates
     });
   }
 
   componentDidMount() {
     const currentMonth = this.state.currentMonth;
-    const nextMonth = moment(currentMonth).add(1, 'months').calendar();
+    const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
     this.props.fetchMonthExpenses(this.props.userId, currentMonth, nextMonth);
     this.props.fetchExpenses(this.props.userId);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevProps', prevProps);
-    console.log('prevState', prevState);
     if (this.state.currentMonth !== prevState.currentMonth) {
-      const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM');
-      const followingSelectedMonth = moment(selectedMonth).add(1, 'months').calendar();
+      const selectedMonth = moment(this.state.currentMonth).format('YYYY-MM-01 00:00:00.000');
+      const followingSelectedMonth = moment(selectedMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
       this.props.fetchMonthExpenses(this.props.userId, selectedMonth, followingSelectedMonth);
     }
     if (this.props.expenses.length > 0 && this.state.uniqueDates.length === 0) {
@@ -70,7 +65,7 @@ class Expenses extends Component {
   }
 
   updateExpense(expense) {
-    console.log(expense);
+    console.log('this is expense', expense);
     const editExpense = {
       id: expense.id,
       expense: expense.expense,
@@ -82,11 +77,29 @@ class Expenses extends Component {
     this.setState({
       editExpense: editExpense
     })
+    this.setState({
+      view: 'edit'
+    })
   }
 
   onChange(e) {
     this.setState({
       currentMonth: e.target.value
+    })
+  }
+
+  viewChanger() {
+    if (this.state.view === 'add') {
+      return (<AddExpense />)
+    }
+    if (this.state.view === 'edit') {
+      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.viewChangeAdd}/>)
+    }
+  }
+
+  viewChangeAdd() {
+    this.setState({
+      view: 'add'
     })
   }
 
@@ -110,7 +123,8 @@ class Expenses extends Component {
           }, 0)}`}<br />
           Remainder: {`$${this.props.income - this.props.monthExpenses.reduce((total, expense) => {
             return total + expense.cost;
-          }, 0)}`}<br /><br />
+          }, 0)}`}<br />
+          <button>Convert Remaining to Savings!</button>
           </div>
           <tr>
             <th className="gray exp-name exp-center">Expense</th>
@@ -129,14 +143,18 @@ class Expenses extends Component {
                 <td className="gray exp-10 ">{expense.frequency}</td>
                 <td className="exp-10">{moment(expense.date).format('L')}</td>
                 <td className="exp-del-btn exp-width">
-                  {/* <button onClick={() => {this.updateExpense(expense)}}>Edit</button> */}
+                  <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
                   <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
                 </td>
               </tr>
             )
           })}
-          <AddExpense />
-          {/* <EditExpense editExpense={this.state.editExpense}/> */}
+          <div>
+            {this.viewChanger()}
+          </div>
+          <div>
+            <ExpensesChart />
+          </div>
         </div>
       </Router>
     )
@@ -160,7 +178,7 @@ const mapStateToProps = state => {
     monthExpenses: state.store.monthExpenses,
     expenses: state.store.expenses,
     userId: state.store.userInfo.userId,
-    income: state.store.userInfo.income
+    income: state.store.userInfo.income,
     //expense: state.store.expense
   }
 };

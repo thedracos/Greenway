@@ -70,6 +70,7 @@ app.post('/api/user/expenses', (request, response) => {
 });
 
 app.post('/api/user/monthExpenses', (request, response) => {
+  console.log('this is request.body in expenses', request.body);
   database.getMonthExpenses(request.body)
   .then(data => {
     response.send(data);
@@ -79,12 +80,11 @@ app.post('/api/user/monthExpenses', (request, response) => {
 // store a new expense record
 app.post('/api/expenses', (request, response) => {
   // console.log(request.body);
-  database.saveExpense(request.body)
+  database.saveExpense(request.body, (bill) => {
+    response.send(request.body);
+  })
   // if we don't tie the response in, it could send the same response
   // even if the db action isn't successful?
-  .then(data => {
-    response.send(data);
-  })
 });
 
 // remove an expense record
@@ -98,9 +98,7 @@ app.delete('/api/expenses', (request, response) => {
 // update an expense record
 app.put('/api/expenses', (request, response) => {
   database.updateExpense(request.body);
-  // if we don't tie the response in, it could send the same response
-  // even if the db action isn't successful?
-  response.send();
+  response.send(request.body);
 });
 
 app.post('/api/login', (request, response) => {
@@ -135,17 +133,49 @@ app.put('/api/users/update', (request, response) => {
 
 // store a new loan record
 app.post('/api/loans', (request, response) => {
-  console.log(request.body);
-  database.saveLoan(request.body);
+  database.saveLoan(request.body)
+  .then(loans => {
+    response.send(loans.map(loan => loan.dataValues))
+    response.end();
+  })
+  .catch(err => console.log('Error while saving loan. Line 140 server/index.js', err));
 });
 
 app.get('/api/loans/:userId', (request, response) => {
-  console.log("gets request", request.params.userId);
   database.getLoans(request.params)
+  .then(loans => {
+    response.send(loans.map(loan => loan.dataValues))
+    response.end();
+  })  
+  .catch(err => console.log('Error while retrieving loans. Line 149 server/index.js', err))
+});
+
+app.delete('/api/loans', (request, response) => {
+  database.deleteLoan(request.body)
+  .then(loans => {
+    response.send(loans.map(loan => loan.dataValues))
+    response.end();
+  })
+  .catch(err => console.log('Error while deleting loan. Line 160 server/index.js', err));
+});
+
+app.put('/api/loans', (request, response) => {
+  database.updateLoan(request.body)
+  .then(loans => {
+    response.send(loans.map(loan => loan.dataValues))
+    response.end();
+  })
+  .catch(err => console.log('Error while updating loan. Line 169 server/index.js', err));
+});
+
+//Transactions
+app.get('/api/transactions/:loanId', (request, response) => {
+  console.log("gets request", request.params.loanId);
+  database.getTransactionsForMonth(request.params)
   .then(data => {
-    let loans = data.map(loan => loan.dataValues);
-    console.log('loans', loans);
-    response.send(loans);
+    let transactions = data.map(transaction => transction.dataValues);
+    console.log('transactions', transactions);
+    response.send(transactions);
   })
 });
 
@@ -166,9 +196,18 @@ app.post('/api/savings', (request, response) => {
 app.post('/api/user/savings', (request, response) => {
   database.saveSavingItem(request.body)
   .then(data => {
-    response.send(data);
+    response.end(data);
   })
 })
+
+app.post('/api/user/monthSavings', (request, response) => {
+  console.log('this is request.body', request.body);
+  database.getMonthSavings(request.body)
+  .then(data => {
+    console.log('this is data', data);
+    response.send(data);
+  })
+});
 
 app.put('/api/user/savings', (request, response) => {
   console.log('this is request.body', request.body);

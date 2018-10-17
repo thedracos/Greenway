@@ -2,8 +2,11 @@ import moment from 'moment';
 import { 
   GET_MONTH_EXPENSES, 
   GET_EXPENSES, 
-  ADD_EXPENSE, 
-  ADD_SAVINGS, 
+  ADD_EXPENSE,
+  UPDATE_EXPENSE,
+  UPDATE_EXPENSES,
+  ADD_SAVINGS,
+  GET_MONTH_SAVINGS, 
   GET_SAVINGS,
   EDIT_SAVINGS,
   DELETE_EXPENSE, 
@@ -72,6 +75,42 @@ export function createExpense(newExpense) {
   }
 }
 
+export function updateExpense(edittedExpense) {
+  console.log('updating expense from actions');
+  return function(dispatch) {
+    fetch('/api/expenses', {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(edittedExpense)
+    })
+    .then(res => res.json())
+    .then(expense => dispatch({
+      type: UPDATE_EXPENSE,
+      payload: expense
+    }));
+  }
+}
+
+export function updateExpenses(edittedExpense) {
+  console.log('updating expenses from actions');
+  return function(dispatch) {
+    fetch('/api/user/expenses', {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(edittedExpense)
+    })
+    .then(res => res.json())
+    .then(expense => dispatch({
+      type: UPDATE_EXPENSES,
+      payload: expense
+    }));
+  }
+}
+
 export function deleteExpense(expense) {
   console.log('deleting expense from actions');
   return function(dispatch) {
@@ -125,6 +164,29 @@ export function fetchSavings(userId) {
       type: GET_SAVINGS,
       payload: savings
     }))
+  }
+}
+
+export function fetchMonthSavings(userId, startDate, endDate) {
+  console.log('fetchMonthSavings from actions');
+  return function(dispatch) {
+    const currentMonthUserSavings = {
+      userId: userId,
+      currentMonth: startDate,
+      nextMonth: endDate
+    }
+    fetch('/api/user/monthSavings', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(currentMonthUserSavings)
+    })
+    .then(res => res.json())
+    .then(savings => dispatch({
+      type: GET_MONTH_SAVINGS,
+      payload: savings
+    }));
   }
 }
 

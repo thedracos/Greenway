@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import axios from 'axios';
+
 class AddLoan extends Component {
   constructor(props) {
     super(props);
@@ -18,22 +19,21 @@ class AddLoan extends Component {
 }
 
   onSubmitHandler (event) {
-    fetch('/api/loans', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(this.state)
+    axios.post('/api/loans', this.state)
+    .then(results => {
+      this.props.updateLoans(results);
+      this.setState({
+        name: '',
+        minimumPayment: '',
+        balance: '',
+        dayBillDue: '',
+        apr: '',
+        autopay: false,
+        website: ''
+      });
+      this.props.cancelAddLoan();
     })
-    this.setState({
-      name: '',
-      minimumPayment: '',
-      balance: '',
-      dayBillDue: '',
-      apr: '',
-      autopay: false,
-      website: ''
-    });
+    .catch(err => console.log('Error onSubmitHandler. Line 35 Add-Loans.jsx', err));
     event.preventDefault();
 }
 
@@ -41,11 +41,6 @@ class AddLoan extends Component {
       this.setState({
           [event.target.name] : event.target.value
       });
-  }
-
-  componentDidMount() {
-    console.log("from componentDidMount AddLoan",this.state.userId);
-    this.props.getLoans(this.state.userId);
   }
 
   render() {
@@ -88,13 +83,10 @@ class AddLoan extends Component {
         </div>
       </form>
       </div>
+        <input className="loan-btn" style={{backgroundColor: 'red', marginLeft: '10px'}} type="submit" value="Cancel" onClick={this.props.cancelAddLoan} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-    userId: state.store.userInfo.userId
-})
-
-export default connect(mapStateToProps)(AddLoan);
+export default AddLoan;

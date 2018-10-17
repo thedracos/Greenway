@@ -2,8 +2,11 @@ import {
   GET_MONTH_EXPENSES, 
   GET_EXPENSES, 
   ADD_EXPENSE, 
+  UPDATE_EXPENSE,
+  UPDATE_EXPENSES,
   ADD_SAVINGS, 
   GET_SAVINGS,
+  GET_MONTH_SAVINGS,
   EDIT_SAVINGS,
   DELETE_EXPENSE, 
   VERIFY_USER,
@@ -13,9 +16,11 @@ const initialState = {
   expenses: [],
   monthExpenses: [],
   expense: {},
+  updated: {},
   userInfo: {},
   savingsItem: {},
-  savings: []
+  savings: [],
+  monthSavings: []
 }
 
 //evaluates what 'type' we're dealing with and updates store
@@ -39,6 +44,18 @@ export default function(state = initialState, action) {
         ...state,
         monthExpenses: action.payload
       }
+    case UPDATE_EXPENSE:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        updated: action.payload
+      }
+    case UPDATE_EXPENSES:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        updated: action.payload
+      }
     case DELETE_EXPENSE:
     console.log(`${action.type}: updating store by reducer`);
       return {
@@ -56,6 +73,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         savings: action.payload
+      }
+    case GET_MONTH_SAVINGS:
+    console.log(`${action.type}: updating store by reducer`);
+      return {
+        ...state,
+        monthSavings: action.payload
       }
     case ADD_SAVINGS:
     console.log(`${action.type}: updating store by reducer`);

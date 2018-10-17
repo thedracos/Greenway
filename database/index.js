@@ -34,16 +34,19 @@ const Expense = sequelize.define('expense', {
 
 const Saving = sequelize.define('saving', {
   item: Sequelize.STRING,
-  cost: Sequelize.INTEGER
+  cost: Sequelize.INTEGER,
+  start_date: Sequelize.DATE,
+  current_date: Sequelize.DATE,
+  end_date: Sequelize.DATE
 })
 
 // Loan Database
 const Loan = sequelize.define('loan', {
   name: Sequelize.STRING, // card/load name
-  minimumPayment: Sequelize.INTEGER, // minimum payment to not get penalty
-  balance: Sequelize.INTEGER, // balance on card/loan
+  minimumPayment: Sequelize.FLOAT, // minimum payment to not get penalty
+  balance: Sequelize.FLOAT, // balance on card/loan
   dayBillDue: Sequelize.STRING, // day bill is due
-  apr: Sequelize.INTEGER, // interest on card/laod
+  apr: Sequelize.FLOAT, // interest on card/laod
   autopay: Sequelize.BOOLEAN, // is autopay setup or not
   website: Sequelize.STRING // website link associated to card/loan
 });
@@ -53,7 +56,7 @@ User.hasMany(Loan);
 
 
 const Transaction = sequelize.define('transaction', {
-  payment: Sequelize.DECIMAL, // if you paid minimum payment or more than the minimum payment
+  payment: Sequelize.FLOAT, // if you paid minimum payment or more than the minimum payment 
   paymentDate: Sequelize.DATE // when you made payment
 });
 
@@ -61,25 +64,69 @@ Transaction.belongsTo(Loan);
 Loan.hasMany(Transaction);
 
 const saveLoan = params => {
-  console.log(params);
-  const {name, minimumPayment, balance, dayBillDue, apr, autopay, website, userId} = params;
-  console.log('in saveLoan Db')
-  Loan.create({
-    name,
-    minimumPayment,
-    balance,
-    dayBillDue,
-    apr,
-    autopay,
+  const {name, minimumPayment, balance, dayBillDue, apr, autopay, website, userId} = params
+  return Loan.create({
+    name, 
+    minimumPayment, 
+    balance, 
+    dayBillDue, 
+    apr, 
+    autopay, 
     website,
     userId
+  })
+  .then(() => getLoans({userId: params.userId}))
+  .catch(err => console.log('saveLoan, line 78 db', err));
+};
+
+const getLoans = params => Loan.findAll({where: params});
+
+const deleteLoan = params => Loan.destroy({
+    where: {
+      id: params.id
+    }
+  })
+  .then(results => getLoans({userId: params.userId}))
+  .catch(err => console.log('Error deleteLoan line 90 db', err));
+
+const updateLoan = params => 
+  Loan.update(params, { 
+    where: { 
+      id: params.id 
+    } 
+  })
+  .then(results => getLoans({userId: params.userId}))
+  .catch(err => console.log('Error updateLoan line 98 db', err));
+// Save and Get for Transactions
+
+const saveTransaction = params => {
+  const {payment, paymentDate, loanId} = params
+  Transaction.create({
+    payment, paymentDate, loanId
   })
   .then(() => { console.log('stored new loan') });
 };
 
-const getLoans = params => {
-  console.log("params", params)
-  return Loan.findAll({where: params});
+const getTransactionsForMonth = params => {
+  var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+  var firstDay = new Date(y, m, 1);
+  var lastDay = new Date(y, m + 1, 1);
+  console.log("params in getTransactionsForMonth in db", params)
+  console.log("Here are the first and last day of the current month",firstDay, lastDay)
+  return Transaction.findAll({
+    where: {
+      loanId: params.loanId,
+      createdAt: {
+        $gt: firstDay,
+        $lt: lastDay
+      }
+    }
+  });
+};
+
+const getTransactionsLoan = params => {
+  console.log("params in getTransactionsLoan in db", params)
+  return Transaction.findAll({where: params.loanId});
 };
 
 // End of Loan Database
@@ -196,7 +243,18 @@ const userUpdate = (params, callback) => {
 
 const updateSavings = (params, callback) => {
   console.log('this is params', params)
-  Saving.update({ cost: params.cost }, { where: { userId: params.userId, item: params.item} })
+  Saving.update(
+    { cost: params.cost }, 
+    { 
+      where: { 
+        userId: params.userId, 
+        item: params.item, 
+        current_date: {
+          $gte: params.current_date,
+          $lte: params.end_date
+        }
+      } 
+    })
   .catch(err => {
     console.log('Error string updated savings to DB');
   })
@@ -210,11 +268,22 @@ const getSavings = params => Saving.findAll({
   }
 })
 
+const getMonthSavings = (params) => Saving.findAll({
+  where: { 
+    userId: params.userId, 
+    current_date: {
+      $gte: params.currentMonth,
+      $lte: params.nextMonth
+    }
+  },
+  order: [['cost', 'DESC']]
+});
+
 const saveSavingItem = params => {
-  const { userId, item, cost } = params;
+  const { userId, item, cost, start_date, current_date, end_date } = params;
   User.find({})
   Saving.upsert({
-    userId, item, cost
+    userId, item, cost, start_date, current_date, end_date
   })
   .then(() => {
     console.log('Succesfully saved Saving into DB');
@@ -240,7 +309,7 @@ const getMonthExpenses = (params) => Expense.findAll({
   order: [['cost', 'DESC']]
 });
 
-const saveExpense = (bill) => {
+const saveExpense = (bill, cb) => {
   console.log('Saving expense to db', bill);
   const { userId, expense, cost, category, frequency, date } = bill;
   User.find({})
@@ -249,6 +318,7 @@ const saveExpense = (bill) => {
   })
   .then(() => {
     console.log('Successfully saved data into db');
+    cb(bill);
   })
 };
 
@@ -278,22 +348,26 @@ const deleteExpense = (bill) => {
 // const deleteListItem = (item) => {};
 
 //For whatever reason, this is nonfunctional code. It doesn't break our code though.
-const updateExpense = (bill) => {
-  const { id, expense, cost, category, frequency, date } = bill;
-  return Expense.update(
-    { expense },
-    { cost },
-    { category },
-    { frequency },
-    { date },
-    { returning: true, where: { id } },
-  )
-  .then((data) => {
-    if (data[0]) {
-      console.log('it worked');
-    } else {
-      console.log('it didnt work');
+const updateExpense = (params) => {
+  console.log(params);
+  Expense.update({
+    expense: params.expense,
+    cost: params.cost,
+    category: params.category,
+    frequency: params.frequency,
+    date: params.date
+  },
+  {
+    where: {
+      userId: params.userId,
+      id: params.id
     }
+  })
+  .then(() => {
+    console.log('Succesfully Updated Expense in DB');
+  })
+  .catch(err => {
+    console.log('Error string updated savings to DB');
   })
 }
 
@@ -330,8 +404,15 @@ module.exports.saveUser = saveUser;
 // module.exports.addListItem  = addListItem;
 // module.exports.editListItem = editListItem;
 // module.exports.deleteListItem = deleteListItem;
-module.exports.saveLoan = saveLoan;
-module.exports.getLoans = getLoans;
 module.exports.getSavings = getSavings;
+module.exports.getMonthSavings = getMonthSavings;
 module.exports.saveSavingItem = saveSavingItem;
 module.exports.updateSavings = updateSavings;
+
+// Loan methods export
+module.exports.saveLoan = saveLoan;
+module.exports.getLoans = getLoans;
+module.exports.deleteLoan = deleteLoan;
+module.exports.getTransactionsForMonth = getTransactionsForMonth;
+module.exports.getTransactionsLoan = getTransactionsLoan;
+module.exports.updateLoan = updateLoan;
