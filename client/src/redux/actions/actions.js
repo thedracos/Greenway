@@ -121,9 +121,10 @@ export function deleteExpense(expense) {
       },
       body: JSON.stringify(expense)
     })
-    .then(expense => dispatch({
+    .then(res => res.json())
+    .then(expenses => dispatch({
       type: DELETE_EXPENSE,
-      payload: expense
+      payload: expenses
     }));
   }
 }

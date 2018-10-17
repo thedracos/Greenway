@@ -308,7 +308,7 @@ const saveExpense = (bill, cb) => {
   })
 };
 
-const deleteExpense = (bill) => {
+const deleteExpense = (bill, cb) => {
   console.log(bill);
   console.log('Deleting expense in db', bill);
   if (bill.frequency === 'Once') {
@@ -328,7 +328,7 @@ const deleteExpense = (bill) => {
       }
     })
   }
-  
+  cb();
 }
 
 // Loan

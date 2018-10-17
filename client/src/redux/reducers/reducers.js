@@ -58,10 +58,11 @@ export default function(state = initialState, action) {
         updated: action.payload
       }
     case DELETE_EXPENSE:
+    console.log('PAYLOAD AFTER DELETE', action.payload);
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        deleted: action.payload
+        monthExpenses: action.payload
       }
     case VERIFY_USER:
     console.log(`${action.type}: updating store by reducer`);

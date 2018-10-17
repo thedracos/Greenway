@@ -92,10 +92,13 @@ app.post('/api/expenses', (request, response) => {
 
 // remove an expense record
 app.delete('/api/expenses', (request, response) => {
-  database.deleteExpense(request.body);
-  // if we don't tie the response in, it could send the same response
-  // even if the db action isn't successful?
-  response.send();
+  database.deleteExpense(request.body, () => {
+    database.getMonthExpenses(request.body)
+    .then(data => {
+      console.log('what am i getting', data);
+      response.send(data);
+    })
+  });
 });
 
 // update an expense record

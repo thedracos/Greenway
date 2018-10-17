@@ -26,6 +26,7 @@ class Expenses extends Component {
       editExpense: {}
     }
     this.updateExpense = this.updateExpense.bind(this);
+    this.removeExpense = this.removeExpense.bind(this);
     this.onChange = this.onChange.bind(this);
     this.getUniqueDates = this.getUniqueDates.bind(this);
     this.viewChanger = this.viewChanger.bind(this);
@@ -115,6 +116,12 @@ class Expenses extends Component {
     }
   }
 
+  removeExpense(expense) {
+    expense.currentMonth = this.state.currentMonth;
+    expense.nextMonth = moment(this.state.currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
+    this.props.deleteExpense(expense);
+  }
+
   render() {
     return (
       <Router>
@@ -156,7 +163,7 @@ class Expenses extends Component {
                 <td className="exp-10">{moment(expense.date).format('L')}</td>
                 <td className="exp-del-btn exp-width">
                   <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
-                  <button onClick={() => {this.props.deleteExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
+                  <button onClick={() => {this.removeExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
                 </td>
               </tr>
             )
