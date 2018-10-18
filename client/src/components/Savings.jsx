@@ -63,7 +63,9 @@ class Savings extends Component {
       item: savingItem.item,
       cost: cost,
       current_date: savingItem.current_date,
-      end_date: savingItem.end_date
+      end_date: savingItem.end_date,
+      currentMonth: this.state.currentMonth,
+      nextMonth: moment(this.props.currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999')
     }
     console.log('editedItem yo', editedItem);
     this.props.editSavings(editedItem);

@@ -220,7 +220,10 @@ app.post('/api/user/monthSavings', (request, response) => {
 app.put('/api/user/savings', (request, response) => {
   console.log('this is request.body', request.body);
   database.updateSavings(request.body, () => {
-    response.end();
+    database.getMonthSavings(request.body)
+    .then(data => {
+      response.send(data);
+    })
   })
 })
 

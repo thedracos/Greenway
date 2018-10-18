@@ -92,7 +92,7 @@ export default function(state = initialState, action) {
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        savingsItem: action.payload
+        monthSavings: action.payload
       }
     // case UPDATE_USER:
     // console.log(`${action.type}: updating store by reducer`);

@@ -221,7 +221,7 @@ export function editSavings(editedItem) {
     })
     .then(res => res.json())
     .then(savings => dispatch({
-      type: ADD_SAVINGS,
+      type: EDIT_SAVINGS,
       payload: savings
     }));
   }

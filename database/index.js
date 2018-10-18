@@ -227,7 +227,7 @@ const userUpdate = (params, callback) => {
   callback(params.id);
 };
 
-const updateSavings = (params, callback) => {
+const updateSavings = (params, cb) => {
   console.log('this is params', params)
   Saving.update(
     { cost: params.cost }, 
@@ -241,6 +241,9 @@ const updateSavings = (params, callback) => {
         }
       } 
     })
+  .then(() =>{
+    cb();
+  })
   .catch(err => {
     console.log('Error string updated savings to DB');
   })
