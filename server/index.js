@@ -172,10 +172,10 @@ app.put('/api/loans', (request, response) => {
 app.get('/api/transactions/:loanId', (request, response) => {
   console.log("gets request", request.params.loanId);
   let array = []
-  database.getTransactionsForMonth({userId: request.params.loanId}, pay => console.log('line 176 pay', pay))
+  database.getTransactionsForMonth({userId: request.params.loanId}, pay => array.push(pay))
   .then(loan => {
-    console.log('line 178 loan', loan)
-    response.send(array);
+    console.log(loan)
+    response.send(loan);
   })
 
 });

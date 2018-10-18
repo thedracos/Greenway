@@ -134,14 +134,14 @@ const getTransactionsForMonth = (params, cb) => {
         .then(transaction => {
           console.log('line 139 transaction and loan', transaction, loan);
           if (transaction.length === 0) {
-            cb({loan: loan, type: 'missed'});
+            return Promise.resolve({loan: loan, type: 'missed'});
           } else {
-            cb({loan: loan, type: 'paid'});
+            return Promise.resolve({loan: loan, type: 'paid'});
           }
         })
         .catch(err => console.log('Error on line 136 in index.js of DB', err));
       } else if (currentDate.getTime() > weekAfterLastReminder.getTime()) {
-        Transaction.findAll({
+        return Transaction.findAll({
           where: {
             loanId: loan.id,
             createdAt: {
@@ -153,9 +153,9 @@ const getTransactionsForMonth = (params, cb) => {
         .then(transaction => {
           console.log('line 157 transaction and loan', transaction, loan);
           if (transaction.length === 0) {
-            cb({loan: loan, type: 'needs payment'});
+            return Promise.resolve({loan: loan, type: 'needs payment'});
           } else {
-            cb({loan: loa, type: 'paid'});
+            return Promise.resolve({loan: loan, type: 'paid'});
           }
         })
       }
