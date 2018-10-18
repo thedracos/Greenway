@@ -63,7 +63,7 @@ class SavingsChart extends Component {
             pointHoverBackgroundColor: 'rgba(75,192,192,1)',
             pointHoverBorderColor: 'rgba(220,220,220,1)',
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 3,
             pointHitRadius: 10,
             data: costs
           }
@@ -103,14 +103,15 @@ class SavingsChart extends Component {
             )
           })}
         </select>
-        <Line 
-          data={this.state.line}
-        //   width={50}
-        //   height={50}
-        //   options={{
-        //     maintainAspectRatio: false
-        //   }}
-        />
+        <div style={{width: '500px'}}>
+          <Line 
+            data={this.state.line}
+            height={250}
+            options={{
+              maintainAspectRatio: false
+            }}
+          />
+        </div>
       </div>
     );
   }
