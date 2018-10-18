@@ -185,7 +185,7 @@ app.get('/api/transactions/:loanId', (request, response) => {
   database.getTransactionsForMonth({userId: request.params.loanId}, pay => array.push(pay))
   .then(loan => {
     console.log(loan)
-    response.send(loan);
+    Promise.all(loan).then(loans => response.send(loans));
   })
 
 });
