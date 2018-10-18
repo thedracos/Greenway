@@ -111,7 +111,7 @@ const getTransactionsForMonth = (params, cb) => {
   return this.getLoans(params)
   .then(results => results.map(result => result.dataValues))
   .then(loans => {
-    loans.map(loan => {
+    return loans.map(loan => {
 
       let currentDate = new Date(), year = currentDate.getFullYear(), month = currentDate.getMonth();
       let startingDayOfReminder = new Date(year, month - 1, Number(loan.dayBillDue) + 7); // sept 8
