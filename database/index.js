@@ -321,18 +321,23 @@ const deleteExpense = (bill, cb) => {
         expense: bill.expense
       }
     })
+    .then(() => {
+      cb();
+    })
   } else {
     Expense.destroy({
       where: {
         userId: bill.userId,
-        expense: bill.expense
-      },
-      current_date: {
-        $gte: bill.date
+        expense: bill.expense,
+        date: {
+          $gte: bill.date
+        }
       }
     })
+    .then(() => {
+      cb();
+    })
   }
-  cb();
 }
 
 // Loan
