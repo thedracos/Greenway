@@ -15,7 +15,7 @@ import {
 const initialState = {
   expenses: [],
   monthExpenses: [],
-  expense: {},
+  // expense: {},
   updated: {},
   userInfo: {},
   savingsItem: {},
@@ -27,10 +27,11 @@ const initialState = {
 export default function(state = initialState, action) {
   switch(action.type) {
     case ADD_EXPENSE:
+    console.log('this is action.payload', action.payload);
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        expense: action.payload
+        monthExpenses: action.payload
       }
     case GET_EXPENSES:
     console.log(`${action.type}: updating store by reducer`);
@@ -48,7 +49,7 @@ export default function(state = initialState, action) {
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        updated: action.payload
+        monthExpenses: action.payload
       }
     case UPDATE_EXPENSES:
     console.log(`${action.type}: updating store by reducer`);
@@ -57,10 +58,11 @@ export default function(state = initialState, action) {
         updated: action.payload
       }
     case DELETE_EXPENSE:
+    console.log('PAYLOAD AFTER DELETE', action.payload);
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        deleted: action.payload
+        monthExpenses: action.payload
       }
     case VERIFY_USER:
     console.log(`${action.type}: updating store by reducer`);
@@ -84,13 +86,13 @@ export default function(state = initialState, action) {
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        savingsItem: action.payload
+        monthSavings: action.payload
       }
     case EDIT_SAVINGS:
     console.log(`${action.type}: updating store by reducer`);
       return {
         ...state,
-        savingsItem: action.payload
+        monthSavings: action.payload
       }
     // case UPDATE_USER:
     // console.log(`${action.type}: updating store by reducer`);

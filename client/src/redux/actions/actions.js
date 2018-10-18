@@ -68,9 +68,9 @@ export function createExpense(newExpense) {
       body: JSON.stringify(newExpense)
     })
     .then(res => res.json())
-    .then(expense => dispatch({
+    .then(expenses => dispatch({
       type: ADD_EXPENSE,
-      payload: expense
+      payload: expenses
     }));
   }
 }
@@ -104,9 +104,9 @@ export function updateExpenses(edittedExpense) {
       body: JSON.stringify(edittedExpense)
     })
     .then(res => res.json())
-    .then(expense => dispatch({
+    .then(expenses => dispatch({
       type: UPDATE_EXPENSES,
-      payload: expense
+      payload: expenses
     }));
   }
 }
@@ -121,9 +121,10 @@ export function deleteExpense(expense) {
       },
       body: JSON.stringify(expense)
     })
-    .then(expense => dispatch({
+    .then(res => res.json())
+    .then(expenses => dispatch({
       type: DELETE_EXPENSE,
-      payload: expense
+      payload: expenses
     }));
   }
 }
@@ -220,7 +221,7 @@ export function editSavings(editedItem) {
     })
     .then(res => res.json())
     .then(savings => dispatch({
-      type: ADD_SAVINGS,
+      type: EDIT_SAVINGS,
       payload: savings
     }));
   }

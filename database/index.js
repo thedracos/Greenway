@@ -241,7 +241,7 @@ const userUpdate = (params, callback) => {
   callback(params.id);
 };
 
-const updateSavings = (params, callback) => {
+const updateSavings = (params, cb) => {
   console.log('this is params', params)
   Saving.update(
     { cost: params.cost }, 
@@ -255,6 +255,9 @@ const updateSavings = (params, callback) => {
         }
       } 
     })
+  .then(() =>{
+    cb();
+  })
   .catch(err => {
     console.log('Error string updated savings to DB');
   })
@@ -279,7 +282,7 @@ const getMonthSavings = (params) => Saving.findAll({
   order: [['cost', 'DESC']]
 });
 
-const saveSavingItem = params => {
+const saveSavingItem = (params, cb) => {
   const { userId, item, cost, start_date, current_date, end_date } = params;
   User.find({})
   Saving.upsert({
@@ -287,6 +290,7 @@ const saveSavingItem = params => {
   })
   .then(() => {
     console.log('Succesfully saved Saving into DB');
+    cb();
   })
 }
 
@@ -322,13 +326,32 @@ const saveExpense = (bill, cb) => {
   })
 };
 
-const deleteExpense = (bill) => {
+const deleteExpense = (bill, cb) => {
+  console.log(bill);
   console.log('Deleting expense in db', bill);
-  Expense.destroy({
-    where: {
-      id: bill.id
-    }
-  })
+  if (bill.frequency === 'Once') {
+    Expense.destroy({
+      where: {
+        expense: bill.expense
+      }
+    })
+    .then(() => {
+      cb();
+    })
+  } else {
+    Expense.destroy({
+      where: {
+        userId: bill.userId,
+        expense: bill.expense,
+        date: {
+          $gte: bill.date
+        }
+      }
+    })
+    .then(() => {
+      cb();
+    })
+  }
 }
 
 // Loan
@@ -348,7 +371,7 @@ const deleteExpense = (bill) => {
 // const deleteListItem = (item) => {};
 
 //For whatever reason, this is nonfunctional code. It doesn't break our code though.
-const updateExpense = (params) => {
+const updateExpense = (params, cb) => {
   console.log(params);
   Expense.update({
     expense: params.expense,
@@ -365,6 +388,7 @@ const updateExpense = (params) => {
   })
   .then(() => {
     console.log('Succesfully Updated Expense in DB');
+    cb();
   })
   .catch(err => {
     console.log('Error string updated savings to DB');

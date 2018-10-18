@@ -81,7 +81,10 @@ app.post('/api/user/monthExpenses', (request, response) => {
 app.post('/api/expenses', (request, response) => {
   // console.log(request.body);
   database.saveExpense(request.body, (bill) => {
-    response.send(request.body);
+    database.getMonthExpenses(request.body)
+    .then(data => {
+      response.send(data);
+    })
   })
   // if we don't tie the response in, it could send the same response
   // even if the db action isn't successful?
@@ -89,16 +92,23 @@ app.post('/api/expenses', (request, response) => {
 
 // remove an expense record
 app.delete('/api/expenses', (request, response) => {
-  database.deleteExpense(request.body);
-  // if we don't tie the response in, it could send the same response
-  // even if the db action isn't successful?
-  response.send();
+  database.deleteExpense(request.body, () => {
+    database.getMonthExpenses(request.body)
+    .then(data => {
+      console.log('what am i getting', data);
+      response.send(data);
+    })
+  });
 });
 
 // update an expense record
 app.put('/api/expenses', (request, response) => {
-  database.updateExpense(request.body);
-  response.send(request.body);
+  database.updateExpense(request.body, () => {
+    database.getMonthExpenses(request.body)
+    .then(data => {
+      response.send(data);
+    })
+  });
 });
 
 app.post('/api/login', (request, response) => {
@@ -194,9 +204,11 @@ app.post('/api/savings', (request, response) => {
 
 //Post Saving
 app.post('/api/user/savings', (request, response) => {
-  database.saveSavingItem(request.body)
-  .then(data => {
-    response.end(data);
+  database.saveSavingItem(request.body, () => {
+    database.getMonthSavings(request.body)
+    .then(data => {
+      response.send(data);
+    })
   })
 })
 
@@ -212,7 +224,10 @@ app.post('/api/user/monthSavings', (request, response) => {
 app.put('/api/user/savings', (request, response) => {
   console.log('this is request.body', request.body);
   database.updateSavings(request.body, () => {
-    response.end();
+    database.getMonthSavings(request.body)
+    .then(data => {
+      response.send(data);
+    })
   })
 })
 

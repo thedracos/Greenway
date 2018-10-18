@@ -35,11 +35,20 @@ class EditExpense extends Component {
       cost: this.state.cost,
       category: this.state.category,
       frequency: this.state.frequency,
-      date: this.state.date
+      date: this.state.date,
+      currentMonth: this.props.currentMonth,
+      nextMonth: moment(this.props.currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999')
     }
     if (updatedExpense.frequency === 'Once') {
       this.props.updateExpense(updatedExpense);
       this.props.viewChangeAdd();
+    } else {
+      this.props.updateExpense(updatedExpense);
+      // if (confirm('Would you like to update your changes for all items in this subscription?')) {
+      //   console.log('ok making changes');
+      // } else {
+      //   this.props.updateExpense(updatedExpense);
+      // }
     }
   }
 

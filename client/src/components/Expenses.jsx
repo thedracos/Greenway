@@ -22,14 +22,16 @@ class Expenses extends Component {
     this.state = {
       currentMonth : moment().format('YYYY-MM-01 00:00:00.000'),
       uniqueDates: [],
-      view: 'add',
+      view: '',
       editExpense: {}
     }
     this.updateExpense = this.updateExpense.bind(this);
+    this.removeExpense = this.removeExpense.bind(this);
     this.onChange = this.onChange.bind(this);
     this.getUniqueDates = this.getUniqueDates.bind(this);
     this.viewChanger = this.viewChanger.bind(this);
     this.viewChangeAdd = this.viewChangeAdd.bind(this);
+    this.renderDeleteOrUnsubscribe = this.renderDeleteOrUnsubscribe.bind(this);
   }
 
   getUniqueDates(array) {
@@ -51,6 +53,9 @@ class Expenses extends Component {
     const nextMonth = moment(currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
     this.props.fetchMonthExpenses(this.props.userId, currentMonth, nextMonth);
     this.props.fetchExpenses(this.props.userId);
+    this.setState({
+      view: 'add'
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -90,10 +95,10 @@ class Expenses extends Component {
 
   viewChanger() {
     if (this.state.view === 'add') {
-      return (<AddExpense />)
+      return (<AddExpense currentMonth={this.state.currentMonth}/>)
     }
     if (this.state.view === 'edit') {
-      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.viewChangeAdd}/>)
+      return (<EditExpense editExpense={this.state.editExpense} viewChangeAdd={this.viewChangeAdd} currentMonth={this.state.currentMonth}/>)
     }
   }
 
@@ -101,6 +106,20 @@ class Expenses extends Component {
     this.setState({
       view: 'add'
     })
+  }
+
+  renderDeleteOrUnsubscribe(expense) {
+    if (expense.frequency === 'Once') {
+      return 'Delete';
+    } else {
+      return 'Unsubscribe';
+    }
+  }
+
+  removeExpense(expense) {
+    expense.currentMonth = this.state.currentMonth;
+    expense.nextMonth = moment(this.state.currentMonth).add(1, 'months').subtract(1, 'days').format('YYYY-MM-DD 23:59:59.999');
+    this.props.deleteExpense(expense);
   }
 
   render() {
@@ -144,7 +163,7 @@ class Expenses extends Component {
                 <td className="exp-10">{moment(expense.date).format('L')}</td>
                 <td className="exp-del-btn exp-width">
                   <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
-                  <button onClick={() => {this.props.deleteExpense(expense)}}>Delete</button>
+                  <button onClick={() => {this.removeExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
                 </td>
               </tr>
             )
