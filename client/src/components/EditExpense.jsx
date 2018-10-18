@@ -43,11 +43,12 @@ class EditExpense extends Component {
       this.props.updateExpense(updatedExpense);
       this.props.viewChangeAdd();
     } else {
-      if (confirm('Would you like to update your changes for the entire subscription?')) {
-        console.log('ok making changes');
-      } else {
-        this.props.updateExpense(updatedExpense);
-      }
+      this.props.updateExpense(updatedExpense);
+      // if (confirm('Would you like to update your changes for all items in this subscription?')) {
+      //   console.log('ok making changes');
+      // } else {
+      //   this.props.updateExpense(updatedExpense);
+      // }
     }
   }
 
