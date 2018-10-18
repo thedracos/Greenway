@@ -108,7 +108,15 @@ class SavingsChart extends Component {
             data={this.state.line}
             height={250}
             options={{
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    min: 0
+                  }
+                }]
+              }
             }}
           />
         </div>
