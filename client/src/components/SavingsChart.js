@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
 import moment from 'moment';
 import { uniq, sortBy } from 'underscore';
-
-import { connect } from 'react-redux';
 import { Line } from 'react-chartjs-2';
+
+
 
 class SavingsChart extends Component {
   constructor(props) {
@@ -73,12 +75,9 @@ class SavingsChart extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevState', prevState);
-    console.log('current state', this.state)
-    // if (this.state.labels !== prevState.) {
-    //   this.getUniqueDates(this.props.savings);
-    // }
     if (this.props.savings.length > 0 && this.state.savingsItems.length === 0) {
+      this.getUniqueItems(this.props.savings);
+    } else if (prevProps.savings !== this.props.savings) {
       this.getUniqueItems(this.props.savings);
     }
     if (this.state.savingsItem !== prevState.savingsItem) {
