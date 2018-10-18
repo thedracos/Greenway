@@ -107,21 +107,73 @@ const saveTransaction = params => {
   .then(() => { console.log('stored new loan') });
 };
 
-const getTransactionsForMonth = params => {
-  var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-  var firstDay = new Date(y, m, 1);
-  var lastDay = new Date(y, m + 1, 1);
-  console.log("params in getTransactionsForMonth in db", params)
-  console.log("Here are the first and last day of the current month",firstDay, lastDay)
-  return Transaction.findAll({
-    where: {
-      loanId: params.loanId,
-      createdAt: {
-        $gt: firstDay,
-        $lt: lastDay
+const getTransactionsForMonth = (params, cb) => {
+  return this.getLoans(params)
+  .then(results => results.map(result => result.dataValues))
+  .then(loans => {
+    loans.map(loan => {
+
+      let currentDate = new Date(), year = currentDate.getFullYear(), month = currentDate.getMonth();
+      let startingDayOfReminder = new Date(year, month - 1, Number(loan.dayBillDue) + 7); // sept 8
+      let lastDayOfReminder = new Date(year, month, Number(loan.dayBillDue)); // oct 1
+      let weekAfterLastReminder = new Date(year, month, Number(loan.dayBillDue) + 7); // oct 8
+      let lastDayOfReminderForNextMonth = new Date(year, month + 1, Number(loan.dayBillDue)); // nov 1
+
+      if (currentDate.getTime() > lastDayOfReminder.getTime() && 
+          currentDate.getTime() <= weekAfterLastReminder.getTime()) {
+
+        return Transaction.findAll({
+          where: {
+            loanId: loan.id,
+            createdAt: {
+              $gt: startingDayOfReminder,
+              $lt: weekAfterLastReminder
+            }
+          }
+        })
+        .then(transaction => {
+          console.log('line 139 transaction and loan', transaction, loan);
+          if (transaction.length === 0) {
+            return Promise.resolve({loan: loan, type: 'missed'});
+          } else {
+            return Promise.resolve({loan: loan, type: 'paid'});
+          }
+        })
+        .catch(err => console.log('Error on line 136 in index.js of DB', err));
+      } else if (currentDate.getTime() > weekAfterLastReminder.getTime()) {
+        return Transaction.findAll({
+          where: {
+            loanId: loan.id,
+            createdAt: {
+              $gt: weekAfterLastReminder,
+              $lt: lastDayOfReminderForNextMonth
+            }
+          }
+        })
+        .then(transaction => {
+          console.log('line 157 transaction and loan', transaction, loan);
+          if (transaction.length === 0) {
+            return Promise.resolve({loan: loan, type: 'needs payment'});
+          } else {
+            return Promise.resolve({loan: loan, type: 'paid'});
+          }
+        })
       }
-    }
-  });
+    })
+  })
+  // var firstDay = new Date(y, m, 1);
+  // var lastDay = new Date(y, m + 1, 1);
+  // console.log("params in getTransactionsForMonth in db", params)
+  // console.log("Here are the first and last day of the current month",firstDay, lastDay)
+  // return Transaction.findAll({
+  //   where: {
+  //     loanId: params.loanId,
+  //     createdAt: {
+  //       $gt: firstDay,
+  //       $lt: lastDay
+  //     }
+  //   }
+  // });
 };
 
 const getTransactionsLoan = params => {
