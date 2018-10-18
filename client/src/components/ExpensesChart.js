@@ -12,17 +12,32 @@ class ExpensesChart extends Component {
       datasets: [{
         data: [50, 100, 200],
         backgroundColor: [
-          '#ff0000',
-          '#0066ff',
-          '#009900',
-          '#9900cc',
-          '#ff9900',
-          '#000000',
+          '#7a0000',
+          '#7a007a',
+          '#7a7a00',
+          '#007a00',
+          '#007a7a',
+          '#00007a',
           '#800000',
           '#669999',
           '#333399',
           '#ffff00'
-        ]
+        ],
+        borderColor: [
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c',
+          '#ffd87c'
+        ],
+        borderWidth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        hoverBorderWidth: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+        cutoutPercentage: [80]
       }]
     }
     this.generateData = this.generateData.bind(this);
@@ -52,23 +67,28 @@ class ExpensesChart extends Component {
     if (prevProps.monthExpenses !== this.props.monthExpenses) {
       this.generateData(this.props.monthExpenses);
     }
-    
+
   }
 
   render() {
     return (
       <div>
-        <Doughnut 
-          data={this.state} 
-          width={300}
+        <Doughnut
+          data={this.state}
+          width={400}
           height={300}
           options={{
-            maintainAspectRatio: false
+            maintainAspectRatio: true,
+            cutoutPercentage: 62
           }}
           legend={{
-            //display: false
+            // display: false,
             position: 'right',
-            fullWidth: false
+            fullWidth: false,
+            labels: {
+              fontColor: '#ffd87c',
+              boxWidth: 18
+            }
           }}
         />
       </div>

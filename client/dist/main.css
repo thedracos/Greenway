@@ -78,6 +78,29 @@ h2, h3 {
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.expenses-dash {
+  margin: 0 10px 50px 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.exp-dash-left {
+  padding: 20px 80px 0 20px;
+}
+
+.exp-dash-right {
+  padding: 0 0 10px 130px;
+}
+
+.exp-table {
+  margin: 0 30px 0 30px;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*width: 80%;*/
+}
+
+
+
 /*
   ================================================
   Headers
@@ -85,7 +108,7 @@ h2, h3 {
 */
 
 .component-title {
-  margin: 40px 0 15px 5px;
+  margin: 30px 0 15px 35px;
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ffd87c;
 }
@@ -283,10 +306,11 @@ input[type="date"]:valid:before {
 .exp-month-select {
   margin-left: 5px;
   margin-top: 5px;
+  width: 200px
 }
 
 .exp-nums {
-  margin-left: 5px;
+  margin: 20px 0 20px 15px;
 }
 
 .pad-exp {
@@ -334,6 +358,16 @@ textarea {
   background: #53A245;
   color: #001e1e;
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.exp-convert {
+  color: #001e1e;
+  border: none;
+  background: #53A245;
+  border-radius: 3px;
+  width: 200px;
+  height: 25px;
+  margin-left: 5px;
 }
 
 .login-btn-container {

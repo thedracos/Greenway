@@ -128,51 +128,60 @@ class Expenses extends Component {
         <div>
           <div className="component-title">Expenses</div>
           <label></label>
-          <select className="exp-month-select" name="month" onChange={this.onChange}>
-            <option>Select a Month</option>
-            {this.state.uniqueDates.map((date) => {
-              return <option>{date}</option>
-            })}
-          </select>
-          <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
-          <div className="exp-nums">
-          Income: {`$${this.props.income}`}<br />
-          Expenses: {`$${this.props.monthExpenses.reduce((total, expense) => {
-            return total + expense.cost;
-          }, 0)}`}<br />
-          Remainder: {`$${this.props.income - this.props.monthExpenses.reduce((total, expense) => {
-            return total + expense.cost;
-          }, 0)}`}<br />
-          <button>Convert Remaining to Savings!</button>
+          <div className="expenses-dash">
+            <div className="exp-dash-left">
+
+              <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
+              <select className="exp-month-select" name="month" onChange={this.onChange}>
+                <option>Select a month</option>
+                {this.state.uniqueDates.map((date) => {
+                  return <option>{date}</option>
+                })}
+              </select>
+              <div className="exp-nums">
+                Income: {`$${this.props.income}`}<br />
+                Expenses: {`$${this.props.monthExpenses.reduce((total, expense) => {
+                  return total + expense.cost;
+                }, 0)}`}<br />
+                Remaining: {`$${this.props.income - this.props.monthExpenses.reduce((total, expense) => {
+                  return total + expense.cost;
+                }, 0)}`}<br />
+              </div>
+              <button className="exp-convert">Convert remaining to savings!</button>
+            </div>
+            <div className="exp-dash-right">
+            <ExpensesChart />
+            </div>
           </div>
-          <tr>
-            <th className="gray exp-name exp-center">Expense</th>
-            <th className="gray exp-10 exp-center">Cost</th>
-            <th className="gray exp-width exp-center">Category</th>
-            <th className="gray exp-10 exp-center">Frequency</th>
-            <th className="gray exp-10 exp-center">Date</th>
-            <th className="gray exp-width exp-center"> </th>
-          </tr>
-          {this.props.monthExpenses.map(expense => {
-            return (
-              <tr>
-                <td className="exp-name">{expense.expense}</td>
-                <td className="exp-10">{`$${expense.cost}`}</td>
-                <td className="gray exp-width">{expense.category}</td>
-                <td className="gray exp-10 ">{expense.frequency}</td>
-                <td className="exp-10">{moment(expense.date).format('L')}</td>
-                <td className="exp-del-btn exp-width">
-                  <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
-                  <button onClick={() => {this.removeExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
-                </td>
-              </tr>
-            )
-          })}
+          <div className="exp-table">
+            <tr>
+              <th className="gray exp-name exp-center">Expense</th>
+              <th className="gray exp-10 exp-center">Cost</th>
+              <th className="gray exp-width exp-center">Category</th>
+              <th className="gray exp-10 exp-center">Frequency</th>
+              <th className="gray exp-10 exp-center">Date</th>
+              <th className="gray exp-width exp-center"> </th>
+            </tr>
+            {this.props.monthExpenses.map(expense => {
+              return (
+                <tr>
+                  <td className="exp-name">{expense.expense}</td>
+                  <td className="exp-10">{`$${expense.cost}`}</td>
+                  <td className="gray exp-width">{expense.category}</td>
+                  <td className="gray exp-10 ">{expense.frequency}</td>
+                  <td className="exp-10">{moment(expense.date).format('L')}</td>
+                  <td className="exp-del-btn exp-width">
+                    <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
+                    <button onClick={() => {this.removeExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
+                  </td>
+                </tr>
+              )
+            })}
+          </div>
           <div>
             {this.viewChanger()}
           </div>
           <div>
-            <ExpensesChart />
           </div>
         </div>
       </Router>
