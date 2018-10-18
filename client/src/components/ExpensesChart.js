@@ -12,16 +12,16 @@ class ExpensesChart extends Component {
       datasets: [{
         data: [50, 100, 200],
         backgroundColor: [
-          '#7a0000',
-          '#7a007a',
-          '#7a7a00',
-          '#007a00',
-          '#007a7a',
-          '#00007a',
-          '#800000',
-          '#669999',
-          '#333399',
-          '#ffff00'
+          '#ed472a',
+          '#49484d',
+          '#4f0656',
+          '#840d0d',
+          '#b3b4b7',
+          '#ddc271',
+          '#9b009b',
+          '#5198db',
+          '#01528c',
+          '#bc8907'
         ],
         borderColor: [
           '#ffd87c',
@@ -75,7 +75,7 @@ class ExpensesChart extends Component {
       <div>
         <Doughnut
           data={this.state}
-          width={400}
+          width={540}
           height={300}
           options={{
             maintainAspectRatio: true,
@@ -89,6 +89,10 @@ class ExpensesChart extends Component {
               fontColor: '#ffd87c',
               boxWidth: 18
             }
+          }}
+          tooltips={{
+            bodyFontColor: 'ffd87c',
+            borderWidth: 0
           }}
         />
       </div>

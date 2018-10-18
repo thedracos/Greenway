@@ -55,23 +55,16 @@ class AddExpense extends Component {
 
   render() {
     return (
-      <div className="add-exp">
-        <form onSubmit={this.onSubmit}>
-        <div className="add-record-header">Add expense:</div>
-          <div>
-            <label>Expense: </label><br />
-            <input className="exp-field" type="text" name="expense" onChange={this.onChange} required/>
-          </div>
-          <div className="pad-exp"></div>
-          <div>
-            <label>Cost ($): </label><br />
-            <input className="exp-field" type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  e.g. 1000.00" required/>
-          </div>
-          <div className="pad-exp"></div>
-          <div>
-            Category: <br/>
-            <select className="exp-field" name="category" onChange={this.onChange} required>
-              <option>{'Selection'}</option>
+      <div>
+        <div className="add-exp">Add expense:</div>
+        <div className="add-exp-table">
+          <form className="add-exp-form" onSubmit={this.onSubmit}>
+            <span className="exp-name-cell"><input className="exp-name-field" type="text" name="expense" placeholder="  New expense"onChange={this.onChange} required/>
+            </span>
+            <span className="exp-cost-cell"><input className="exp-cost-field" type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Cost" required/>
+            </span>
+            <span className="exp-cat-cell"><select className="exp-cat-field" name="category" onChange={this.onChange} required>
+              <option>{'Category'}</option>
               <option>{'Rent/Mortgage'}</option>
               <option>{'Utilities'}</option>
               <option>{'Transportation'}</option>
@@ -80,26 +73,20 @@ class AddExpense extends Component {
               <option>{'Entertainment'}</option>
               <option>{'Health/Fitness'}</option>
               <option>{'Shopping'}</option>
-              <option>{'Miscellaneous'}</option>
-            </select><br />
-          </div>
-          <div className="pad-exp"></div>
-          <div>
-            Frequency: <br/>
-            <select className="exp-field" name="frequency" onChange={this.onChange} required>
-              <option>{'Selection'}</option>
+              <option>{'Miscellaneous'}</option></select>
+            </span>
+            <span className="exp-freq-cell"><select className="exp-freq-field" name="frequency" onChange={this.onChange} required>
+              <option>{'Frequency'}</option>
               <option>{'Once'}</option>
               <option>{'Monthly'}</option>
-              <option>{'Yearly'}</option>
-            </select><br />
-          </div>
-          <div className="pad-exp"></div>
-          <div>
-            <label>Date: </label><br />
-            <input className="exp-field" type="date" name="date" onChange={this.onChange} required />
-          </div><br />
-          <button className="add-exp-btn" type="submit">Save</button>
-        </form>
+              <option>{'Yearly'}</option></select>
+            </span>
+            <span className="exp-date-cell"><input className="exp-date-field" type="date" name="date" onChange={this.onChange} required/>
+            </span>
+            <span className="exp-btn-cell"><button className="add-exp-btn" type="submit">Save</button>
+            </span>
+          </form>
+        </div>
       </div>
     )
   }

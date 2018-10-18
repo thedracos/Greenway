@@ -78,26 +78,7 @@ h2, h3 {
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.expenses-dash {
-  margin: 0 10px 50px 10px;
-  display: flex;
-  flex-direction: row;
-}
 
-.exp-dash-left {
-  padding: 20px 80px 0 20px;
-}
-
-.exp-dash-right {
-  padding: 0 0 10px 130px;
-}
-
-.exp-table {
-  margin: 0 30px 0 30px;
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*width: 80%;*/
-}
 
 
 
@@ -210,18 +191,6 @@ h2, h3 {
   color: #888;
 }
 
-.add-exp {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-  color: #888;
-}
-
-.exp-field {
-  width: 174px;
-}
-
 .add-record-header {
   margin: 40px 0 20px 0;
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -239,7 +208,7 @@ h2, h3 {
 input[type="date"]:before {
   content: attr(placeholder);
   color: #001e1e;
-  margin: 0 0.5em 0 0.7em;
+  margin: 0 0 0 0.5em;
 }
 input[type="date"]:focus:before,
 input[type="date"]:valid:before {
@@ -276,43 +245,6 @@ input[type="date"]:valid:before {
   text-align: center;
 }
 
-.exp-name {
-  margin-left: 10px;
-  padding-left: 5px;
-  width: 35%;
-}
-
-.exp-width {
-  width: 18%;
-}
-
-.exp-10 {
-  width: 10%;
-}
-
-.exp-center{
-  text-align: center;
-}
-
-.exp-del-btn {
-  margin-left: 20px;
-}
-
-.exp-month {
-  margin-left: 5px;
-  margin-top: 20px;
-}
-
-.exp-month-select {
-  margin-left: 5px;
-  margin-top: 5px;
-  width: 200px
-}
-
-.exp-nums {
-  margin: 20px 0 20px 15px;
-}
-
 .pad-exp {
   margin: 10px 0;
 }
@@ -337,6 +269,8 @@ select,
 textarea {
   background-color: #ede4ce;
   font: 300 16px/22px "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border-radius: 3px;
+  border: none;
 }
 
 ::placeholder {
@@ -360,15 +294,7 @@ textarea {
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.exp-convert {
-  color: #001e1e;
-  border: none;
-  background: #53A245;
-  border-radius: 3px;
-  width: 200px;
-  height: 25px;
-  margin-left: 5px;
-}
+
 
 .login-btn-container {
   display: flex;
@@ -404,7 +330,10 @@ textarea {
 .add-save-btn:hover,
 .add-exp-btn:hover,
 .loan-btn:hover,
-.reg-btn:hover {
+.reg-btn:hover,
+.exp-convert:hover,
+.exp-edit-btn:hover,
+.exp-delete-btn:hover {
   background: #ffd87c;
   color: #001e1e;
   border: 1px solid #ffd87c;
@@ -415,7 +344,10 @@ textarea {
 .add-save-btn:active,
 .add-exp-btn:active,
 .loan-btn:active,
-.reg-btn:active {
+.reg-btn:active,
+.exp-convert:active,
+.exp-edit-btn:active,
+.exp-delete-btn:active {
   background: #ffcc00;
   color: #001e1e;
   border: 1px solid #ffd87c;
@@ -440,15 +372,7 @@ textarea {
   color: #001e1e;
 }
 
-.add-exp-btn {
-  margin-top: 10px;
-  width: 174px;
-  height: 25px;
-  border: none;
-  border-radius: 3px;
-  background: #53A245;
-  color: #001e1e;
-}
+
 
 .loan-btn {
   width: 460px;
@@ -584,6 +508,205 @@ table h4 {
   margin-bottom: 0;
 }
 
+.add-exp-form {
+  width: 100%;
+  margin: 0 35px 70px 35px;
+}
+
+.expenses-dash {
+  margin: 30px 0 50px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.exp-dash-left {
+  margin: 10px 0 0 60px;
+  padding: 2% 13% 0 4%;
+}
+
+.exp-dash-right {
+  padding-top: 10px;
+  /*padding-right: 5%;*/
+}
+
+.exp-table {
+  margin: 0 30px 40px 30px;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*width: 80%;*/
+}
+
+.exp-field {
+  width: 174px;
+}
+
+.exp-name {
+  margin-left: 10px;
+  padding-left: 5px;
+  width: 35%;
+}
+
+.exp-width {
+  width: 18%;
+}
+
+.exp-10 {
+  width: 10%;
+}
+
+.exp-center{
+  text-align: center;
+}
+
+.exp-del-btn {
+  margin-left: 20px;
+  /*margin-right: 20px;*/
+}
+
+.exp-month {
+  margin-left: 5px;
+  margin-top: 20px;
+}
+
+.exp-month-select {
+  margin: 5px 0 0 5px;
+  width: 200px
+}
+
+.exp-nums {
+  margin: 20px 0 20px 5px;
+}
+
+.exp-convert {
+  color: #001e1e;
+  /*border: 1px solid #ede4ce;*/
+  background: #ede4ce;
+  border-radius: 3px;
+  width: 200px;
+  height: 21px;
+  margin-left: 5px;
+}
+
+.add-exp {
+  margin: 20px 0 20px 35px;
+/*  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;*/
+  /*color: #888;*/
+  /*margin: 30px 0 15px 35px;*/
+  font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffd87c;
+}
+
+/*.exp-name-cell {
+  width: 34%;
+  margin-right: 2%;
+}
+
+.exp-cost-cell {
+  width: 9%;
+  margin-right: 2%;
+}
+
+.exp-cat-cell {
+  width: 14%;
+  margin-right: 2%;
+}
+
+.exp-freq-cell {
+  width: 11%;
+  margin-right: 2%;
+}
+
+.exp-date-cell {
+  width: 19%;
+  margin-right: 2%;
+}
+
+.exp-btn-cell {
+  width: 5%;
+  margin-right: 2%;
+}*/
+
+.exp-name-field {
+  width: 31%;
+  height: 25px;
+  vertical-align: bottom;
+  margin-right: 2%;
+}
+
+.exp-cost-field {
+  width: 8%;
+  height: 25px;
+  vertical-align: bottom;
+  margin-right: 2%;
+}
+
+.exp-cat-field {
+  width: 16%;
+  height: 25px;
+  vertical-align: bottom;
+  margin-right: 2%;
+}
+
+.exp-freq-field {
+  width: 11%;
+  height: 25px;
+  vertical-align: bottom;
+  margin-right: 2%;
+}
+
+.exp-date-field {
+  width: 15%;
+  height: 25px;
+  /*margin-bottom: 5px;*/
+  /*padding-bottom: 5px;*/
+  vertical-align: bottom;
+  margin-right: 2%;
+}
+
+.add-exp-btn {
+  /*margin-top: 10px;*/
+  width: 9%;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  background: #53A245;
+  color: #001e1e;
+  vertical-align: bottom;
+  border: 1px solid #53A245;
+}
+
+.add-exp-table {
+  width: 100%
+  margin: 0 0 60px 25px;
+  /*padding-right: 25px;*/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  /*justify-content: center;*/
+  /*width: 80%;*/
+}
+
+.exp-edit-btn {
+  background: #001e1e;
+  border: 1px solid #888;
+  border-radius: 3px;
+  color: #888;
+  width: 28%;
+  margin: 0 9% 0 3%;
+}
+
+.exp-delete-btn {
+  background: #001e1e;
+  border: 1px solid #888;
+  border-radius: 3px;
+  color: #888;
+  width: 60%;
+}
+
+
 /*
   ================================================
   Loans
@@ -619,7 +742,7 @@ table h4 {
 }
 
 .flex-item:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
 }
 
 form {

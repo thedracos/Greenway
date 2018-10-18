@@ -153,6 +153,12 @@ class Expenses extends Component {
             <ExpensesChart />
             </div>
           </div>
+
+          <div>
+            {this.viewChanger()}
+          </div>
+
+
           <div className="exp-table">
             <tr>
               <th className="gray exp-name exp-center">Expense</th>
@@ -171,16 +177,14 @@ class Expenses extends Component {
                   <td className="gray exp-10 ">{expense.frequency}</td>
                   <td className="exp-10">{moment(expense.date).format('L')}</td>
                   <td className="exp-del-btn exp-width">
-                    <button onClick={() => {this.updateExpense(expense)}}>Edit</button>
-                    <button onClick={() => {this.removeExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
+                    <button className="exp-edit-btn" onClick={() => {this.updateExpense(expense)}}>Edit</button>
+                    <button className="exp-delete-btn" onClick={() => {this.removeExpense(expense)}}>{this.renderDeleteOrUnsubscribe(expense)}</button>
                   </td>
                 </tr>
               )
             })}
           </div>
-          <div>
-            {this.viewChanger()}
-          </div>
+
           <div>
           </div>
         </div>
