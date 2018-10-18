@@ -54,6 +54,9 @@ class Savings extends Component {
     if (this.props.savings.length > 0 && this.state.uniqueDates.length === 0) {
       this.getUniqueDates(this.props.savings);
     }
+    if (prevProps.monthSavings !== this.props.monthSavings) {
+      this.props.fetchSavings(this.props.userId);
+    }
   }
 
   updateSavings(savingItem) {
