@@ -171,12 +171,13 @@ app.put('/api/loans', (request, response) => {
 //Transactions
 app.get('/api/transactions/:loanId', (request, response) => {
   console.log("gets request", request.params.loanId);
-  database.getTransactionsForMonth(request.params)
-  .then(data => {
-    let transactions = data.map(transaction => transction.dataValues);
-    console.log('transactions', transactions);
-    response.send(transactions);
+  let array = []
+  database.getTransactionsForMonth({userId: request.params.loanId}, pay => console.log('line 176 pay', pay))
+  .then(loan => {
+    console.log('line 178 loan', loan)
+    response.send(array);
   })
+
 });
 
 //SAVINGS

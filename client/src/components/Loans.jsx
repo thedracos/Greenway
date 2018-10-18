@@ -10,6 +10,7 @@ class Loans extends Component {
     super(props);
     this.state = {
       loans: [],
+      upcomingPayments: [],
       addLoan: 'button',
       loan: {}
     }
@@ -89,6 +90,12 @@ class Loans extends Component {
         <div className="add-loan">
           {this.AddUpdateOrButtonView()}
         </div>
+        <div className="loans-title">Upcoming Payments</div>
+        <ul className="flex-container">
+          {
+            this.state.loans.map(loan => <Loan {...loan} deleteLoan={this.deleteLoan} showUpdateLoanForm={this.showUpdateLoanForm} key={loan.id}/>)
+          }
+        </ul>
       </div>
     )
   }
