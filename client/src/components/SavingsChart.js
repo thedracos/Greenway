@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
 import moment from 'moment';
 import { uniq, sortBy } from 'underscore';
-
-import { connect } from 'react-redux';
 import { Line } from 'react-chartjs-2';
+
+
 
 class SavingsChart extends Component {
   constructor(props) {
@@ -63,7 +65,7 @@ class SavingsChart extends Component {
             pointHoverBackgroundColor: 'rgba(75,192,192,1)',
             pointHoverBorderColor: 'rgba(220,220,220,1)',
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 3,
             pointHitRadius: 10,
             data: costs
           }
@@ -73,12 +75,9 @@ class SavingsChart extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevState', prevState);
-    console.log('current state', this.state)
-    // if (this.state.labels !== prevState.) {
-    //   this.getUniqueDates(this.props.savings);
-    // }
     if (this.props.savings.length > 0 && this.state.savingsItems.length === 0) {
+      this.getUniqueItems(this.props.savings);
+    } else if (prevProps.savings !== this.props.savings) {
       this.getUniqueItems(this.props.savings);
     }
     if (this.state.savingsItem !== prevState.savingsItem) {
@@ -103,14 +102,23 @@ class SavingsChart extends Component {
             )
           })}
         </select>
-        <Line 
-          data={this.state.line}
-        //   width={50}
-        //   height={50}
-        //   options={{
-        //     maintainAspectRatio: false
-        //   }}
-        />
+        <div style={{width: '500px'}}>
+          <Line 
+            data={this.state.line}
+            height={250}
+            options={{
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    min: 0
+                  }
+                }]
+              }
+            }}
+          />
+        </div>
       </div>
     );
   }
