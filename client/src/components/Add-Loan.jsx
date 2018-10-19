@@ -21,7 +21,7 @@ class AddLoan extends Component {
   onSubmitHandler (event) {
     axios.post('/api/loans', this.state)
     .then(results => {
-      this.props.updateLoans(results);
+      this.props.getLoans();
       this.setState({
         name: '',
         minimumPayment: '',

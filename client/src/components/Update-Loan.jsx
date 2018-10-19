@@ -22,7 +22,8 @@ class UpdateLoan extends Component {
     onSubmitHandler (event) {
       axios.put('/api/loans', this.state)
       .then(results => {
-          this.props.updateLoans(results);
+        //   this.props.updateLoans(results);
+        this.props.getLoans();
           this.props.cancelAddLoan();
       })
       .catch(err => console.log('Error onSubmitHandler. Line 27 Update-Loans.jsx', err));
