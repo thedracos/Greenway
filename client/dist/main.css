@@ -184,12 +184,12 @@ h2, h3 {
   padding: 20px 0;
 }
 
-.add-comp {
+/*.add-comp {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
   color: #888;
-}
+}*/
 
 .add-record-header {
   margin: 40px 0 20px 0;
@@ -223,21 +223,10 @@ input[type="date"]:valid:before {
 
 
 
-.saving-amount {
-  width: 80%;
-  margin: 0 20px;
-}
 
 
 
-.savings-bottom {
-  height: 40px;
-}
 
-
-.pad-exp {
-  margin: 10px 0;
-}
 
 /*
   ================================================
@@ -456,7 +445,7 @@ table:last-child {
 th,
 td {
   padding-bottom: 22px;
-  vertical-align: top;
+  vertical-align: bottom;
 }
 th {
   padding-right: 45px;
@@ -503,11 +492,6 @@ table h4 {
 
 
 
-.savings-head {
-  width: 16%;
-  padding: 5px;
-  text-align: center;
-}
 
 
 
@@ -537,7 +521,7 @@ table h4 {
 }
 
 .savings-btn {
-  margin: 0 30px 0 20px;
+  /*margin: 0 30px 0 20px;*/
   text-align: center;
   height: 25px;
   width: 100%;
@@ -548,20 +532,122 @@ table h4 {
   /*margin-right: 1.5%;  */
 }
 
+.savings-body {
+  width: 100%;
+}
+
 .savings-chart {
-  width: 16%;
-  padding: 5px;
+  width: 15%;
+  /*margin-right: 2%;*/
+  /*padding: 5px;*/
+  vertical-align: bottom;
+}
+
+.savings-head {
+  width: 15%;
+  /*margin-right: 2%;*/
+  /*padding: 5px;*/
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.saving-amount {
+  /*width: 100%;*/
+  /*margin: 0 20px;*/
 }
 
 .goals-table {
-  width: 100%;
-  padding: 0 30px 0 30px;
+  /*width: 1040px;*/
+  margin-left: 35px;
+}
+
+
+.savings-bottom {
+  height: 40px;
+}
+
+.savings-goal {
+  height: 25px;
+  width: 200px;
+  margin: 0 20px 30px 0;
+  vertical-align: bottom;
+  text-align: left;
+  padding: 0;
+}
+
+.savings-rem {
+  height: 25px;
+  width: 104px;
+  margin: 0 20px 30px 0;
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.savings-save {
+  height: 25px;
+  width: 220px;
+  /*text-align: center;*/
+  margin: 0 20px 30px 0;
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.savings-save-form {
+  height: 25px;
+  width: 220px;
+  /*text-align: center;*/
+  /*margin: 0 20px 30px 0;*/
+  vertical-align: bottom;
+  padding: 0;
+  display: flex;
+  /*align-items: flex-end;*/
+}
+
+.savings-start {
+  height: 25px;
+  width: 156px;
+  text-align: center;
+  margin: 0 20px 30px 0;
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.savings-end {
+  height: 25px;
+  width: 156px;
+  text-align: center;
+  margin: 0 20px 30px 0;
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.savings-btn-cell {
+  height: 25px;
+  width: 104px;
+  margin: 0 20px 30px 0;
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.savings-entry {
+  /*margin-top: 20px;*/
+  vertical-align: bottom;
+}
+
+.savings-row {
+  margin-bottom: 20px;
+}
+
+
+.pad-exp {
+  /*margin: 10px 0;*/
+  vertical-align: bottom;
 }
 
 
 .add-exp-form {
   width: 100%;
-  margin: 0 35px 70px 35px;
+  padding: 0 35px 70px 35px;
 }
 
 .expenses-dash {
@@ -853,7 +939,7 @@ table h4 {
 }
 
 .made-payment {
-  background: #38C419;  
+  background: #38C419;
 }
 
 .missed-payment {
@@ -864,9 +950,9 @@ table h4 {
     /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
 }
 
-form {
+/*form {
   margin: 10px;
-}
+}*/
 
 .flex-item label {
   font-weight: bold;

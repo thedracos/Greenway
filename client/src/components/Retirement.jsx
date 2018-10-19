@@ -9,7 +9,7 @@ class Retirement extends Component {
   render() {
     return (
       <div>
-        <div className="ret-header">Coming soon!</div>
+        <div className="component-title">Coming soon!</div>
       </div>
     )
   }

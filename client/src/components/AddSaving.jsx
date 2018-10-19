@@ -44,21 +44,21 @@ class AddSaving extends Component {
 
   render() {
     return (
-      <div className="add-comp add-exp-table">
+      <div className="add-exp-table">
         <form className="add-exp-form" onSubmit={this.onSubmit}>
         <div className="add-record-header">Add goal:</div>
-          <div className="pad-exp">
+          <span className="pad-exp">
             <input placeholder="  New saving goal" type="text" name="item" onChange={this.onChange} required/>
-          </div>
-          <div className="pad-exp">
+          </span>
+          <span className="pad-exp">
             <input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Cost ($)" required/>
-          </div>
-          <div>
+          </span>
+          <span className="pad-exp">
             <input type="date" name="startDate" onChange={this.onChange} required />
-          </div>
-          <div>
+          </span>
+          <span className="pad-exp">
             <input type="date" name="endDate" onChange={this.onChange} required />
-          </div>
+          </span>
           <button className="add-save-btn" type="submit">Save</button>
         </form>
       </div>
