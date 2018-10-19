@@ -84,22 +84,31 @@ class Savings extends Component {
     return (
       <div>
         <div className="component-title">Savings</div>
-        <select className="exp-month-select" name="currentMonth" onChange={this.onChange}>
-          <option>Select a Month</option>
-          {this.state.uniqueDates.map((date) => {
-            return <option>{date}</option>
-          })}
-        </select>
-        <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
-        <div className="savings-total">Total Remaining: {`$${this.state.remaining}`}< br/>
-        < br/></div>
+
+        <div className="savings-dash">
+          <div className="sav-dash-left">
+            <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
+            <select className="exp-month-select" name="currentMonth" onChange={this.onChange}>
+              <option>Select a month</option>
+              {this.state.uniqueDates.map((date) => {
+                return <option>{date}</option>
+              })}
+            </select>
+            <div className="savings-total">Total remaining: {`$${this.state.remaining}`}</div>
+          </div>
+          <div className="sav-dash-right">
+            <SavingsChart />
+          </div>
+        </div>
+
+        <div className="goals-table">
         <tr>
           <th className="gray savings-head">Goal</th>
           <th className="gray savings-head">Remaining</th>
-          <th className="gray savings-head">Amount Saving ($)</th>
+          <th className="gray savings-head">Amount saved today ($)</th>
           {/* <th className="gray savings-head">Months Remaining</th> */}
-          <th className="gray savings-head">Start Date</th>
-          <th className="gray savings-head">End Date</th>
+          <th className="gray savings-head">Start date</th>
+          <th className="gray savings-head">Goal date</th>
           <th className="gray savings-head"></th>
         </tr>
         {this.props.monthSavings.map(item => {
@@ -113,15 +122,16 @@ class Savings extends Component {
                 </form>
               </td>
               {/* <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td> */}
-              <td className="savings-chart">{moment(item.start_date.slice(0, 10)).format('L')}</td>
-              <td className="savings-chart">{moment(item.end_date.slice(0, 10)).format('L')}</td>
+              <td className="savings-chart">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{moment(item.start_date.slice(0, 10)).format('L')}</td>
+              <td className="savings-chart">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{moment(item.end_date.slice(0, 10)).format('L')}</td>
               <td className="savings-chart"><button class="savings-btn" type="submit" onClick={()=> {this.updateSavings(item)}}>Save!</button></td>
             </tr>
           )
         })}
+        </div>
+
         <div className="savings-bottom"></div>
         <AddSaving currentMonth={this.state.currentMonth}/>
-        <SavingsChart />
       </div>
     )
   }

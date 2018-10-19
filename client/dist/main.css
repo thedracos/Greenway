@@ -221,29 +221,19 @@ input[type="date"]:valid:before {
   ================================================
 */
 
-.savings-chart {
-  width: 20%;
-  padding: 5px;
-}
+
 
 .saving-amount {
   width: 80%;
   margin: 0 20px;
 }
 
-.savings-total {
-  margin: 0 0 5px 5px;
-}
+
 
 .savings-bottom {
   height: 40px;
 }
 
-.savings-head {
-  width: 20%;
-  padding: 5px;
-  text-align: center;
-}
 
 .pad-exp {
   margin: 10px 0;
@@ -335,7 +325,8 @@ textarea {
 .exp-edit-btn:hover,
 .exp-delete-btn:hover,
 .edit-exp-save-btn:hover,
-.edit-exp-cancel-btn:hover {
+.edit-exp-cancel-btn:hover,
+.savings-btn:hover {
   background: #ffd87c;
   color: #001e1e;
   border: 1px solid #ffd87c;
@@ -351,8 +342,8 @@ textarea {
 .exp-edit-btn:active,
 .exp-delete-btn:active,
 .edit-exp-save-btn:active,
-.edit-exp-cancel-btn:active
- {
+.edit-exp-cancel-btn:active,
+.savings-btn:active {
   background: #ffcc00;
   color: #001e1e;
   border: 1px solid #ffd87c;
@@ -362,10 +353,7 @@ textarea {
   width: 30px;
 }
 
-.savings-btn {
-  margin: 0 5px 0 20px;
-  text-align: center;
-}
+
 
 .add-save-btn {
   margin-top: 22px;
@@ -512,6 +500,64 @@ table a {
 table h4 {
   margin-bottom: 0;
 }
+
+
+
+.savings-head {
+  width: 16%;
+  padding: 5px;
+  text-align: center;
+}
+
+
+
+.savings-dash {
+  width: 100%;
+  margin: 30px 0 70px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.sav-dash-left {
+  margin: 10px 55px 0 60px;
+  padding: 2% 13% 0 4%;
+}
+
+.sav-dash-right {
+  padding-top: 10px;
+}
+
+
+.savings-total {
+  margin: 60px 0 20px 5px;
+}
+
+.goal-select {
+  margin-bottom: 20px;
+}
+
+.savings-btn {
+  margin: 0 30px 0 20px;
+  text-align: center;
+  height: 25px;
+  width: 100%;
+  background: #53A245;
+  border: 1px solid #53A245;
+  border-radius: 3px;
+  color: #001e1e;
+  /*margin-right: 1.5%;  */
+}
+
+.savings-chart {
+  width: 16%;
+  padding: 5px;
+}
+
+.goals-table {
+  width: 100%;
+  padding: 0 30px 0 30px;
+}
+
 
 .add-exp-form {
   width: 100%;

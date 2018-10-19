@@ -44,25 +44,21 @@ class AddSaving extends Component {
 
   render() {
     return (
-      <div className="add-comp">
-        <form onSubmit={this.onSubmit}>
+      <div className="add-comp add-exp-table">
+        <form className="add-exp-form" onSubmit={this.onSubmit}>
         <div className="add-record-header">Add goal:</div>
           <div className="pad-exp">
-            <label>Saving Goal: </label><br />
-            <input type="text" name="item" onChange={this.onChange} required/>
+            <input placeholder="  New saving goal" type="text" name="item" onChange={this.onChange} required/>
           </div>
           <div className="pad-exp">
-            <label>Cost ($): </label><br />
-            <input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="e.g. 1000.00" required/>
+            <input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Cost ($)" required/>
           </div>
           <div>
-            <label>Start Date: </label><br />
             <input type="date" name="startDate" onChange={this.onChange} required />
-          </div><br />
+          </div>
           <div>
-            <label>Deadline: </label><br />
             <input type="date" name="endDate" onChange={this.onChange} required />
-          </div><br />
+          </div>
           <button className="add-save-btn" type="submit">Save</button>
         </form>
       </div>
