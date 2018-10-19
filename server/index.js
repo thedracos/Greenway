@@ -179,15 +179,17 @@ app.put('/api/loans', (request, response) => {
 });
 
 //Transactions
-app.get('/api/transactions/:loanId', (request, response) => {
-  console.log("gets request", request.params.loanId);
-  let array = []
-  database.getTransactionsForMonth({userId: request.params.loanId}, pay => array.push(pay))
+app.get('/api/transactions/:userId', (request, response) => {
+  database.getTransactionsForMonth(request.params)
   .then(loan => {
-    console.log(loan)
     Promise.all(loan).then(loans => response.send(loans));
   })
+});
 
+app.post('/api/transactions', (request, response) => {
+  database.saveTransaction(request.body)
+  .then(() => response.end())
+  .catch(err => console.log('Error while saving loan. Line 140 server/index.js', err));
 });
 
 //SAVINGS
