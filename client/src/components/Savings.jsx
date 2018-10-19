@@ -102,16 +102,19 @@ class Savings extends Component {
         </div>
 
         <div className="goals-table">
+          <div className="save-row">
           <tr className="savings-row">
-            <th className="gray savings-goal">Goal</th>
-            <th className="gray savings-rem">Remaining</th>
-            <th className="gray savings-save">&nbsp;Amount saved today ($)</th>
+            <th className="gray savings-goal title-center">Goal</th>
+            <th className="gray savings-rem title-left">Remaining</th>
+            <th className="gray savings-save title-left">Amount saved today ($)</th>
             <th className="gray savings-start">Start date</th>
             <th className="gray savings-end">Goal date</th>
             <th className="gray savings-btn-cell"> </th>
           </tr>
+          </div>
           {this.props.monthSavings.map(item => {
             return (
+              <div className="save-row">
               <tr className="savings-row">
                 <td className="savings-goal">{item.item}</td>
                 <td className="savings-rem">{`$${item.cost}`}</td>
@@ -120,10 +123,11 @@ class Savings extends Component {
                     <input className="savings-entry" type="number" name="editedItem" onChange={this.onChange} />
                   </form>
                 </td>
-                <td className="savings-start">&nbsp;{moment(item.start_date.slice(0, 10)).format('L')}</td>
-                <td className="savings-end">&nbsp;{moment(item.end_date.slice(0, 10)).format('L')}</td>
+                <td className="savings-start">{moment(item.start_date.slice(0, 10)).format('L')}</td>
+                <td className="savings-end">{moment(item.end_date.slice(0, 10)).format('L')}</td>
                 <td className="savings-btn-cell"><button class="savings-btn" type="submit" onClick={()=> {this.updateSavings(item)}}>Save!</button></td>
               </tr>
+              </div>
             )
           })}
         </div>

@@ -54,6 +54,9 @@ class AddSaving extends Component {
             <input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Cost ($)" required/>
           </span>
           <span className="pad-exp">
+            <input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Initial saving ($)" required/>
+          </span>
+          <span className="pad-exp">
             <input type="date" name="startDate" onChange={this.onChange} required />
           </span>
           <span className="pad-exp">
