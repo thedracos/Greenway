@@ -13,9 +13,10 @@ class SavingsChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      line: {}, 
+      line: {},
       savingsItems: []
     }
+
     this.getUniqueItems = this.getUniqueItems.bind(this);
     this.onChange = this.onChange.bind(this);
     this.displaySelectItemGraph = this.displaySelectItemGraph.bind(this);
@@ -28,7 +29,7 @@ class SavingsChart extends Component {
     let uniqueItems = uniq(allItems);
     let sortedItems = sortBy(uniqueItems);
     this.setState({
-      savingsItems: sortedItems
+      savingsItems: sortedItems,
     })
   }
 
@@ -94,8 +95,8 @@ class SavingsChart extends Component {
   render() {
     return (
       <div>
-        <select name="savingsItem" onChange={this.onChange}>
-          <option>Select a Goal</option>
+        <select className="goal-select" name="savingsItem" onChange={this.onChange}>
+          <option>View a goal</option>
           {this.state.savingsItems.map((item)=> {
             return (
               <option>{item}</option>
@@ -103,7 +104,7 @@ class SavingsChart extends Component {
           })}
         </select>
         <div style={{width: '500px'}}>
-          <Line 
+          <Line
             data={this.state.line}
             height={250}
             options={{
@@ -114,8 +115,17 @@ class SavingsChart extends Component {
                     beginAtZero: true,
                     min: 0
                   }
+                }],
+                xAxes: [{
+                  ticks: {
+                    maxRotation: 30,
+                    minRotation: 30
+                  }
                 }]
               }
+            }}
+            legend={{
+              display: false
             }}
           />
         </div>

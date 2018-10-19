@@ -184,15 +184,15 @@ h2, h3 {
   padding: 20px 0;
 }
 
-.add-comp {
+/*.add-comp {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
   color: #888;
-}
+}*/
 
 .add-record-header {
-  margin: 40px 0 20px 0;
+  margin: 35px 0 10px 0;
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ffd87c;
 }
@@ -221,33 +221,12 @@ input[type="date"]:valid:before {
   ================================================
 */
 
-.savings-chart {
-  width: 20%;
-  padding: 5px;
-}
 
-.saving-amount {
-  width: 80%;
-  margin: 0 20px;
-}
 
-.savings-total {
-  margin: 0 0 5px 5px;
-}
 
-.savings-bottom {
-  height: 40px;
-}
 
-.savings-head {
-  width: 20%;
-  padding: 5px;
-  text-align: center;
-}
 
-.pad-exp {
-  margin: 10px 0;
-}
+
 
 /*
   ================================================
@@ -335,7 +314,8 @@ textarea {
 .exp-edit-btn:hover,
 .exp-delete-btn:hover,
 .edit-exp-save-btn:hover,
-.edit-exp-cancel-btn:hover {
+.edit-exp-cancel-btn:hover,
+.savings-btn:hover {
   background: #ffd87c;
   color: #001e1e;
   border: 1px solid #ffd87c;
@@ -351,8 +331,8 @@ textarea {
 .exp-edit-btn:active,
 .exp-delete-btn:active,
 .edit-exp-save-btn:active,
-.edit-exp-cancel-btn:active
- {
+.edit-exp-cancel-btn:active,
+.savings-btn:active {
   background: #ffcc00;
   color: #001e1e;
   border: 1px solid #ffd87c;
@@ -362,14 +342,11 @@ textarea {
   width: 30px;
 }
 
-.savings-btn {
-  margin: 0 5px 0 20px;
-  text-align: center;
-}
+
 
 .add-save-btn {
   margin-top: 22px;
-  width: 174px;
+  width: 104px;
   height: 25px;
   border: none;
   border-radius: 3px;
@@ -468,7 +445,7 @@ table:last-child {
 th,
 td {
   padding-bottom: 22px;
-  vertical-align: top;
+  vertical-align: bottom;
 }
 th {
   padding-right: 45px;
@@ -513,9 +490,209 @@ table h4 {
   margin-bottom: 0;
 }
 
+
+
+
+
+
+.savings-dash {
+  width: 100%;
+  margin: 30px 0 70px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.sav-dash-left {
+  margin: 10px 55px 0 60px;
+  padding: 2% 13% 0 4%;
+}
+
+.sav-dash-right {
+  padding-top: 10px;
+}
+
+
+.savings-total {
+  margin: 60px 0 20px 5px;
+}
+
+.goal-select {
+  margin-bottom: 20px;
+}
+
+.savings-btn {
+  /*margin: 0 30px 0 20px;*/
+  text-align: center;
+  height: 25px;
+  width: 100%;
+  background: #53A245;
+  border: 1px solid #53A245;
+  border-radius: 3px;
+  color: #001e1e;
+  /*margin-right: 1.5%;  */
+}
+
+.savings-body {
+  width: 100%;
+}
+
+.savings-chart {
+  width: 15%;
+  /*margin-right: 2%;*/
+  /*padding: 5px;*/
+  vertical-align: bottom;
+}
+
+.savings-head {
+  width: 15%;
+  /*margin-right: 2%;*/
+  /*padding: 5px;*/
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.saving-amount {
+  /*width: 100%;*/
+  /*margin: 0 20px;*/
+}
+
+.goals-table {
+  /*width: 1040px;*/
+  margin-left: 35px;
+}
+
+
+.savings-bottom {
+  height: 25px;
+}
+
+.savings-goal {
+  height: 25px;
+  width: 250px;
+  margin: 0 20px 30px 0;
+  /*vertical-align: bottom;*/
+  text-align: left;
+  padding: 0;
+  /*display: flex;*/
+}
+
+.savings-rem {
+  height: 25px;
+  width: 140px;
+  margin: 0 20px 30px 0;
+  /*vertical-align: bottom;*/
+  padding: 0;
+  /*display: flex;*/
+}
+
+.savings-save {
+  height: 25px;
+  width: 220px;
+  /*text-align: center;*/
+  margin: 0 20px 30px 0;
+  /*vertical-align: bottom;*/
+  padding: 0;
+  /*display: flex;*/
+}
+
+.savings-save-form {
+  height: 25px;
+  width: 220px;
+  /*text-align: center;*/
+  /*margin: 0 20px 30px 0;*/
+  /*vertical-align: bottom;*/
+  padding: 0;
+  display: flex;
+  /*align-items: flex-end;*/
+}
+
+.savings-start {
+  height: 25px;
+  width: 110px;
+  text-align: center;
+  margin: 0 20px 30px 0;
+  /*vertical-align: bottom;*/
+  padding: 0;
+  /*display: flex;*/
+}
+
+.savings-end {
+  height: 25px;
+  width: 210px;
+  text-align: center;
+  margin: 0 20px 30px 0;
+  /*vertical-align: bottom;*/
+  padding: 0;
+  /*display: flex;*/
+}
+
+.savings-btn-cell {
+  height: 25px;
+  width: 104px;
+  margin: 0 20px 30px 0;
+  /*vertical-align: bottom;*/
+  padding: 0;
+  /*display: flex;*/
+}
+
+.savings-entry {
+  /*margin-top: 20px;*/
+  width: 100%;
+  /*vertical-align: bottom;*/
+}
+
+/*
+.marg-bump {
+  margin-bottom: 10px;
+  display: flex;
+}
+*/
+
+.savings-row {
+  margin-bottom: 20px;
+}
+
+.save-row {
+  margin-bottom: 20px;
+}
+
+.title-center {
+  text-align: center;
+}
+
+.title-left {
+  text-align: left;
+}
+
+.input-250 {
+  width: 215px;
+}
+
+.input-140 {
+  width: 136px;
+}
+
+.input-save-date {
+  width: 155px;
+}
+
+.input-110 {
+  width: 110px;
+}
+
+.input-104 {
+  width: 104px;
+}
+
+.pad-exp {
+  margin-top: 10px;
+  vertical-align: bottom;
+}
+
+
 .add-exp-form {
   width: 100%;
-  margin: 0 35px 70px 35px;
+  padding: 0 35px 70px 35px;
 }
 
 .expenses-dash {
@@ -688,11 +865,19 @@ table h4 {
   /*padding-right: 25px;*/
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  /*flex-wrap: nowrap;*/
   justify-content: space-between;
   /*justify-content: center;*/
   /*width: 80%;*/
 }
+
+/*.top-push {
+  margin-top: 5px;
+}
+
+.top-pushed {
+  margin-top: 5px;
+}*/
 
 .exp-edit-btn {
   background: #001e1e;
@@ -807,7 +992,7 @@ table h4 {
 }
 
 .made-payment {
-  background: #38C419;  
+  background: #38C419;
 }
 
 .missed-payment {
@@ -818,9 +1003,9 @@ table h4 {
     /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
 }
 
-form {
+/*form {
   margin: 10px;
-}
+}*/
 
 .flex-item label {
   font-weight: bold;

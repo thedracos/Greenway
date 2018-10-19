@@ -82,46 +82,58 @@ class Savings extends Component {
 
   render() {
     return (
-      <div>
+      <div className="savings-body">
         <div className="component-title">Savings</div>
-        <select className="exp-month-select" name="currentMonth" onChange={this.onChange}>
-          <option>Select a Month</option>
-          {this.state.uniqueDates.map((date) => {
-            return <option>{date}</option>
+
+        <div className="savings-dash">
+          <div className="sav-dash-left">
+            <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
+            <select className="exp-month-select" name="currentMonth" onChange={this.onChange}>
+              <option>Select a month</option>
+              {this.state.uniqueDates.map((date) => {
+                return <option>{date}</option>
+              })}
+            </select>
+            <div className="savings-total">Total remaining: {`$${this.state.remaining}`}</div>
+          </div>
+          <div className="sav-dash-right">
+            <SavingsChart />
+          </div>
+        </div>
+
+        <div className="goals-table">
+          <div className="save-row">
+          <tr className="savings-row">
+            <th className="gray savings-goal title-center">Goal</th>
+            <th className="gray savings-rem title-left">Remaining</th>
+            <th className="gray savings-save title-left">Amount saved today ($)</th>
+            <th className="gray savings-start">Start date</th>
+            <th className="gray savings-end">Goal date</th>
+            <th className="gray savings-btn-cell"> </th>
+          </tr>
+          </div>
+          {this.props.monthSavings.map(item => {
+            return (
+              <div className="save-row">
+              <tr className="savings-row">
+                <td className="savings-goal">{item.item}</td>
+                <td className="savings-rem">{`$${item.cost}`}</td>
+                <td className="savings-save-form">
+                  <form>
+                    <input className="savings-entry" type="number" name="editedItem" onChange={this.onChange} />
+                  </form>
+                </td>
+                <td className="savings-start">{moment(item.start_date.slice(0, 10)).format('L')}</td>
+                <td className="savings-end">{moment(item.end_date.slice(0, 10)).format('L')}</td>
+                <td className="savings-btn-cell"><button class="savings-btn" type="submit" onClick={()=> {this.updateSavings(item)}}>Save!</button></td>
+              </tr>
+              </div>
+            )
           })}
-        </select>
-        <h3 className="exp-month">{moment(this.state.currentMonth).format('MMMM YYYY')}</h3>
-        <div className="savings-total">Total Remaining: {`$${this.state.remaining}`}< br/>
-        < br/></div>
-        <tr>
-          <th className="gray savings-head">Goal</th>
-          <th className="gray savings-head">Remaining</th>
-          <th className="gray savings-head">Amount Saving ($)</th>
-          {/* <th className="gray savings-head">Months Remaining</th> */}
-          <th className="gray savings-head">Start Date</th>
-          <th className="gray savings-head">End Date</th>
-          <th className="gray savings-head"></th>
-        </tr>
-        {this.props.monthSavings.map(item => {
-          return (
-            <tr>
-              <td className="savings-chart">{item.item}</td>
-              <td className="savings-head">{`$${item.cost}`}</td>
-              <td className="savings-chart gray">
-                <form className="saving-amount">
-                  <input type="number" name="editedItem" onChange={this.onChange} />
-                </form>
-              </td>
-              {/* <td className="savings-chart savings-head gray">{Math.floor(item.cost / 150)}</td> */}
-              <td className="savings-chart">{moment(item.start_date.slice(0, 10)).format('L')}</td>
-              <td className="savings-chart">{moment(item.end_date.slice(0, 10)).format('L')}</td>
-              <td className="savings-chart"><button class="savings-btn" type="submit" onClick={()=> {this.updateSavings(item)}}>Save!</button></td>
-            </tr>
-          )
-        })}
+        </div>
+
         <div className="savings-bottom"></div>
         <AddSaving currentMonth={this.state.currentMonth}/>
-        <SavingsChart />
       </div>
     )
   }
