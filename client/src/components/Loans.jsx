@@ -43,7 +43,7 @@ class Loans extends Component {
 
     axios.get(`/api/transactions/${this.props.userId}`)
     .then(payments => {
-      this.setState({upcomingPayments: payments.data})
+      this.setState({upcomingPayments: payments.data.filter(payment => payment !== null)});
     })
     .catch(err =>
       console.log('Error while getting payments from db. Line 44 getLoans', err)
@@ -52,7 +52,7 @@ class Loans extends Component {
   
   deleteLoan(loanIdAndUserId) {
     axios.delete('/api/loans/', {data: loanIdAndUserId})
-    .then(results => this.updateLoans(results))
+    .then(() => this.getLoans())
     .catch(err =>
       console.log('Error while getting loans from db. Line 34 getLoans', err)
     );
