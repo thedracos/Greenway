@@ -47,22 +47,24 @@ class AddSaving extends Component {
       <div className="add-exp-table">
         <form className="add-exp-form" onSubmit={this.onSubmit}>
         <div className="add-record-header">Add goal:</div>
-          <span className="pad-exp">
-            <input placeholder="  New saving goal" type="text" name="item" onChange={this.onChange} required/>
+          <span className="savings-goal pad-exp">
+            <input className="input-250" placeholder="  New saving goal" type="text" name="item" onChange={this.onChange} required/>
           </span>
-          <span className="pad-exp">
-            <input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Cost ($)" required/>
+          <span className="savings-rem pad-exp">
+            <input className="input-140" type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Cost ($)" required/>
           </span>
-          <span className="pad-exp">
-            <input type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Initial saving ($)" required/>
+          <span className="savings-save top-push pad-exp">
+            <input className="input-220 top-pushed" type="number" name="cost" onChange={this.onChange} min="0.00" step="0.01" placeholder="  Initial saving ($)" required/>
           </span>
-          <span className="pad-exp">
-            <input type="date" name="startDate" onChange={this.onChange} required />
+          <span className="savings-start marg-bump pad-exp">
+            <input className="input-save-date" type="date" name="startDate" onChange={this.onChange} required />
           </span>
-          <span className="pad-exp">
-            <input type="date" name="endDate" onChange={this.onChange} required />
+          <span className="savings-end marg-bump pad-exp">
+            <input className="input-save-date" type="date" name="endDate" onChange={this.onChange} required />
           </span>
+          <span>
           <button className="add-save-btn" type="submit">Save</button>
+          </span>
         </form>
       </div>
     )

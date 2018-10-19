@@ -192,7 +192,7 @@ h2, h3 {
 }*/
 
 .add-record-header {
-  margin: 40px 0 20px 0;
+  margin: 35px 0 10px 0;
   font: 500 22px "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #ffd87c;
 }
@@ -346,7 +346,7 @@ textarea {
 
 .add-save-btn {
   margin-top: 22px;
-  width: 174px;
+  width: 104px;
   height: 25px;
   border: none;
   border-radius: 3px;
@@ -563,24 +563,26 @@ table h4 {
 
 
 .savings-bottom {
-  height: 30px;
+  height: 25px;
 }
 
 .savings-goal {
   height: 25px;
   width: 250px;
   margin: 0 20px 30px 0;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
   text-align: left;
   padding: 0;
+  /*display: flex;*/
 }
 
 .savings-rem {
   height: 25px;
   width: 140px;
   margin: 0 20px 30px 0;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
   padding: 0;
+  /*display: flex;*/
 }
 
 .savings-save {
@@ -588,8 +590,9 @@ table h4 {
   width: 220px;
   /*text-align: center;*/
   margin: 0 20px 30px 0;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
   padding: 0;
+  /*display: flex;*/
 }
 
 .savings-save-form {
@@ -597,7 +600,7 @@ table h4 {
   width: 220px;
   /*text-align: center;*/
   /*margin: 0 20px 30px 0;*/
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
   padding: 0;
   display: flex;
   /*align-items: flex-end;*/
@@ -608,8 +611,9 @@ table h4 {
   width: 110px;
   text-align: center;
   margin: 0 20px 30px 0;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
   padding: 0;
+  /*display: flex;*/
 }
 
 .savings-end {
@@ -617,23 +621,32 @@ table h4 {
   width: 210px;
   text-align: center;
   margin: 0 20px 30px 0;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
   padding: 0;
+  /*display: flex;*/
 }
 
 .savings-btn-cell {
   height: 25px;
   width: 104px;
   margin: 0 20px 30px 0;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
   padding: 0;
+  /*display: flex;*/
 }
 
 .savings-entry {
   /*margin-top: 20px;*/
   width: 100%;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
 }
+
+/*
+.marg-bump {
+  margin-bottom: 10px;
+  display: flex;
+}
+*/
 
 .savings-row {
   margin-bottom: 20px;
@@ -651,9 +664,28 @@ table h4 {
   text-align: left;
 }
 
+.input-250 {
+  width: 215px;
+}
+
+.input-140 {
+  width: 136px;
+}
+
+.input-save-date {
+  width: 155px;
+}
+
+.input-110 {
+  width: 110px;
+}
+
+.input-104 {
+  width: 104px;
+}
 
 .pad-exp {
-  margin: 10px 0;
+  margin-top: 10px;
   vertical-align: bottom;
 }
 
@@ -833,11 +865,19 @@ table h4 {
   /*padding-right: 25px;*/
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  /*flex-wrap: nowrap;*/
   justify-content: space-between;
   /*justify-content: center;*/
   /*width: 80%;*/
 }
+
+/*.top-push {
+  margin-top: 5px;
+}
+
+.top-pushed {
+  margin-top: 5px;
+}*/
 
 .exp-edit-btn {
   background: #001e1e;
