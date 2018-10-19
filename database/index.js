@@ -138,7 +138,7 @@ const getTransactionsForMonth = (params, cb) => {
           if (transaction.length === 0) {
             return Promise.resolve({loan: loan, type: 'missed'});
           } else {
-            return Promise.resolve({loan: loan, type: 'paid'});
+            return Promise.resolve({loan: loan, type: 'paid', transactions: transaction});
           }
         })
         .catch(err => console.log('Error on line 136 in index.js of DB', err));
@@ -157,7 +157,7 @@ const getTransactionsForMonth = (params, cb) => {
           if (transaction.length === 0) {
             return Promise.resolve({loan: loan, type: 'needs payment'});
           } else {
-            return Promise.resolve({loan: loan, type: 'paid'});
+            return Promise.resolve({loan: loan, type: 'paid', transactions: transaction});
           }
         })
       }
