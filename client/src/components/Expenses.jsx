@@ -162,10 +162,10 @@ class Expenses extends Component {
           <div className="exp-table">
             <tr>
               <th className="gray exp-name exp-center">Expense</th>
-              <th className="gray exp-10 exp-center">Cost</th>
-              <th className="gray exp-width exp-center">Category</th>
-              <th className="gray exp-10 exp-center">Frequency</th>
-              <th className="gray exp-10 exp-center">Date</th>
+              <th className="gray exp-10 exp-center">Cost&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+              <th className="gray exp-width exp-center">Category&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+              <th className="gray exp-10 exp-center">Frequency&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+              <th className="gray exp-10 exp-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</th>
               <th className="gray exp-width exp-center"> </th>
             </tr>
             {this.props.monthExpenses.map(expense => {
