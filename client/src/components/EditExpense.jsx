@@ -59,48 +59,51 @@ class EditExpense extends Component {
     }
   }
 
+
+
+
+
   render() {
     return (
       <div>
-        <h3>Edit Expense</h3>
-        <form>
-          <div>
-            <label>Expense: </label><br />
-            <input type="text" name="expense" onChange={this.onChange} defaultValue={this.props.editExpense.expense} required/>
-          </div>
-          <div>
-            <label>Cost ($): </label><br />
-            <input type="number" name="cost" onChange={this.onChange} defaultValue={this.props.editExpense.cost} min="0.00" step="0.01" required/>
-          </div>
-          <div>
-            <label>Category: </label><br />
-            <select name="category" onChange={this.onChange} defaultValue={this.props.editExpense.category} required>
-              <option>{'Rent/Mortgage'}</option>
-              <option>{'Utilities'}</option>
-              <option>{'Transportation'}</option>
-              <option>{'Groceries'}</option>
-              <option>{'Dining Out'}</option>
-              <option>{'Entertainment'}</option>
-              <option>{'Health/Fitness'}</option>
-              <option>{'Shopping'}</option>
-              <option>{'Miscellaneous'}</option>
-            </select><br />
-          </div>
-          <div>
-            <label>Frequency: </label><br />
-            <select className="exp-field" name="frequency" onChange={this.onChange} defaultValue={this.props.editExpense.frequency} required>
-              <option>{'Once'}</option>
-              <option>{'Monthly'}</option>
-              <option>{'Yearly'}</option>
-            </select><br />
-          </div>
-          <div>
-            <label>Date: </label><br />
-            <input type="text" name="date" onChange={this.onChange} defaultValue={this.state.date} required/>
-          </div><br />
-          <button type="submit" onClick={this.onSubmit}>Save</button>
-          <button type="submit" onClick={this.onCancel}>Cancel</button>
-        </form>
+        <div className="add-exp">Edit expense:</div>
+        <div className="add-exp-table">
+          <form className="add-exp-form">
+            <span>
+              <input className="exp-name-edit" type="text" name="expense" onChange={this.onChange} defaultValue={this.props.editExpense.expense} required/>
+            </span>
+            <span>
+              <input className="exp-cost-edit" type="number" name="cost" onChange={this.onChange} defaultValue={this.props.editExpense.cost} min="0.00" step="0.01" required/>
+            </span>
+            <span>
+              <select className="exp-cat-edit" name="category" onChange={this.onChange} defaultValue={this.props.editExpense.category} required>
+                <option>{'Rent/Mortgage'}</option>
+                <option>{'Utilities'}</option>
+                <option>{'Transportation'}</option>
+                <option>{'Groceries'}</option>
+                <option>{'Dining Out'}</option>
+                <option>{'Entertainment'}</option>
+                <option>{'Health/Fitness'}</option>
+                <option>{'Shopping'}</option>
+                <option>{'Miscellaneous'}</option>
+              </select>
+            </span>
+            <span>
+              <select className="exp-freq-edit" name="frequency" onChange={this.onChange} defaultValue={this.props.editExpense.frequency} required>
+                <option>{'Once'}</option>
+                <option>{'Monthly'}</option>
+                <option>{'Yearly'}</option>
+              </select>
+            </span>
+            <span>
+              <input className="exp-date-edit" type="text" name="date" onChange={this.onChange} defaultValue={this.state.date} required/>
+            </span>
+            <span>
+              <button className="edit-exp-save-btn" type="submit" onClick={this.onSubmit}>Save</button>
+              <button className="edit-exp-cancel-btn" type="submit" onClick={this.onCancel}>Cancel</button>
+            </span>
+          </form>
+        </div>
       </div>
     )
   }
