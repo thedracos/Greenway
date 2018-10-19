@@ -184,12 +184,12 @@ h2, h3 {
   padding: 20px 0;
 }
 
-/*.add-comp {
+.sign-comp {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
   color: #888;
-}*/
+}
 
 .add-record-header {
   margin: 35px 0 10px 0;

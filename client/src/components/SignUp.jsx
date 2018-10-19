@@ -47,7 +47,7 @@ class SignUp extends Component {
     return (
       <div>
         <div className="site-head"><h3 className="head-text">Greenway&nbsp;</h3></div>
-        <div className="add-comp">
+        <div className="sign-comp">
           <form onSubmit={this.onSubmitHandler}>
             <div className="signup-header">Sign up:</div>
             <div>
