@@ -738,7 +738,19 @@ table h4 {
   font-size: 1em;
   font: 500 16px/22px "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
+  transition: 0.3s;
+}
+
+.upcoming-payment {
+  background: #FAA107;
+}
+
+.made-payment {
+  background: #38C419;  
+}
+
+.missed-payment {
+  background: #DC1B0B;
 }
 
 .flex-item:hover {

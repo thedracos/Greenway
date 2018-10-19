@@ -97,14 +97,15 @@ const updateLoan = params =>
   })
   .then(results => getLoans({userId: params.userId}))
   .catch(err => console.log('Error updateLoan line 98 db', err));
-// Save and Get for Transactions
 
+
+// Save and Get for Transactions
 const saveTransaction = params => {
   const {payment, paymentDate, loanId} = params
-  Transaction.create({
+  return Transaction.create({
     payment, paymentDate, loanId
   })
-  .then(() => { console.log('stored new loan') });
+  .then(() => { console.log('stored new payment!') });
 };
 
 const getTransactionsForMonth = (params, cb) => {
@@ -120,7 +121,8 @@ const getTransactionsForMonth = (params, cb) => {
       let lastDayOfReminderForNextMonth = new Date(year, month + 1, Number(loan.dayBillDue)); // nov 1
 
       if (currentDate.getTime() > lastDayOfReminder.getTime() && 
-          currentDate.getTime() <= weekAfterLastReminder.getTime()) {
+          currentDate.getTime() <= weekAfterLastReminder.getTime() &&
+          new Date(loan.createdAt).getTime() <= lastDayOfReminder.getTime()) {
 
         return Transaction.findAll({
           where: {
@@ -161,25 +163,13 @@ const getTransactionsForMonth = (params, cb) => {
       }
     })
   })
-  // var firstDay = new Date(y, m, 1);
-  // var lastDay = new Date(y, m + 1, 1);
-  // console.log("params in getTransactionsForMonth in db", params)
-  // console.log("Here are the first and last day of the current month",firstDay, lastDay)
-  // return Transaction.findAll({
-  //   where: {
-  //     loanId: params.loanId,
-  //     createdAt: {
-  //       $gt: firstDay,
-  //       $lt: lastDay
-  //     }
-  //   }
-  // });
 };
 
-const getTransactionsLoan = params => {
-  console.log("params in getTransactionsLoan in db", params)
-  return Transaction.findAll({where: params.loanId});
-};
+// const getTransactionsLoan = params => {
+//   console.log("params in getTransactionsLoan in db", params)
+//   return Transaction.findAll({where: params.loanId});
+// };
+
 
 // End of Loan Database
 
@@ -490,5 +480,6 @@ module.exports.saveLoan = saveLoan;
 module.exports.getLoans = getLoans;
 module.exports.deleteLoan = deleteLoan;
 module.exports.getTransactionsForMonth = getTransactionsForMonth;
-module.exports.getTransactionsLoan = getTransactionsLoan;
+// module.exports.getTransactionsLoan = getTransactionsLoan;
 module.exports.updateLoan = updateLoan;
+module.exports.saveTransaction = saveTransaction;
